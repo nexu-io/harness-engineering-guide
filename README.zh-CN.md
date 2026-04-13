@@ -124,7 +124,7 @@ Harness Engineering 是一门新兴学科，专注于构建、配置和管理包
 
 ## 📰 每周精选
 
-> 参考[阮一峰周刊](https://github.com/ruanyf/weekly)模式 — 每周精选 Harness Engineering 领域的新闻、论文和工具。
+> 每周精选 Harness Engineering 领域的新闻、论文和工具。
 
 | 期数 | 日期 | 状态 |
 |------|------|------|

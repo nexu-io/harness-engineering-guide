@@ -127,7 +127,7 @@ Essential reads and discussions from the Harness Engineering community.
 
 ## 📰 Weekly Digest
 
-> Inspired by [ruanyf/weekly](https://github.com/ruanyf/weekly) — a curated weekly roundup of Harness Engineering news, papers, and tools.
+> A curated weekly roundup of Harness Engineering news, papers, and tools.
 
 | Issue | Date | Status |
 |-------|------|--------|
