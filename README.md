@@ -116,7 +116,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 - 💬 **Discord** — [Join the Nexu Discord](https://discord.gg/nexu) (#harness-engineering channel)
 - 🐦 **Twitter** — Follow [@nexu](https://x.com/nexu) for updates
 - 📫 **Newsletter** — Subscribe to the weekly Harness Engineering digest *(coming soon)*
-- 💬 **飞书群** — [加入飞书讨论群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=8b7k7b5b-ac27-4748-9165-78606dc16913)
+- 💬 **飞书群** — [加入 Harness Engineering 话题群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=717g465a-0bc8-4242-9281-12b23953491a)
 
 ---
 
