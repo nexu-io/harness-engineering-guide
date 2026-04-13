@@ -13,4 +13,4 @@ Commercial harness and managed agent platforms.
 
 ---
 
-*This list focuses on platforms with significant harness engineering. Omissions are not endorsements or criticisms — [suggest additions via PR](https://github.com/nexu-io/harness101/pulls).*
+*This list focuses on platforms with significant harness engineering. Omissions are not endorsements or criticisms — [suggest additions via PR](https://github.com/nexu-io/harness-engineering-guide/pulls).*

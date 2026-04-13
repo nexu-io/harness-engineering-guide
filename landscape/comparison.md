@@ -60,4 +60,4 @@ A living comparison of major AI agent harness implementations. Last updated: Apr
 
 ---
 
-*This comparison is community-maintained. If you spot inaccuracies, please [open an issue](https://github.com/nexu-io/harness101/issues).*
+*This comparison is community-maintained. If you spot inaccuracies, please [open an issue](https://github.com/nexu-io/harness-engineering-guide/issues).*

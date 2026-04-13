@@ -52,4 +52,4 @@ Key papers that shaped the field of Harness Engineering and AI agent runtimes.
 
 ---
 
-*This list is actively maintained. [Submit papers via PR](https://github.com/nexu-io/harness101/pulls) or [open an issue](https://github.com/nexu-io/harness101/issues) with the `paper` label.*
+*This list is actively maintained. [Submit papers via PR](https://github.com/nexu-io/harness-engineering-guide/pulls) or [open an issue](https://github.com/nexu-io/harness-engineering-guide/issues) with the `paper` label.*

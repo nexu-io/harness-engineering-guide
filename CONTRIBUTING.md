@@ -1,4 +1,4 @@
-# Contributing to Harness 101
+# Contributing to Harness Engineering Guide
 
 Thank you for your interest in contributing! This guide is a community effort and we welcome all forms of contribution.
 

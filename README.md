@@ -1,12 +1,12 @@
-# Harness 101
+# Harness Engineering Guide
 
 <p align="center">
   <em>The open guide to Harness Engineering — concepts, tutorials, papers, tools, and resources for building and managing AI agent runtimes.</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/nexu-io/harness101/stargazers"><img src="https://img.shields.io/github/stars/nexu-io/harness101?style=social" alt="Stars"></a>
-  <a href="https://github.com/nexu-io/harness101/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://github.com/nexu-io/harness-engineering-guide/stargazers"><img src="https://img.shields.io/github/stars/nexu-io/harness-engineering-guide?style=social" alt="Stars"></a>
+  <a href="https://github.com/nexu-io/harness-engineering-guide/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
   <a href="https://discord.gg/nexu"><img src="https://img.shields.io/badge/Discord-Join-7289da" alt="Discord"></a>
 </p>
 
@@ -16,7 +16,7 @@ Harness Engineering is an emerging discipline focused on building, configuring, 
 
 As AI agents move from demos to production, the harness layer — not the model — is becoming the differentiator. This guide aims to be the most comprehensive open resource on Harness Engineering.
 
-🌐 **[harness101.dev](https://harness101.dev)** (documentation site — coming soon)
+🌐 **[harness-engineering-guide.dev](https://harness-engineering-guide.dev)** (documentation site — coming soon)
 
 ---
 
@@ -122,7 +122,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## About
 
-Harness 101 is maintained by [Nexu](https://github.com/nexu-io) — the open-source Claude Co-worker & Managed Agent platform. We believe the harness layer is the next frontier of AI engineering, and this knowledge should be open.
+Harness Engineering Guide is maintained by [Nexu](https://github.com/nexu-io) — the open-source Claude Co-worker & Managed Agent platform. We believe the harness layer is the next frontier of AI engineering, and this knowledge should be open.
 
 ---
 
@@ -135,12 +135,12 @@ Harness 101 is maintained by [Nexu](https://github.com/nexu-io) — the open-sou
 If you find this guide useful, please consider giving it a ⭐ — it helps others discover it.
 
 ```
-@misc{nexu_harness101_2026,
+@misc{nexu_harness-engineering-guide_2026,
   author = {Nexu Team},
-  title = {Harness 101: The Open Guide to Harness Engineering},
+  title = {Harness Engineering Guide: The Open Guide to Harness Engineering},
   year = {2026},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{https://github.com/nexu-io/harness101}}
+  howpublished = {\url{https://github.com/nexu-io/harness-engineering-guide}}
 }
 ```

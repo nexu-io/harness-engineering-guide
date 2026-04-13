@@ -41,4 +41,4 @@ A curated list of open-source projects related to AI agent harness engineering.
 
 ---
 
-*Know a project that should be listed? [Open a PR](https://github.com/nexu-io/harness101/pulls)!*
+*Know a project that should be listed? [Open a PR](https://github.com/nexu-io/harness-engineering-guide/pulls)!*
