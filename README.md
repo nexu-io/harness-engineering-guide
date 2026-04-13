@@ -16,7 +16,7 @@ Harness Engineering is an emerging discipline focused on building, configuring, 
 
 As AI agents move from demos to production, the harness layer — not the model — is becoming the differentiator. This guide aims to be the most comprehensive open resource on Harness Engineering.
 
-🌐 **[harness-engineering-guide.dev](https://harness-engineering-guide.dev)** (documentation site — coming soon)
+<!-- 🌐 Documentation site coming soon -->
 
 ---
 
