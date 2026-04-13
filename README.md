@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://github.com/nexu-io/harness-engineering-guide/stargazers"><img src="https://img.shields.io/github/stars/nexu-io/harness-engineering-guide?style=social" alt="Stars"></a>
   <a href="https://github.com/nexu-io/harness-engineering-guide/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="https://discord.gg/nexu"><img src="https://img.shields.io/badge/Discord-Join-7289da" alt="Discord"></a>
+
 </p>
 
 ---
@@ -138,7 +138,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for writing style and structure guideline
 
 ## Community
 
-- 💬 **Discord** — [Join the Nexu Discord](https://discord.gg/nexu) (#harness-engineering channel)
 - 🐦 **Twitter** — Follow [@nexu](https://x.com/nexu) for updates
 - 📫 **Newsletter** — Subscribe to the weekly Harness Engineering digest *(coming soon)*
 - 💬 **飞书群** — [加入 Harness Engineering 话题群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=717g465a-0bc8-4242-9281-12b23953491a)
