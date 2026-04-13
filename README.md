@@ -7,7 +7,10 @@
 <p align="center">
   <a href="https://github.com/nexu-io/harness-engineering-guide/stargazers"><img src="https://img.shields.io/github/stars/nexu-io/harness-engineering-guide?style=social" alt="Stars"></a>
   <a href="https://github.com/nexu-io/harness-engineering-guide/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+</p>
 
+<p align="center">
+  <b>English</b> | <a href="README.zh-CN.md">中文</a>
 </p>
 
 ---
@@ -123,6 +126,15 @@ That's it! The maintainers will review your submission and add it to the appropr
 
 Want the guide to cover something specific? [Open a Topic Request](https://github.com/nexu-io/harness-engineering-guide/issues/new?template=suggest-topic.md) and tell us what you'd like to see.
 
+### 💬 Join the Discussion
+
+Have questions, ideas, or insights? Head to [**Discussions**](https://github.com/nexu-io/harness-engineering-guide/discussions):
+
+- 💡 **Ideas** — Suggest improvements to the guide
+- ❓ **Q&A** — Ask technical questions about Harness Engineering
+- 🗣️ **General** — Open-ended conversations
+- 📰 **Show & Tell** — Share your harness implementations and learnings
+
 ### ✍️ Write Content (PRs Welcome)
 
 For those who want to contribute directly:
@@ -138,6 +150,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for writing style and structure guideline
 
 ## Community
 
+- 💬 **GitHub Discussions** — [Join the conversation](https://github.com/nexu-io/harness-engineering-guide/discussions)
 - 🐦 **Twitter** — Follow [@nexu](https://x.com/nexu) for updates
 - 📫 **Newsletter** — Subscribe to the weekly Harness Engineering digest *(coming soon)*
 - 💬 **飞书群** — [加入 Harness Engineering 话题群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=717g465a-0bc8-4242-9281-12b23953491a)
