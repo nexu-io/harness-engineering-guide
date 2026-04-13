@@ -99,15 +99,40 @@ As AI agents move from demos to production, the harness layer — not the model 
 
 ## How to Contribute
 
-We welcome contributions from the community! Here's how you can help:
+We welcome contributions from everyone — whether you're a harness engineer, a researcher, or just someone who found a useful resource. The easiest way to contribute is through **GitHub Issues**.
 
-1. **Add content** — Write a guide section, tutorial, or tool review
-2. **Submit papers** — Found a relevant paper? Add it to the papers section
-3. **Weekly digest** — Help curate Harness Engineering news
-4. **Translations** — Help translate the guide (Chinese, Japanese, etc.)
-5. **Fix errors** — Spot something wrong? Open an issue or PR
+### 📬 Submit a Resource (Easiest Way!)
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+Found a paper, tool, blog post, or tutorial related to Harness Engineering? Submit it in 3 steps:
+
+1. Go to [**Issues → New Issue**](https://github.com/nexu-io/harness-engineering-guide/issues/new/choose)
+2. Choose **"📬 Submit a Resource"**
+3. Fill in the title, URL, and a brief note on why it's relevant
+
+That's it! The maintainers will review your submission and add it to the appropriate section of the guide. You'll be credited as a contributor.
+
+**What kinds of resources are we looking for?**
+- 📄 Academic papers on agent architecture, memory, context management
+- 🛠️ Open-source tools and frameworks
+- 📝 Blog posts and articles with technical depth
+- 🎥 Talks and video tutorials
+- 📰 News about harness implementations (new releases, architecture changes)
+- 💡 Anything else that helps people understand Harness Engineering
+
+### 💡 Suggest a Topic
+
+Want the guide to cover something specific? [Open a Topic Request](https://github.com/nexu-io/harness-engineering-guide/issues/new?template=suggest-topic.md) and tell us what you'd like to see.
+
+### ✍️ Write Content (PRs Welcome)
+
+For those who want to contribute directly:
+
+1. Fork the repository
+2. Create a branch: `git checkout -b your-topic`
+3. Write your content in Markdown
+4. Submit a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for writing style and structure guidelines.
 
 ---
 
