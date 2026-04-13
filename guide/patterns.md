@@ -40,6 +40,27 @@ The harness runs in the cloud, managed by a platform. Users configure but don't 
 **Cons:** Data leaves your machine, platform dependency
 **Examples:** Claude Managed Agent, Codex cloud
 
+### Three Architectures Visualized
+
+```mermaid
+graph LR
+    subgraph "Thin Harness"
+        TH[Harness Core] --> S1[Skill A]
+        TH --> S2[Skill B]
+        TH --> S3[Skill C]
+        TH --> M1[Any Model]
+    end
+
+    subgraph "Monolithic"
+        MH[Full Harness<br/>All Logic Built-in] --> M2[Single Model]
+    end
+
+    subgraph "HaaS"
+        Cloud[Cloud Platform] --> MH2[Managed Harness]
+        MH2 --> M3[Platform Model]
+    end
+```
+
 ## Comparison: Claude Code vs Codex vs OpenClaw
 
 | Dimension | Claude Code | Codex | OpenClaw |

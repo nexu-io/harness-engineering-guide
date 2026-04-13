@@ -24,6 +24,34 @@ A **harness** is the runtime layer that wraps an AI model and turns it into a us
 
 Think of it this way: if an AI agent were a race car, the model is the engine, but the harness is *everything else* — the chassis, the suspension, the telemetry, the pit stop strategy.
 
+### How a Harness Processes a Single User Request
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant H as Harness
+    participant M as Memory
+    participant C as Context Manager
+    participant L as LLM
+    participant T as Tools/Skills
+
+    U->>H: Send message
+    H->>M: Load relevant memories
+    M-->>H: Past context + preferences
+    H->>C: Assemble context window
+    C-->>H: Prioritized context (fits token limit)
+    H->>L: API call with assembled context
+    L-->>H: Response + tool calls
+    H->>T: Execute tool calls
+    T-->>H: Tool results
+    H->>L: Follow-up with tool results
+    L-->>H: Final response
+    H->>M: Save to memory
+    H->>U: Deliver response
+```
+
+Every step in this diagram is a design decision. Different harnesses make different choices — and those choices determine the agent's behavior, reliability, and cost.
+
 ## Harness vs Runtime vs Framework
 
 These terms are often confused. Here's how we distinguish them:
@@ -66,7 +94,23 @@ Just like "prompt engineering" became a discipline, harness engineering is emerg
 - Optimizing context windows
 - Managing agent lifecycle and state
 
-### 4. Open vs Closed Harness
+### 4. The Evolution: From Prompt to Harness
+
+```mermaid
+graph LR
+    A["2023: Prompt Engineering"] --> B["2024: Context Engineering"]
+    B --> C["2025: Harness Engineering"]
+    C --> D["2026: Production Agent Systems"]
+
+    style A fill:#f9f,stroke:#333
+    style B fill:#bbf,stroke:#333
+    style C fill:#bfb,stroke:#333
+    style D fill:#ffb,stroke:#333
+```
+
+Each stage builds on the last. Prompt engineering optimized the input. Context engineering optimized what surrounds the input. Harness engineering optimizes the entire system that manages the model.
+
+### 5. Open vs Closed Harness
 
 The industry is splitting into two camps:
 

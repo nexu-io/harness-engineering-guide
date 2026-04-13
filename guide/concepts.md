@@ -22,6 +22,20 @@ Every model has a finite context window (8K–2M tokens). Your harness must deci
 | **Retrieval (RAG)** | Fetch relevant context on demand | Requires indexing |
 | **Hierarchical** | Multi-level: hot (recent) + warm (session) + cold (archive) | Complex but effective |
 
+### How Context Flows Through a Harness
+
+```mermaid
+graph TD
+    A[System Prompt] --> E[Context Assembler]
+    B[Conversation History] --> E
+    C[Retrieved Documents / RAG] --> E
+    D[Tool Results] --> E
+    E --> F{Fits Token Limit?}
+    F -->|Yes| G[Send to LLM]
+    F -->|No| H[Prioritize & Trim]
+    H --> E
+```
+
 ### Key Design Decisions
 - How do you handle context overflow?
 - Do you summarize automatically or let the model decide?
@@ -126,6 +140,20 @@ When multiple agents work together, the harness becomes an orchestrator.
 | **Peer-to-peer** | Agents communicate directly | Collaborative editing |
 | **Pipeline** | Output of agent A feeds into agent B | Sequential processing |
 | **Swarm** | Many agents work independently on sub-tasks | Parallel exploration |
+
+### Hub-and-Spoke Example
+
+```mermaid
+graph TD
+    User[User Request] --> Coordinator[Coordinator Agent]
+    Coordinator --> A[Research Agent]
+    Coordinator --> B[Code Agent]
+    Coordinator --> C[Review Agent]
+    A -->|findings| Coordinator
+    B -->|code| Coordinator
+    C -->|feedback| B
+    Coordinator --> User
+```
 
 ### Challenges
 - **State sharing** — How do agents share context?
