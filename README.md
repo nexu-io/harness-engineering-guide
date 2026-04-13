@@ -87,29 +87,28 @@ Essential reads and discussions from the Harness Engineering community.
 | [Claude Code & Codex Harness Design Philosophy](articles/wquguru-harness-design-philosophy.md) | WquGuru🦀 ([@wquguru](https://x.com/wquguru)) | Two PDF books dissecting harness architecture. "Comparing features is easy; comparing design assumptions is hard." 1976 likes, 3306 bookmarks. |
 | [Components of a Coding Agent](articles/coding-agent-components.md) | Sebastian Raschka / ℏεsam | 6 critical components: repo context, prompt cache, tools, context reduction, session memory, subagents. The LLM → Agent → Harness → Coding Harness stack. 394 likes. |
 | [池建强：为什么 Harness 现在才浮现](articles/wquguru-harness-design-philosophy.md) | 池建强 ([@sagacity](https://x.com/sagacity)) | Harness 一直存在，但之前被包裹在产品内部。随着源码公开，才作为独立学科浮现。 1112 likes, 1616 bookmarks. ([tweet](https://x.com/sagacity/status/2042515263837605900)) |
-| [驾驭工程：《马书》](https://x.com/QingQ77/status/2040709023058583774) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 likes, 561 bookmarks. |
-| [Harness Engineering Orange Book](https://github.com/alchaincyf/harness-engineering-orange-book) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | Open-source Harness Engineering reference book. |
+| [驾驭工程：《马书》](articles/horse-book-claude-code.md) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 likes, 561 bookmarks. |
+| [Harness Engineering Orange Book](articles/orange-book-harness-engineering.md) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | Open-source Harness Engineering reference book. ([repo](https://github.com/alchaincyf/harness-engineering-orange-book)) |
 
 ### Practice & Case Studies
 
 | Title | Author | Description |
 |-------|--------|-------------|
-| [Deux: Swift → Kotlin via Harness](https://x.com/hwwaanng/status/2040064208461762993) | Hwang ([@hwwaanng](https://x.com/hwwaanng)) | A harness that auto-converts Swift to native Kotlin Android — self-verifying, self-iterating, spawning sub-agents. 655 likes, 887 bookmarks. |
+| [Deux: Swift → Kotlin via Harness](articles/deux-swift-to-kotlin.md) | Hwang ([@hwwaanng](https://x.com/hwwaanng)) | A harness that auto-converts Swift to native Kotlin Android — self-verifying, self-iterating, spawning sub-agents. 655 likes, 887 bookmarks. |
 | [Meta-Harness: Automated Harness Optimization](articles/meta-harness-automated-optimization.md) | Lior Alexander / Yoonho Lee | 6x performance gap from harness changes alone. 10M tokens of raw traces per optimization step. #1 on TerminalBench. 242 likes. |
-| [AutoAgent: Self-Optimizing Agent](https://x.com/servasyy_ai/status/2040411682355511646) | huangserva ([@servasyy_ai](https://x.com/servasyy_ai)) | Meta-Agent reads failure traces and rewrites its own harness. SpreadsheetBench 96.5% (#1), TerminalBench 55.1% (#1). |
-| [Kitaru 0.4.0: Memory in the Harness](https://x.com/strickvl/status/2043620630273343925) | Alex Strick ([@strickvl](https://x.com/strickvl)) | Implementing "Your Harness, Your Memory" — versioned memory with provenance tracking built into the harness substrate. |
-| [Learn Harness Engineering](https://github.com/walkinglabs/learn-harness-engineering) | Sanbu ([@sanbuphy](https://x.com/sanbuphy)) | Complete practice guide following OpenAI & Anthropic official materials. 298 likes, 447 bookmarks. |
-| [Ralph: Simple Harness Loop](https://github.com/snarktank/ralph) | via Wayne Zhang | "Better than all the frameworks I've researched" — simple, effective, no context drift. 729 likes, 1162 bookmarks. |
+| [AutoAgent: Self-Optimizing Agent](articles/autoagent-self-optimizing.md) | huangserva ([@servasyy_ai](https://x.com/servasyy_ai)) | Meta-Agent reads failure traces and rewrites its own harness. SpreadsheetBench 96.5% (#1), TerminalBench 55.1% (#1). |
+| [Kitaru 0.4.0: Memory in the Harness](articles/kitaru-memory-in-harness.md) | Alex Strick ([@strickvl](https://x.com/strickvl)) | "Your Harness, Your Memory" — versioned memory with provenance tracking built into the harness substrate. |
+| [Learn Harness Engineering](articles/learn-harness-engineering.md) | Sanbu ([@sanbuphy](https://x.com/sanbuphy)) | Complete practice guide following OpenAI & Anthropic official materials. 298 likes, 447 bookmarks. ([repo](https://github.com/walkinglabs/learn-harness-engineering)) |
+| [Ralph: Simple Harness Loop](articles/ralph-simple-harness-loop.md) | via Wayne Zhang | "Better than all the frameworks I've researched" — simple, effective, no context drift. 729 likes, 1162 bookmarks. ([repo](https://github.com/snarktank/ralph)) |
 
 ### Industry Perspectives
 
 | Title | Author | Description |
 |-------|--------|-------------|
 | [Anthropic 切掉第三方 Harness 订阅](articles/fuli-luo-compute-economics.md) | Fuli Luo ([@_LuoFuli](https://x.com/_LuoFuli)) | Compute economics analysis. "The Agent era belongs to whoever uses compute wisely." Co-evolution thesis. 1770 likes. |
-| [Claude Managed Agents 开源版](https://x.com/berryxia/status/2042016446243631328) | Berryxia ([@berryxia](https://x.com/berryxia)) | Open-source replication of Claude Managed Agents core capabilities. 346 likes. |
-| [Managed Agents 三概念四场景](https://x.com/indigox/status/2042047463562080483) | indigo ([@indigox](https://x.com/indigox)) | Agent / Environment / Session + event-driven, cron, fire-and-forget, long-running. |
-| [Zeratul's Law: Harness Bloat](https://x.com/z3ratul163071/status/2042831408226304279) | z3ratul | "Every agent harness will bloat to become unusable within 2 months of hitting the GitHub exponential." |
-| [Skill 膨胀与框架整合](https://x.com/kasong2048/status/2038599301618889042) | 卡颂 ([@kasong2048](https://x.com/kasong2048)) | Skill explosion across harness frameworks and consolidation strategies. 464 likes, 558 bookmarks. |
+| [Claude Managed Agents 开源复刻](articles/managed-agents-open-source.md) | Berryxia / indigo | Open-source replication + 三核心概念四场景拆解。346 likes. |
+| [Zeratul's Law: Harness Bloat](articles/zeratul-law-harness-bloat.md) | z3ratul ([@z3ratul163071](https://x.com/z3ratul163071)) | "Every agent harness will bloat to become unusable within 2 months of hitting the GitHub exponential." |
+| [Skill 膨胀与框架整合](articles/skill-explosion-consolidation.md) | 卡颂 ([@kasong2048](https://x.com/kasong2048)) | Skill explosion across harness frameworks and consolidation strategies. 464 likes, 558 bookmarks. |
 
 ---
 
