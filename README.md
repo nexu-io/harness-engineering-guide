@@ -75,41 +75,41 @@ Essential reads and discussions from the Harness Engineering community.
 
 | Title | Author | Description |
 |-------|--------|-------------|
-| [Harness Engineering](https://openai.com/index/harness-engineering/) | OpenAI | The blog post that coined the term. How OpenAI uses harness engineering to generate 1M+ lines of production code. |
-| [Multi-Agent Harness for Long-Running Apps](https://www.anthropic.com/engineering/harness-design-long-running-apps) | Anthropic | How Anthropic uses a Generator + Evaluator multi-agent harness for frontend design and autonomous software engineering. |
-| [Your Harness, Your Memory](https://blog.langchain.dev/) | Harrison Chase | The essay that argued memory belongs inside your agent harness, not behind a third-party API. |
+| [OpenAI: Harness Engineering](articles/openai-harness-engineering.md) | OpenAI | The blog post that coined the term. 0 lines of human code, 1M+ lines by Codex, 1500 PRs in 5 months. AGENTS.md as table of contents, constraints > instructions. ([original](https://openai.com/index/harness-engineering/)) |
+| [Anthropic: Multi-Agent Harness Design](articles/anthropic-multi-agent-harness.md) | Anthropic | Generator + Evaluator multi-agent harness for long-running apps. Context reset > compaction. Harness components have expiration dates. ([original](https://www.anthropic.com/engineering/harness-design-long-running-apps)) |
+| [Your Harness, Your Memory](https://blog.langchain.dev/) | Harrison Chase | Memory belongs inside your agent harness, not behind a third-party API. Open memory standards will need to emerge. |
 
 ### Deep Dives & Analysis
 
 | Title | Author | Description |
 |-------|--------|-------------|
-| [Harness Engineering Scalability](https://yage.ai/share/harness-engineering-scalability-20260330.html) | Wayne Zhang ([@wayne_zhang0](https://x.com/wayne_zhang0)) | "The best article on Harness Engineering I've seen" — deep dive on scalability patterns. 742 likes, 1299 bookmarks. |
-| [Claude Code & Codex Harness Design Philosophy](https://x.com/wquguru/status/2039333332987810103) | WquGuru🦀 ([@wquguru](https://x.com/wquguru)) | Two open PDF books dissecting the harness architecture of Claude Code and Codex. 1976 likes, 3306 bookmarks. |
-| [Components of a Coding Agent](https://x.com/Hesamation/status/2040453130324709805) | ℏεsam ([@Hesamation](https://x.com/Hesamation)), ref. Sebastian Raschka | 6 critical components of a coding agent harness: repo context, prompt cache, tools, context reduction, session memory, subagents. 394 likes. |
-| [池建强：Harness 两本 PDF 书推荐](https://x.com/sagacity/status/2042515263837605900) | 池建强 ([@sagacity](https://x.com/sagacity)) | Recommended two PDF books on Harness Engineering + personal reflection on why harness is emerging now. 1112 likes, 1616 bookmarks. |
-| [驾驭工程：从 Claude Code 源码到 AI 编码最佳实践](https://x.com/QingQ77/status/2040709023058583774) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | "The Horse Book" — a Chinese technical book analyzing Claude Code v2.1.88 harness from source maps. 400 likes, 561 bookmarks. |
-| [花叔：Harness Engineering Orange Book](https://github.com/alchaincyf/harness-engineering-orange-book) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | Open-source reference book on Harness Engineering. |
+| [Three Scaling Dimensions of Harness Engineering](articles/wayne-zhang-scaling-dimensions.md) | Wayne Zhang ([@wayne_zhang0](https://x.com/wayne_zhang0)) | The unified framework: Time (Anthropic) × Space (Cursor) × Interaction (OpenAI). Four consensus points every harness article should address. 742 likes, 1299 bookmarks. ([original](https://yage.ai/share/harness-engineering-scalability-20260330.html)) |
+| [Claude Code & Codex Harness Design Philosophy](articles/wquguru-harness-design-philosophy.md) | WquGuru🦀 ([@wquguru](https://x.com/wquguru)) | Two PDF books dissecting harness architecture. "Comparing features is easy; comparing design assumptions is hard." 1976 likes, 3306 bookmarks. |
+| [Components of a Coding Agent](articles/coding-agent-components.md) | Sebastian Raschka / ℏεsam | 6 critical components: repo context, prompt cache, tools, context reduction, session memory, subagents. The LLM → Agent → Harness → Coding Harness stack. 394 likes. |
+| [池建强：为什么 Harness 现在才浮现](articles/wquguru-harness-design-philosophy.md) | 池建强 ([@sagacity](https://x.com/sagacity)) | Harness 一直存在，但之前被包裹在产品内部。随着源码公开，才作为独立学科浮现。 1112 likes, 1616 bookmarks. ([tweet](https://x.com/sagacity/status/2042515263837605900)) |
+| [驾驭工程：《马书》](https://x.com/QingQ77/status/2040709023058583774) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 likes, 561 bookmarks. |
+| [Harness Engineering Orange Book](https://github.com/alchaincyf/harness-engineering-orange-book) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | Open-source Harness Engineering reference book. |
 
 ### Practice & Case Studies
 
 | Title | Author | Description |
 |-------|--------|-------------|
-| [Deux: Swift → Kotlin via Harness](https://x.com/hwwaanng/status/2040064208461762993) | Hwang ([@hwwaanng](https://x.com/hwwaanng)) | A harness that converts any Swift codebase to native Kotlin Android — self-verifying, self-iterating, spawning sub-agents. 655 likes, 887 bookmarks. |
-| [Meta-Harness: Automated Harness Optimization](https://x.com/LiorOnAI/status/2038669301541228606) | Lior Alexander ([@LiorOnAI](https://x.com/LiorOnAI)) | Automated harness engineering — a 6x performance gap from harness changes alone, not model changes. 242 likes, 390 bookmarks. |
-| [AutoAgent: Self-Optimizing Agent](https://x.com/servasyy_ai/status/2040411682355511646) | huangserva ([@servasyy_ai](https://x.com/servasyy_ai)) | First self-optimizing agent: Meta-Agent reads failure traces and rewrites its own harness. #1 on SpreadsheetBench (96.5%) and TerminalBench (55.1%). |
+| [Deux: Swift → Kotlin via Harness](https://x.com/hwwaanng/status/2040064208461762993) | Hwang ([@hwwaanng](https://x.com/hwwaanng)) | A harness that auto-converts Swift to native Kotlin Android — self-verifying, self-iterating, spawning sub-agents. 655 likes, 887 bookmarks. |
+| [Meta-Harness: Automated Harness Optimization](articles/meta-harness-automated-optimization.md) | Lior Alexander / Yoonho Lee | 6x performance gap from harness changes alone. 10M tokens of raw traces per optimization step. #1 on TerminalBench. 242 likes. |
+| [AutoAgent: Self-Optimizing Agent](https://x.com/servasyy_ai/status/2040411682355511646) | huangserva ([@servasyy_ai](https://x.com/servasyy_ai)) | Meta-Agent reads failure traces and rewrites its own harness. SpreadsheetBench 96.5% (#1), TerminalBench 55.1% (#1). |
 | [Kitaru 0.4.0: Memory in the Harness](https://x.com/strickvl/status/2043620630273343925) | Alex Strick ([@strickvl](https://x.com/strickvl)) | Implementing "Your Harness, Your Memory" — versioned memory with provenance tracking built into the harness substrate. |
-| [Learn Harness Engineering (Repo)](https://github.com/walkinglabs/learn-harness-engineering) | Sanbu ([@sanbuphy](https://x.com/sanbuphy)) | Complete Harness Engineering practice guide following OpenAI & Anthropic official materials. 298 likes, 447 bookmarks. |
-| [Ralph: Simple Harness Loop](https://github.com/snarktank/ralph) | via Wayne Zhang | "Better than all the harness engineering frameworks I've researched" — simple, effective, no context drift. 729 likes, 1162 bookmarks. |
+| [Learn Harness Engineering](https://github.com/walkinglabs/learn-harness-engineering) | Sanbu ([@sanbuphy](https://x.com/sanbuphy)) | Complete practice guide following OpenAI & Anthropic official materials. 298 likes, 447 bookmarks. |
+| [Ralph: Simple Harness Loop](https://github.com/snarktank/ralph) | via Wayne Zhang | "Better than all the frameworks I've researched" — simple, effective, no context drift. 729 likes, 1162 bookmarks. |
 
 ### Industry Perspectives
 
 | Title | Author | Description |
 |-------|--------|-------------|
-| [Anthropic 切掉第三方 Harness 订阅：深度分析](https://x.com/_LuoFuli/status/2040825059342721520) | Fuli Luo ([@_LuoFuli](https://x.com/_LuoFuli)) | Why Anthropic cut third-party harness subscriptions, what it means for compute economics, and the co-evolution thesis. 1770 likes. |
-| [Claude Managed Agents 开源版](https://x.com/berryxia/status/2042016446243631328) | Berryxia ([@berryxia](https://x.com/berryxia)) | Open-source replication of Claude Managed Agents — production-ready agent harness + infrastructure. 346 likes. |
-| [Managed Agents 拆解](https://x.com/indigox/status/2042047463562080483) | indigo ([@indigox](https://x.com/indigox)) | Three core concepts (Agent, Environment, Session), four common scenarios, and why managed harness solves enterprise pain. |
-| [Zeratul's Law: Agent Harness Bloat](https://x.com/z3ratul163071/status/2042831408226304279) | z3ratul ([@z3ratul163071](https://x.com/z3ratul163071)) | "Every agent harness will bloat to become unusable within 2 months of hitting the GitHub exponential." |
-| [Skill 膨胀与 Harness 框架整合](https://x.com/kasong2048/status/2038599301618889042) | 卡颂 ([@kasong2048](https://x.com/kasong2048)) | On skill explosion across harness frameworks and strategies for consolidation. 464 likes, 558 bookmarks. |
+| [Anthropic 切掉第三方 Harness 订阅](articles/fuli-luo-compute-economics.md) | Fuli Luo ([@_LuoFuli](https://x.com/_LuoFuli)) | Compute economics analysis. "The Agent era belongs to whoever uses compute wisely." Co-evolution thesis. 1770 likes. |
+| [Claude Managed Agents 开源版](https://x.com/berryxia/status/2042016446243631328) | Berryxia ([@berryxia](https://x.com/berryxia)) | Open-source replication of Claude Managed Agents core capabilities. 346 likes. |
+| [Managed Agents 三概念四场景](https://x.com/indigox/status/2042047463562080483) | indigo ([@indigox](https://x.com/indigox)) | Agent / Environment / Session + event-driven, cron, fire-and-forget, long-running. |
+| [Zeratul's Law: Harness Bloat](https://x.com/z3ratul163071/status/2042831408226304279) | z3ratul | "Every agent harness will bloat to become unusable within 2 months of hitting the GitHub exponential." |
+| [Skill 膨胀与框架整合](https://x.com/kasong2048/status/2038599301618889042) | 卡颂 ([@kasong2048](https://x.com/kasong2048)) | Skill explosion across harness frameworks and consolidation strategies. 464 likes, 558 bookmarks. |
 
 ---
 
