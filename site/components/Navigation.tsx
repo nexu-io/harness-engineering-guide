@@ -15,6 +15,8 @@ const enNavLinks = [
 const zhNavLinks = [
   { href: "/zh/guide/introduction", label: "指南" },
   { href: "/zh/articles", label: "文章" },
+  { href: "/landscape/open-source", label: "生态" },
+  { href: "/papers/foundational", label: "论文" },
 ];
 
 export default function Navigation() {

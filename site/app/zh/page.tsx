@@ -9,6 +9,7 @@ export const metadata = {
 
 export default async function ZhHomePage() {
   const zhArticles = await getAllContent("zh-articles");
+  const landscape = await getAllContent("landscape");
   const featuredArticles = zhArticles.slice(0, 4);
 
   return (
@@ -127,6 +128,59 @@ export default async function ZhHomePage() {
               </svg>
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Landscape */}
+      <section className="py-20 border-t border-[var(--color-border)]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="w-8 h-px bg-[var(--color-accent-cyan)]" />
+            <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-cyan)]">
+              生态
+            </span>
+          </div>
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
+            生态全景
+          </h2>
+          <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
+            开源项目、商业平台，以及塑造 Harness Engineering 的工具对比。
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {landscape.map((item) => (
+              <ContentCard
+                key={item.slug}
+                href={`/landscape/${item.slug}`}
+                title={item.title}
+                description={item.description}
+                category="生态"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Papers */}
+      <section className="py-20 border-t border-[var(--color-border)]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="w-8 h-px bg-[var(--color-accent-amber)]" />
+            <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-amber)]">
+              研究
+            </span>
+          </div>
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
+            论文与研究
+          </h2>
+          <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
+            塑造 Harness Engineering 和 AI Agent 运行时领域的基础论文。
+          </p>
+          <ContentCard
+            href="/papers/foundational"
+            title="基础论文"
+            description="ReAct、Toolformer、Generative Agents、MemGPT、Reflexion 等关键论文 — 现代 Agent Harness 设计的学术基础。"
+            category="论文"
+          />
         </div>
       </section>
 
