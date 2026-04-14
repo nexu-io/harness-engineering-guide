@@ -87,6 +87,7 @@ Harness Engineering 是一门新兴学科，专注于构建、配置和管理包
 | [池建强：Harness 两本 PDF 书推荐](https://x.com/sagacity/status/2042515263837605900) | 池建强 ([@sagacity](https://x.com/sagacity)) | Harness 两本 PDF 书推荐 + 为什么 harness 现在才冒出来。1112 赞，1616 收藏。 |
 | [驾驭工程：《马书》](https://x.com/QingQ77/status/2040709023058583774) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 赞，561 收藏。 |
 | [Harness Engineering Orange Book](https://github.com/alchaincyf/harness-engineering-orange-book) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | 开源 Harness Engineering 参考书。 |
+| [万字综述 Harness 革命](articles/huangjia-30-years-to-harness.md) | 黄佳 (via Datawhale) | 30 年软件工程演进视角：GoF (1994) → 企业模式 (2002) → 微服务 (2010) → DDIA (2017) → Harness (2026)。六大核心组件拆解。"模型智力已在线，比拼的就是 Harness。" ([原文](https://mp.weixin.qq.com/s/0CTwb4aEr5mWwsdRdwzwkw)) |
 
 ### 实践与案例
 

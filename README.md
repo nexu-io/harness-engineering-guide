@@ -89,6 +89,7 @@ Essential reads and discussions from the Harness Engineering community.
 | [池建强：为什么 Harness 现在才浮现](articles/wquguru-harness-design-philosophy.md) | 池建强 ([@sagacity](https://x.com/sagacity)) | Harness 一直存在，但之前被包裹在产品内部。随着源码公开，才作为独立学科浮现。 1112 likes, 1616 bookmarks. ([tweet](https://x.com/sagacity/status/2042515263837605900)) |
 | [驾驭工程：《马书》](articles/horse-book-claude-code.md) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 likes, 561 bookmarks. |
 | [Harness Engineering Orange Book](articles/orange-book-harness-engineering.md) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | Open-source Harness Engineering reference book. ([repo](https://github.com/alchaincyf/harness-engineering-orange-book)) |
+| [30 Years of Software Engineering Led to the Harness Revolution](articles/huangjia-30-years-to-harness.md) | Huang Jia (via Datawhale) | Historical arc: GoF (1994) → Enterprise Patterns (2002) → Microservices (2010) → DDIA (2017) → Harness (2026). Six core Harness components. "Model intelligence is online; we're competing on Harness now." ([original](https://mp.weixin.qq.com/s/0CTwb4aEr5mWwsdRdwzwkw)) |
 
 ### Practice & Case Studies
 
