@@ -66,6 +66,39 @@ The most consequential question in agent memory design:
 - API access to memory contents
 - **Example:** Some enterprise agent platforms
 
+## Context Compression: Three Lines of Defense
+
+As conversations grow, context windows overflow. The learn-claude-code project (documented by LongjingAgent) demonstrates a three-layer compression strategy used in production harnesses:
+
+### Layer 1: Auto-Decay
+Tool outputs older than N turns (typically 3) are automatically replaced with compact markers:
+```
+[Previous: used read_file on src/main.ts]
+```
+Recent turns stay complete; older ones keep only a fingerprint. This is passive and always-on.
+
+### Layer 2: Threshold Compression
+When total tokens exceed a configurable limit:
+1. Full conversation is saved to disk (nothing is lost)
+2. Model generates a structured summary of all history
+3. Summary replaces all historical messages in the active context
+
+The agent continues with a clean context but retains awareness of everything that happened.
+
+### Layer 3: Manual Compression
+The agent itself can proactively trigger compression via a `compact` tool when it detects the context is getting cluttered. This gives the agent meta-awareness of its own context health.
+
+**Key principle**: Information is never truly lost — it's moved from active context to persistent storage. The harness manages the boundary between "what's in memory" and "what's on disk."
+
+## Skill Loading: Menu-First Architecture
+
+Rather than stuffing all domain knowledge into the system prompt (which wastes tokens on irrelevant skills), modern harnesses use a two-phase loading pattern:
+
+1. **Boot phase**: Scan all SKILL.md files, inject only name + one-line description (~50 tokens total)
+2. **Runtime phase**: When the agent determines it needs a specific skill, it calls `load_skill` to inject the full content (~2000-5000 tokens)
+
+This is the "show the menu at boot, serve the full recipe only when ordered" pattern — and it's how Claude Code, OpenClaw, and most production harnesses handle extensibility.
+
 ---
 
 *Next: [Security & Sandboxing →](security.md)*

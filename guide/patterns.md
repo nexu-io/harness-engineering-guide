@@ -83,6 +83,29 @@ graph LR
 | Zero setup, cloud-first | HaaS (Managed Agent) |
 | Team of agents working together | Thin harness with multi-agent support |
 
+## Multi-Agent Collaboration Patterns
+
+When a single agent can't handle the workload, harnesses support team-based patterns. The learn-claude-code project (S09-S12) demonstrates a progressive approach:
+
+### Leader-Worker Pattern
+A "lead" agent creates worker agents, each with their own independent loop and context. The lead delegates tasks; workers execute and report back through a message inbox system.
+
+### Communication: File-Folder Inbox
+Each agent gets a dedicated folder as its inbox. Before each LLM call, the harness checks the inbox and injects new messages into context. Simple, debuggable, and filesystem-native.
+
+### Graceful Lifecycle: Request-Response + Unique ID
+All coordination uses a single pattern:
+- **Shutdown**: Leader sends request (with ID) → Worker finishes current work → Replies with same ID
+- **Approval**: Worker submits plan (with ID) → Leader reviews → Replies approve/reject with same ID
+
+This pattern handles any scenario that requires negotiation.
+
+### Autonomous Task Claiming
+Idle workers poll a shared task board every N seconds. If a task is available and unblocked, they claim it and start working. After 60 seconds of inactivity with no available tasks, they self-terminate. This eliminates the need for centralized task assignment.
+
+### Workspace Isolation: Git Worktree
+Each task gets its own `git worktree` — an independent branch and working directory. Tasks control "what to do," worktrees control "where to do it," linked by task ID. This prevents file conflicts between concurrent agents and enables clean rollbacks.
+
 ---
 
 *Next: [Memory Systems →](memory.md)*
