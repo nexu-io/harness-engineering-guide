@@ -9,7 +9,6 @@ export const metadata = {
 
 export default async function ZhHomePage() {
   const zhArticles = await getAllContent("zh-articles");
-  const landscape = await getAllContent("landscape");
   const featuredArticles = zhArticles.slice(0, 4);
 
   return (
@@ -147,15 +146,24 @@ export default async function ZhHomePage() {
             开源项目、商业平台，以及塑造 Harness Engineering 的工具对比。
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {landscape.map((item) => (
-              <ContentCard
-                key={item.slug}
-                href={`/landscape/${item.slug}`}
-                title={item.title}
-                description={item.description}
-                category="生态"
-              />
-            ))}
+            <ContentCard
+              href="/landscape/open-source"
+              title="开源 Harness 项目"
+              description="AI Agent Harness 工程领域的开源项目精选列表，社区维护。"
+              category="生态"
+            />
+            <ContentCard
+              href="/landscape/commercial"
+              title="商业平台"
+              description="商业化的 Harness 和托管 Agent 平台，聚焦有重大 Harness 工程创新的产品。"
+              category="生态"
+            />
+            <ContentCard
+              href="/landscape/comparison"
+              title="Harness 实现对比"
+              description="主流 AI Agent Harness 实现的横向对比，社区维护，持续更新。"
+              category="生态"
+            />
           </div>
         </div>
       </section>

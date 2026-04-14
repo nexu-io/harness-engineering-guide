@@ -2,11 +2,11 @@
 
 > **Repo**: [github.com/walkinglabs/learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering) · Sanbu ([@sanbuphy](https://x.com/sanbuphy))
 > **Tweet**: [April 2, 2026](https://x.com/sanbuphy/status/2039747473699410153) — 298 likes · 447 bookmarks
-> **Category**: Tutorial / Resource
+> **分类**: Tutorial / Resource
 
 ---
 
-## Overview
+## 概述
 
 Sanbu 整理了一份完整的 Harness Engineering 学习指南，**严格遵守 OpenAI 和 Anthropic 的原始资料内容**。
 

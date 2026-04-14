@@ -1,11 +1,11 @@
 # Harness Engineering Orange Book
 
 > **Repo**: [github.com/alchaincyf/harness-engineering-orange-book](https://github.com/alchaincyf/harness-engineering-orange-book) · 花叔 ([@AlchainHust](https://x.com/AlchainHust))
-> **Category**: Open-Source / Book
+> **分类**: Open-Source / Book
 
 ---
 
-## Overview
+## 概述
 
 花叔（Alchaincyf）编写的开源 Harness Engineering 参考书，以"橙皮书"风格呈现。涵盖 harness 的核心概念、设计模式和实践指南。
 

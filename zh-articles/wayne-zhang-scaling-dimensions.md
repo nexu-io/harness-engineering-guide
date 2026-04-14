@@ -1,12 +1,12 @@
 # Wayne Zhang: Harness Engineering 的三个 Scaling 维度
 
-> **Original**: [yage.ai/share/harness-engineering-scalability-20260330.html](https://yage.ai/share/harness-engineering-scalability-20260330.html) · Wayne Zhang ([@wayne_zhang0](https://x.com/wayne_zhang0)) · March 30, 2026
+> **原文**: [yage.ai/share/harness-engineering-scalability-20260330.html](https://yage.ai/share/harness-engineering-scalability-20260330.html) · Wayne Zhang ([@wayne_zhang0](https://x.com/wayne_zhang0)) · March 30, 2026
 > **Also**: [Tweet](https://x.com/wayne_zhang0/status/2039809144254058691) — 742 likes, 1299 bookmarks
-> **Category**: Deep Dive / Analysis
+> **分类**: Deep Dive / Analysis
 
 ---
 
-## Overview
+## 概述
 
 Wayne Zhang 写了被社区称为"目前写 harness engineering 写得最好的文章"。核心贡献是提出了一个 **统一框架**，解释了为什么 OpenAI、Anthropic、Cursor 三篇同时期发布的文章用同一个术语 "harness engineering" 却在讨论完全不同的事。
 
@@ -62,7 +62,7 @@ OpenAI 的答案从"写 prompt 触发 Codex"演进到 [Symphony](https://github.
 
 ---
 
-## Why This Matters
+## 为什么重要
 
 Wayne Zhang 的文章之所以被社区高度认可，是因为它：
 

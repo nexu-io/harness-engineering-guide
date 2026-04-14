@@ -1,12 +1,12 @@
 # AutoAgent: 第一个会自我优化的 Agent
 
-> **Original**: [Tweet](https://x.com/servasyy_ai/status/2040411682355511646) · huangserva ([@servasyy_ai](https://x.com/servasyy_ai)) · April 4, 2026
-> **Quoted**: Kevin Gu ([@kevingu](https://x.com/kevingu)) — [Tweet](https://x.com/kevingu/status/2039843234760073341)
-> **Category**: Research / Practice
+> **原文**: [Tweet](https://x.com/servasyy_ai/status/2040411682355511646) · huangserva ([@servasyy_ai](https://x.com/servasyy_ai)) · April 4, 2026
+> **引用**: Kevin Gu ([@kevingu](https://x.com/kevingu)) — [Tweet](https://x.com/kevingu/status/2039843234760073341)
+> **分类**: Research / Practice
 
 ---
 
-## Overview
+## 概述
 
 AutoAgent 可能是全球第一个"会自我优化的 Agent"开源项目。24 小时自主优化后：
 

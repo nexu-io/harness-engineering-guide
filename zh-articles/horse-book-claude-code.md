@@ -1,12 +1,12 @@
 # 驾驭工程：从 Claude Code 源码到 AI 编码最佳实践（《马书》）
 
-> **Original**: [Tweet](https://x.com/QingQ77/status/2040709023058583774) · Geek Lite ([@QingQ77](https://x.com/QingQ77)) · April 5, 2026
+> **原文**: [Tweet](https://x.com/QingQ77/status/2040709023058583774) · Geek Lite ([@QingQ77](https://x.com/QingQ77)) · April 5, 2026
 > **Engagement**: 400 likes · 127 retweets · 34K views · 561 bookmarks
-> **Category**: Deep Dive / Book
+> **分类**: Deep Dive / Book
 
 ---
 
-## Overview
+## 概述
 
 《马书》（Harness = 马具，故名"马书"）是一本围绕 Harness Engineering 的中文技术书，以 Claude Code v2.1.88 的公开发布包与 source map 还原结果为分析材料。
 

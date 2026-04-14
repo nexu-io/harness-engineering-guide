@@ -2,11 +2,11 @@
 
 > **Repo**: [github.com/snarktank/ralph](https://github.com/snarktank/ralph)
 > **Discussed by**: Wayne Zhang ([@wayne_zhang0](https://x.com/wayne_zhang0)) — [Tweet](https://x.com/wayne_zhang0/status/2042874483606983079), 729 likes, 1162 bookmarks
-> **Category**: Tool / Framework
+> **分类**: Tool / Framework
 
 ---
 
-## Overview
+## 概述
 
 Wayne Zhang（写出"Harness Engineering 最好文章"的那位）在调研了大量 harness 框架后，推荐了 Ralph：
 

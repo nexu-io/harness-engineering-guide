@@ -1,8 +1,8 @@
 # Skill 膨胀与 Harness 框架整合
 
-> **Original**: [Tweet](https://x.com/kasong2048/status/2038599301618889042) · 卡颂 ([@kasong2048](https://x.com/kasong2048)) · March 30, 2026
+> **原文**: [Tweet](https://x.com/kasong2048/status/2038599301618889042) · 卡颂 ([@kasong2048](https://x.com/kasong2048)) · March 30, 2026
 > **Engagement**: 464 likes · 41 retweets · 68K views · 558 bookmarks
-> **Category**: Industry Perspective / Practice
+> **分类**: Industry Perspective / Practice
 
 ---
 

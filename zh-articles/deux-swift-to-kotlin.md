@@ -1,12 +1,12 @@
 # Deux: Swift → Kotlin — Harness 驱动的跨平台代码转换
 
-> **Original**: [Tweet](https://x.com/hwwaanng/status/2040064208461762993) · Hwang ([@hwwaanng](https://x.com/hwwaanng)) · April 3, 2026
+> **原文**: [Tweet](https://x.com/hwwaanng/status/2040064208461762993) · Hwang ([@hwwaanng](https://x.com/hwwaanng)) · April 3, 2026
 > **Engagement**: 655 likes · 74 retweets · 142K views · 887 bookmarks
-> **Category**: Practice / Case Study
+> **分类**: Practice / Case Study
 
 ---
 
-## Overview
+## 概述
 
 Hwang 构建了一套 Harness 系统，能把任意 Swift codebase 自动转换成原生 Kotlin 的 Android 项目。用户只需启动 App，然后等待数小时。
 

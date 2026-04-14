@@ -1,12 +1,12 @@
 # Claude Managed Agents 开源复刻
 
-> **Original**: [Tweet](https://x.com/berryxia/status/2042016446243631328) · Berryxia ([@berryxia](https://x.com/berryxia)) · April 8, 2026
+> **原文**: [Tweet](https://x.com/berryxia/status/2042016446243631328) · Berryxia ([@berryxia](https://x.com/berryxia)) · April 8, 2026
 > **Engagement**: 346 likes · 63 retweets · 55K views · 643 bookmarks
-> **Category**: Open Source / Implementation
+> **分类**: Open Source / Implementation
 
 ---
 
-## Overview
+## 概述
 
 Claude Managed Agents 官宣没几个小时，Berryxia 就宣布了开源版本：完整复刻 Claude Managed Agents 核心能力的生产就绪 Agent harness + 基础设施。
 

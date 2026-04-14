@@ -1,11 +1,11 @@
 # Kitaru 0.4.0: 把记忆内置于 Harness
 
-> **Original**: [Tweet](https://x.com/strickvl/status/2043620630273343925) · Alex Strick van Linschoten ([@strickvl](https://x.com/strickvl)) · April 13, 2026
-> **Category**: Practice / Implementation
+> **原文**: [Tweet](https://x.com/strickvl/status/2043620630273343925) · Alex Strick van Linschoten ([@strickvl](https://x.com/strickvl)) · April 13, 2026
+> **分类**: Practice / Implementation
 
 ---
 
-## Overview
+## 概述
 
 Harrison Chase 提出 "Your Harness, Your Memory" 之后，Kitaru 团队是第一批将这个理念落地实现的。Kitaru 0.4.0 把记忆系统直接内置于 harness 基底，而非依赖外部记忆服务。
 

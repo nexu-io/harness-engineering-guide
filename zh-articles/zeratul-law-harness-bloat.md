@@ -1,7 +1,7 @@
 # Zeratul's Law: Agent Harness Bloat
 
-> **Original**: [Tweet](https://x.com/z3ratul163071/status/2042831408226304279) · z3ratul ([@z3ratul163071](https://x.com/z3ratul163071)) · April 11, 2026
-> **Category**: Industry Perspective / Hot Take
+> **原文**: [Tweet](https://x.com/z3ratul163071/status/2042831408226304279) · z3ratul ([@z3ratul163071](https://x.com/z3ratul163071)) · April 11, 2026
+> **分类**: Industry Perspective / Hot Take
 
 ---
 

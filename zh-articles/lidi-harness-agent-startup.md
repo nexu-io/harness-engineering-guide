@@ -1,15 +1,15 @@
 # 李笛带队 Harness 智能体公司获李开复陆奇重仓，4个月完成2轮融资
 
-> **Original**: [量子位](https://www.qbitai.com/2026/04/401065.html) · 西风 · 2026-04-14
-> **Category**: Industry / Funding
+> **原文**: [量子位](https://www.qbitai.com/2026/04/401065.html) · 西风 · 2026-04-14
+> **分类**: Industry / Funding
 
 ---
 
-## Overview
+## 概述
 
 据量子位报道，一家由李笛带队的 Harness 智能体创业公司在 4 个月内完成了两轮融资，储备了 3-5 年的资金弹药。值得关注的是，李开复和陆奇同时重仓了这家公司，两位 AI 领域最具影响力的华人投资人 / 企业家罕见地押注同一标的。
 
-## Why This Matters for Harness Engineering
+## 为什么重要 for Harness Engineering
 
 这笔融资的信号意义远大于金额本身：
 
@@ -38,7 +38,7 @@
 
 李笛此前曾领导微软小冰（后独立为小冰公司），在对话式 AI、多模态交互领域有深厚积累。从对话 AI 转向 Agent Harness 基础设施，是一个自然的技术演进路径。
 
-## Key Takeaway
+## 核心要点
 
 > Harness Engineering 不再只是一种工程实践——它正在成为一个有独立融资逻辑的创业赛道。当李开复和陆奇同时下注时，通常意味着这个方向已经从 "early signal" 变成了 "inevitable trend"。
 
