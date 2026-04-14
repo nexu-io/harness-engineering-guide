@@ -13,6 +13,10 @@
   <a href="README.md">English</a> | <b>中文</b>
 </p>
 
+<p align="center">
+  🌐 <b><a href="https://harness-guide.com">harness-guide.com</a></b> | <a href="https://harness-guide.com/zh/">中文站</a>
+</p>
+
 ---
 
 Harness Engineering 是一门新兴学科，专注于构建、配置和管理包裹 AI 模型的运行时层 —— 也就是位于原始 LLM 和有用 Agent 之间的代码。它涵盖了从上下文管理、记忆持久化到 Skill 编排和多 Agent 协调的所有内容。
@@ -54,20 +58,7 @@ Harness Engineering 是一门新兴学科，专注于构建、配置和管理包
 
 ---
 
-## 📄 论文与研究
-
-| 标题 | 简介 |
-|------|------|
-| [基础论文](papers/foundational.md) | 8 篇关键论文：ReAct、Toolformer、Generative Agents、MemGPT、AutoGen 等。 |
-| 记忆与上下文 | *即将发布* |
-| 多 Agent 系统 | *即将发布* |
-| 评测与基准 | *即将发布* |
-
----
-
-## 🐦 社区之声 — 大家在聊什么
-
-来自 Harness Engineering 社区的精选文章和讨论。
+## 📝 文章
 
 ### 官方 & 基石
 
@@ -87,7 +78,8 @@ Harness Engineering 是一门新兴学科，专注于构建、配置和管理包
 | [池建强：Harness 两本 PDF 书推荐](https://x.com/sagacity/status/2042515263837605900) | 池建强 ([@sagacity](https://x.com/sagacity)) | Harness 两本 PDF 书推荐 + 为什么 harness 现在才冒出来。1112 赞，1616 收藏。 |
 | [驾驭工程：《马书》](https://x.com/QingQ77/status/2040709023058583774) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 赞，561 收藏。 |
 | [Harness Engineering Orange Book](https://github.com/alchaincyf/harness-engineering-orange-book) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | 开源 Harness Engineering 参考书。 |
-| [万字综述 Harness 革命](articles/huangjia-30-years-to-harness.md) | 黄佳 (via Datawhale) | 30 年软件工程演进视角：GoF (1994) → 企业模式 (2002) → 微服务 (2010) → DDIA (2017) → Harness (2026)。六大核心组件拆解。"模型智力已在线，比拼的就是 Harness。" ([原文](https://mp.weixin.qq.com/s/0CTwb4aEr5mWwsdRdwzwkw)) |
+| [万字综述 Harness 革命](zh-articles/huangjia-30-years-to-harness.md) | 黄佳 (via Datawhale) | 30 年软件工程演进视角：GoF (1994) → 企业模式 (2002) → 微服务 (2010) → DDIA (2017) → Harness (2026)。六大核心组件拆解。"模型智力已在线，比拼的就是 Harness。" ([原文](https://mp.weixin.qq.com/s/0CTwb4aEr5mWwsdRdwzwkw)) |
+| [Harness 革命全景概览](zh-articles/huangjia-harness-revolution-overview.md) | 黄佳 | 从 30 年软件演进到 Harness 的全景综述。六大核心组件。"模型智力已在线，比拼的就是 Harness。" |
 
 ### 实践与案例
 
@@ -99,6 +91,7 @@ Harness Engineering 是一门新兴学科，专注于构建、配置和管理包
 | [Kitaru 0.4.0: 记忆内置于 Harness](https://x.com/strickvl/status/2043620630273343925) | Alex Strick ([@strickvl](https://x.com/strickvl)) | 版本化记忆 + 溯源追踪，内置在 harness 基底中。 |
 | [Learn Harness Engineering](https://github.com/walkinglabs/learn-harness-engineering) | Sanbu ([@sanbuphy](https://x.com/sanbuphy)) | 严格遵守 OpenAI 和 Anthropic 原始资料的完整实践指南。298 赞，447 收藏。 |
 | [Ralph: 简单高效的 Harness Loop](https://github.com/snarktank/ralph) | via Wayne Zhang | "调研了半天不如 ralph，简单好用、不漂移、不污染上下文。" 729 赞，1162 收藏。 |
+| [2 小时 Harness 速通](zh-articles/longjing-2h-harness-speedrun.md) | 龙井Agent | 12 章从零构建类 Claude Code Agent 的完整教程。基于 learn-claude-code 项目。 |
 
 ### 行业观点
 
@@ -112,24 +105,13 @@ Harness Engineering 是一门新兴学科，专注于构建、配置和管理包
 
 ---
 
-## 🛠️ 教程
+## 📰 新闻
+
+Harness Engineering 生态最新动态。
 
 | 标题 | 简介 |
 |------|------|
-| 构建你的第一个 Agent Harness | *即将发布* |
-| 为任意 Agent 添加持久化记忆 | *即将发布* |
-| 多 Agent 任务调度 | *即将发布* |
-| 编写自定义 Skill | *即将发布* |
-
----
-
-## 📰 每周精选
-
-> 每周精选 Harness Engineering 领域的新闻、论文和工具。
-
-| 期数 | 日期 | 状态 |
-|------|------|------|
-| [2026-W16](weekly/2026-W16.md) | 4月14–20日 | *即将发布* |
+| [李笛的 Harness Agent 创业](zh-news/lidi-harness-agent-startup.md) | 李开复和陆奇同时投了李笛的 Harness Agent 公司。4 个月完成 2 轮融资。 |
 
 ---
 

@@ -13,6 +13,10 @@
   <b>English</b> | <a href="README.zh-CN.md">中文</a>
 </p>
 
+<p align="center">
+  🌐 <b><a href="https://harness-guide.com">harness-guide.com</a></b> | <a href="https://harness-guide.com/zh/">中文站</a>
+</p>
+
 ---
 
 Harness Engineering is an emerging discipline focused on building, configuring, and managing the runtime layer that wraps AI models — the code that sits between a raw LLM and a useful agent. It covers everything from context management and memory persistence to skill orchestration and multi-agent coordination.
@@ -56,20 +60,7 @@ As AI agents move from demos to production, the harness layer — not the model 
 
 ---
 
-## 📄 Papers & Research
-
-| Title | Description |
-|-------|-------------|
-| [Foundational Papers](papers/foundational.md) | 8 key papers: ReAct, Toolformer, Generative Agents, MemGPT, AutoGen, and more. |
-| Memory & Context | *(coming soon)* |
-| Multi-Agent Systems | *(coming soon)* |
-| Benchmarks & Evaluation | *(coming soon)* |
-
----
-
-## 🐦 Community Voices — What People Are Saying
-
-Essential reads and discussions from the Harness Engineering community.
+## 📝 Articles
 
 ### Official & Foundational
 
@@ -90,6 +81,7 @@ Essential reads and discussions from the Harness Engineering community.
 | [驾驭工程：《马书》](articles/horse-book-claude-code.md) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 likes, 561 bookmarks. |
 | [Harness Engineering Orange Book](articles/orange-book-harness-engineering.md) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | Open-source Harness Engineering reference book. ([repo](https://github.com/alchaincyf/harness-engineering-orange-book)) |
 | [30 Years of Software Engineering Led to the Harness Revolution](articles/huangjia-30-years-to-harness.md) | Huang Jia (via Datawhale) | Historical arc: GoF (1994) → Enterprise Patterns (2002) → Microservices (2010) → DDIA (2017) → Harness (2026). Six core Harness components. "Model intelligence is online; we're competing on Harness now." ([original](https://mp.weixin.qq.com/s/0CTwb4aEr5mWwsdRdwzwkw)) |
+| [Harness Revolution Overview](articles/huangjia-harness-revolution-overview.md) | Huang Jia | Comprehensive overview from 30 years of software evolution to Harness. Six core components. "Model intelligence is online; now we compete on Harness." |
 
 ### Practice & Case Studies
 
@@ -101,6 +93,7 @@ Essential reads and discussions from the Harness Engineering community.
 | [Kitaru 0.4.0: Memory in the Harness](articles/kitaru-memory-in-harness.md) | Alex Strick ([@strickvl](https://x.com/strickvl)) | "Your Harness, Your Memory" — versioned memory with provenance tracking built into the harness substrate. |
 | [Learn Harness Engineering](articles/learn-harness-engineering.md) | Sanbu ([@sanbuphy](https://x.com/sanbuphy)) | Complete practice guide following OpenAI & Anthropic official materials. 298 likes, 447 bookmarks. ([repo](https://github.com/walkinglabs/learn-harness-engineering)) |
 | [Ralph: Simple Harness Loop](articles/ralph-simple-harness-loop.md) | via Wayne Zhang | "Better than all the frameworks I've researched" — simple, effective, no context drift. 729 likes, 1162 bookmarks. ([repo](https://github.com/snarktank/ralph)) |
+| [2-Hour Harness Speedrun](articles/longjing-2h-harness-speedrun.md) | LongjingAgent | 12-chapter walkthrough building a Claude Code-like agent from scratch. Based on learn-claude-code project. |
 
 ### Industry Perspectives
 
@@ -113,37 +106,13 @@ Essential reads and discussions from the Harness Engineering community.
 
 ---
 
-## 🛠️ Tutorials
+## 📰 News
+
+Latest news from the Harness Engineering ecosystem.
 
 | Title | Description |
 |-------|-------------|
-| Build Your First Agent Harness | *(coming soon)* |
-| Adding Persistent Memory to Any Agent | *(coming soon)* |
-| Multi-Agent Task Scheduling | *(coming soon)* |
-| Writing a Custom Skill | *(coming soon)* |
-| Migrating from LangChain to a Thin Harness | *(coming soon)* |
-
----
-
-## 📰 Weekly Digest
-
-> A curated weekly roundup of Harness Engineering news, papers, and tools.
-
-| Issue | Date | Status |
-|-------|------|--------|
-| [2026-W16](weekly/2026-W16.md) | Apr 14–20 | *upcoming* |
-
----
-
-## 🧰 Tools & Resources
-
-| Title | Description |
-|-------|-------------|
-| Harness Frameworks | *(coming soon)* |
-| Memory Solutions | *(coming soon)* |
-| Sandbox & Security Tools | *(coming soon)* |
-| Monitoring & Observability | *(coming soon)* |
-| Datasets | *(coming soon)* |
+| [Li Di's Harness Agent Startup](news/lidi-harness-agent-startup.md) | Li Kaifu and Lu Qi both invested in the same Harness agent company led by Li Di. 2 rounds in 4 months. |
 
 ---
 
