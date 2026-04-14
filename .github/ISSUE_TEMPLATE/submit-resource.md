@@ -40,3 +40,7 @@ assignees: ''
 - [ ] weekly/ (weekly digest)
 - [ ] tutorials/
 - [ ] Not sure — let maintainers decide
+
+## Additional Notes
+
+<!-- Optional: Add extended content, summaries, or analysis. This will be appended to the generated article. Markdown supported. -->

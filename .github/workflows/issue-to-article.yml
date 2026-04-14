@@ -1,0 +1,160 @@
+name: Issue → Article
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  convert:
+    # Only run when the "approved" label is added
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse issue and generate article
+        uses: actions/github-script@v7
+        id: parse
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const title = issue.title.replace(/^\[Resource\]\s*/i, '').trim();
+
+            // --- Extract fields from issue template ---
+            const getField = (label) => {
+              const re = new RegExp(`\\*\\*${label}:\\*\\*\\s*(.+?)\\s*(?=\\n\\*\\*|\\n##|$)`, 's');
+              const m = body.match(re);
+              return m ? m[1].trim() : '';
+            };
+
+            const url = getField('URL');
+            const authors = getField('Author\\(s\\)');
+            const date = getField('Date \\(if known\\)');
+
+            // Detect resource type from checkboxes
+            const typeMap = {
+              'Paper / Research': 'paper',
+              'Tool / Framework': 'tool',
+              'Blog Post / Article': 'article',
+              'Video / Talk': 'video',
+              'Tutorial / Guide': 'tutorial',
+              'News / Update': 'news',
+            };
+            let resourceType = 'article';
+            for (const [label, value] of Object.entries(typeMap)) {
+              if (body.includes(`[x] `) && body.includes(label)) {
+                resourceType = value;
+                break;
+              }
+            }
+
+            // Detect target section
+            const sectionMap = {
+              'guide/': 'guide',
+              'papers/': 'papers',
+              'landscape/': 'landscape',
+              'weekly/': 'articles',
+              'tutorials/': 'articles',
+            };
+            let section = 'articles';
+            for (const [label, value] of Object.entries(sectionMap)) {
+              if (body.includes(`[x]`) && body.includes(label)) {
+                section = value;
+                break;
+              }
+            }
+
+            // Extract "Why relevant" section
+            const whyMatch = body.match(/## Why is this relevant.*?\n\n([\s\S]*?)(?=\n## |$)/);
+            const description = whyMatch ? whyMatch[1].trim() : '';
+
+            // Generate slug from title
+            const slug = title
+              .toLowerCase()
+              .replace(/[^a-z0-9\s-]/g, '')
+              .replace(/\s+/g, '-')
+              .replace(/-+/g, '-')
+              .substring(0, 60);
+
+            // Build markdown content
+            let md = `# ${title}\n\n`;
+            if (url) md += `> **Original**: [${url}](${url})`;
+            if (authors) md += ` · ${authors}`;
+            if (date) md += ` · ${date}`;
+            if (url || authors || date) md += `\n> **Category**: ${resourceType}\n\n---\n\n`;
+            if (description) md += `## Overview\n\n${description}\n`;
+
+            // If there's extra content in the issue body after the template
+            const extraMatch = body.match(/## Additional Notes\s*\n([\s\S]*?)$/);
+            if (extraMatch) {
+              md += `\n${extraMatch[1].trim()}\n`;
+            }
+
+            // Set outputs
+            core.setOutput('slug', slug);
+            core.setOutput('section', section);
+            core.setOutput('content', md);
+            core.setOutput('title', title);
+            core.setOutput('issue_number', issue.number);
+
+      - name: Write article file
+        run: |
+          SECTION="${{ steps.parse.outputs.section }}"
+          SLUG="${{ steps.parse.outputs.slug }}"
+          FILE="${SECTION}/${SLUG}.md"
+
+          mkdir -p "$SECTION"
+          cat > "$FILE" << 'ARTICLE_EOF'
+          ${{ steps.parse.outputs.content }}
+          ARTICLE_EOF
+
+          # Clean up leading whitespace from heredoc
+          sed -i 's/^          //' "$FILE"
+
+          echo "file=$FILE" >> "$GITHUB_OUTPUT"
+        id: write
+
+      - name: Commit and push
+        run: |
+          git config user.name "harness-guide-bot"
+          git config user.email "bot@harness-guide.pages.dev"
+          git add .
+          git commit -m "📝 Add: ${{ steps.parse.outputs.title }} (#${{ steps.parse.outputs.issue_number }})"
+          git push
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const section = '${{ steps.parse.outputs.section }}';
+            const slug = '${{ steps.parse.outputs.slug }}';
+            const issueNumber = ${{ steps.parse.outputs.issue_number }};
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: [
+                '✅ **Article generated and published!**',
+                '',
+                `📂 File: \`${section}/${slug}.md\``,
+                `🌐 Live: [harness-guide.pages.dev/${section}/${slug}](https://harness-guide.pages.dev/${section}/${slug}/)`,
+                '',
+                'The site will rebuild automatically in ~1 minute.',
+                '',
+                '> To edit the generated content, submit a PR modifying the markdown file above.',
+              ].join('\n'),
+            });
+
+            // Close the issue
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              state: 'closed',
+            });
