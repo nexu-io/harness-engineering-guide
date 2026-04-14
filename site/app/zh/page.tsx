@@ -9,6 +9,7 @@ export const metadata = {
 
 export default async function ZhHomePage() {
   const zhArticles = await getAllContent("zh-articles");
+  const zhNews = await getAllContent("zh-news");
   const featuredArticles = zhArticles.slice(0, 4);
 
   return (
@@ -89,20 +90,20 @@ export default async function ZhHomePage() {
         </div>
       </section>
 
-      {/* Community Voices */}
+      {/* Articles */}
       <section className="py-20 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-8 h-px bg-[var(--color-accent-amber)]" />
             <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-amber)]">
-              社区
+              文章
             </span>
           </div>
           <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
-            社区声音
+            文章
           </h2>
           <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            来自从业者的文章、分析和观点，从各个角度探索驾驭工程。
+            来自从业者的深度分析、教程和观点，从各个角度探索 Harness Engineering。
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {featuredArticles.map((article) => (
@@ -168,27 +169,44 @@ export default async function ZhHomePage() {
         </div>
       </section>
 
-      {/* Papers */}
+      {/* News */}
       <section className="py-20 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-8 h-px bg-[var(--color-accent-amber)]" />
             <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-amber)]">
-              研究
+              新闻
             </span>
           </div>
           <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
-            论文与研究
+            最新动态
           </h2>
           <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            塑造 Harness Engineering 和 AI Agent 运行时领域的基础论文。
+            Harness Engineering 生态的最新资讯 — 融资、发布和行业动态。
           </p>
-          <ContentCard
-            href="/zh/papers/foundational"
-            title="基础论文"
-            description="ReAct、Toolformer、Generative Agents、MemGPT、Reflexion 等关键论文 — 现代 Agent Harness 设计的学术基础。"
-            category="论文"
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {zhNews.map((item) => (
+              <ContentCard
+                key={item.slug}
+                href={`/zh/news/${item.slug}`}
+                title={item.title}
+                description={item.description}
+                author={item.author}
+                category={item.category}
+              />
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <a
+              href="/zh/news"
+              className="inline-flex items-center gap-2 text-sm text-[var(--color-accent-cyan)] hover:text-[var(--color-text-primary)] transition-colors"
+            >
+              查看全部新闻
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
 

@@ -2,21 +2,21 @@ import { getContentBySlug, getSlugs } from "@/lib/content";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export async function generateStaticParams() {
-  return getSlugs("papers").map((slug) => ({ slug }));
+  return getSlugs("zh-news").map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const content = await getContentBySlug("papers", slug);
+  const content = await getContentBySlug("zh-news", slug);
   return {
-    title: `${content.title} | Harness Guide`,
+    title: `${content.title} | 新闻 | Harness Guide`,
     description: content.description,
   };
 }
 
-export default async function PapersPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ZhNewsArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const content = await getContentBySlug("papers", slug);
+  const content = await getContentBySlug("zh-news", slug);
 
   return (
     <ArticleLayout

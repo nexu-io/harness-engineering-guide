@@ -8,15 +8,15 @@ import ThemeToggle from "./ThemeToggle";
 const enNavLinks = [
   { href: "/guide/introduction", label: "Guide" },
   { href: "/articles", label: "Articles" },
+  { href: "/news", label: "News" },
   { href: "/landscape/open-source", label: "Landscape" },
-  { href: "/papers/foundational", label: "Papers" },
 ];
 
 const zhNavLinks = [
   { href: "/zh/guide/introduction", label: "指南" },
   { href: "/zh/articles", label: "文章" },
+  { href: "/zh/news", label: "新闻" },
   { href: "/zh/landscape/open-source", label: "生态" },
-  { href: "/zh/papers/foundational", label: "论文" },
 ];
 
 export default function Navigation() {

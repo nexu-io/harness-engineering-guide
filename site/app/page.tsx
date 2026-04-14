@@ -4,6 +4,7 @@ import { getAllContent, guideChapters, guideOrder } from "@/lib/content";
 
 export default async function HomePage() {
   const articles = await getAllContent("articles");
+  const news = await getAllContent("news");
   const landscape = await getAllContent("landscape");
 
   // Pick featured articles (first 4)
@@ -43,20 +44,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Community Voices */}
+      {/* Articles */}
       <section className="py-20 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-8 h-px bg-[var(--color-accent-amber)]" />
             <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-amber)]">
-              Community
+              Articles
             </span>
           </div>
           <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
-            Community Voices
+            Articles
           </h2>
           <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            Articles, analysis, and perspectives from practitioners building
+            Deep dives, tutorials, and analysis from practitioners building
             with AI agent harnesses.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -115,28 +116,44 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Papers */}
+      {/* News */}
       <section className="py-20 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-8 h-px bg-[var(--color-accent-amber)]" />
             <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-amber)]">
-              Research
+              News
             </span>
           </div>
           <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
-            Papers & Research
+            Latest News
           </h2>
           <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            Foundational papers that shaped the field of harness engineering and
-            AI agent runtimes.
+            Funding, launches, and industry moves in the Harness Engineering ecosystem.
           </p>
-          <ContentCard
-            href="/papers/foundational"
-            title="Foundational Papers"
-            description="Key papers on ReAct, Toolformer, Generative Agents, MemGPT, Reflexion, and more — the academic foundations of modern agent harness design."
-            category="Papers"
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {news.map((item) => (
+              <ContentCard
+                key={item.slug}
+                href={`/news/${item.slug}`}
+                title={item.title}
+                description={item.description}
+                author={item.author}
+                category={item.category}
+              />
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <a
+              href="/news"
+              className="inline-flex items-center gap-2 text-sm text-[var(--color-accent-cyan)] hover:text-[var(--color-text-primary)] transition-colors"
+            >
+              View all news
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
 
