@@ -147,19 +147,19 @@ export default async function ZhHomePage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <ContentCard
-              href="/landscape/open-source"
+              href="/zh/landscape/open-source"
               title="开源 Harness 项目"
               description="AI Agent Harness 工程领域的开源项目精选列表，社区维护。"
               category="生态"
             />
             <ContentCard
-              href="/landscape/commercial"
+              href="/zh/landscape/commercial"
               title="商业平台"
               description="商业化的 Harness 和托管 Agent 平台，聚焦有重大 Harness 工程创新的产品。"
               category="生态"
             />
             <ContentCard
-              href="/landscape/comparison"
+              href="/zh/landscape/comparison"
               title="Harness 实现对比"
               description="主流 AI Agent Harness 实现的横向对比，社区维护，持续更新。"
               category="生态"
@@ -184,7 +184,7 @@ export default async function ZhHomePage() {
             塑造 Harness Engineering 和 AI Agent 运行时领域的基础论文。
           </p>
           <ContentCard
-            href="/papers/foundational"
+            href="/zh/papers/foundational"
             title="基础论文"
             description="ReAct、Toolformer、Generative Agents、MemGPT、Reflexion 等关键论文 — 现代 Agent Harness 设计的学术基础。"
             category="论文"
