@@ -8,7 +8,7 @@ CONTENT_DIR="$(cd "$(dirname "$0")/.." && pwd)/content"
 rm -rf "$CONTENT_DIR"
 mkdir -p "$CONTENT_DIR"
 
-for dir in articles guide landscape papers zh-guide; do
+for dir in articles guide landscape papers zh-guide zh-articles; do
   if [ -d "$REPO_ROOT/$dir" ]; then
     cp -r "$REPO_ROOT/$dir" "$CONTENT_DIR/$dir"
     echo "✓ Synced $dir/ ($(ls "$CONTENT_DIR/$dir" | wc -l | tr -d ' ') files)"

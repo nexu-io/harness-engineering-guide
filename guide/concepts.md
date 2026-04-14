@@ -161,6 +161,33 @@ graph TD
 - **Resource management** — Token budgets, API rate limits
 - **Observability** — Who did what, when, and why?
 
+## The Fundamental Equation
+
+As Huang Jia puts it simply: **Agent = Model + Harness**. The model provides the brain; the harness provides the body.
+
+### Harness Core Components (Huang Jia's Framework)
+
+A useful decomposition into six modules:
+
+1. **Agentic Loop** — The heart. Accept input → execute tools → iterate → return result. Directly descended from the ReAct (Reasoning + Acting) pattern.
+2. **Tool System** — The hands. Extends LLM capabilities beyond language into real-world actions.
+3. **Memory & Context** — The long-term brain. Provides continuity across sessions. (See Memory chapter.)
+4. **Guardrails** — The reins. Allow / Deny / Ask permission controls.
+5. **Hooks** — The guards. Pre/post-execution checks (e.g., preventing secret leaks).
+6. **Session** — The continuity layer. Runtime state management across interactions.
+
+### Five Production Problems a Harness Solves
+
+When moving from prototype to production, agents hit predictable walls. A well-designed harness addresses each:
+
+| Problem | Symptom | Harness Solution |
+|---------|---------|-----------------|
+| Infinite loops | Agent keeps calling tools without converging | Loop budgets, step limits, convergence detection |
+| Context explosion | Token usage balloons, quality degrades | Context compaction, summarization, priority queues |
+| Permission loss-of-control | Agent executes dangerous operations | Guardrails (Allow/Deny/Ask), sandbox isolation |
+| Quality unpredictability | Output varies wildly between runs | Quality gates, self-review loops, structured output |
+| Cost opacity | Bills spike without visibility | Token accounting, cost caps, usage dashboards |
+
 ---
 
 *Next: [Architecture Patterns →](patterns.md)*

@@ -94,7 +94,29 @@ Just like "prompt engineering" became a discipline, harness engineering is emerg
 - Optimizing context windows
 - Managing agent lifecycle and state
 
-### 4. The Evolution: From Prompt to Harness
+### 4. Historical Inevitability: 30 Years of Taming Complexity
+
+Harness Engineering didn't appear from nowhere. As Huang Jia argues in his comprehensive overview, engineers have always fought system complexity — and the center of that complexity shifts every decade:
+
+| Era | Complexity Center | Landmark | What We Tamed |
+|-----|-------------------|----------|---------------|
+| 1994 | Objects | GOF "Design Patterns" | Class lifecycle, object collaboration |
+| 2002 | Enterprise | Fowler's "PoEAA", Evans' "DDD" | System layering, domain boundaries |
+| 2010 | Distribution | Microservices, Kubernetes | Service communication, eventual consistency |
+| 2017 | Data | Kleppmann's "DDIA" | Replication, partitioning, consensus |
+| **2026** | **Agents** | **Harness Engineering** | **Non-deterministic, autonomous systems** |
+
+The pattern is clear: every ~7 years, what was complex becomes routine, and a new layer of complexity emerges. Agents are the first *non-deterministic* system engineers have had to tame — they're probabilistic machines that don't always follow instructions. **Harness is the reins.**
+
+### 5. Three Leaps: Prompt → Context → Harness
+
+The journey from chatbot to controllable agent happened in three distinct leaps:
+
+| Phase | Period | Core Focus |
+|-------|--------|------------|
+| Prompt Engineering | 2023 | Making LLMs understand us (CoT, Few-shot) |
+| Context Engineering | 2024-2025 | What you feed = what you get (RAG, knowledge bases) |
+| **Harness Engineering** | **2026** | Designing controllable systems (loops, tools, quality gates, governance) |
 
 ```mermaid
 graph LR
@@ -110,7 +132,7 @@ graph LR
 
 Each stage builds on the last. Prompt engineering optimized the input. Context engineering optimized what surrounds the input. Harness engineering optimizes the entire system that manages the model.
 
-### 5. Open vs Closed Harness
+### 6. Open vs Closed Harness
 
 The industry is splitting into two camps:
 

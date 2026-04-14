@@ -56,7 +56,7 @@ export default function Navigation() {
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
             <Link
-              href="/zh-guide/introduction"
+              href="/zh"
               className="px-3 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border border-[var(--color-border)] rounded-md transition-colors hover:border-[var(--color-border-hover)]"
             >
               中文
@@ -113,7 +113,7 @@ export default function Navigation() {
             ))}
             <div className="flex gap-2 pt-3 border-t border-[var(--color-border)]">
               <Link
-                href="/zh-guide/introduction"
+                href="/zh"
                 className="px-3 py-1.5 text-xs text-[var(--color-text-secondary)] border border-[var(--color-border)] rounded-md"
               >
                 中文

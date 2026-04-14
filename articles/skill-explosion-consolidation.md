@@ -1,6 +1,6 @@
-# Skill 膨胀与 Harness 框架整合
+# Skill Explosion and Harness Framework Consolidation
 
-> **Original**: [Tweet](https://x.com/kasong2048/status/2038599301618889042) · 卡颂 ([@kasong2048](https://x.com/kasong2048)) · March 30, 2026
+> **Original**: [Tweet](https://x.com/kasong2048/status/2038599301618889042) · Kasong ([@kasong2048](https://x.com/kasong2048)) · March 30, 2026
 > **Engagement**: 464 likes · 41 retweets · 68K views · 558 bookmarks
 > **Category**: Industry Perspective / Practice
 
@@ -8,40 +8,40 @@
 
 ## The Problem
 
-> *"很多程序员的 Skill 数量已经失控了。"*
+> *"Many programmers' Skill counts have gotten completely out of control."*
 
-卡颂观察到一个普遍现象：开发者今天装 superpowers，明天又被安利 compound-engineering，后天跟风装 gstack。Skill 数量瞬间膨胀到几十个，Skill 之间的跳转、召回逻辑变得无比不稳定。
+Kasong observed a widespread phenomenon: developers install superpowers today, get talked into compound-engineering tomorrow, and follow the trend with gstack the day after. Skill counts balloon to dozens in no time, and the switching and recall logic between Skills becomes incredibly unstable.
 
-### 根本原因
+### Root Cause
 
-这些框架都是对 Harness Engineering 最佳实践的探索，各自有亮点，但能力有交集。当前 Skill 管理工具的思路都是"屏蔽复杂度"（启用/停用某个 Skill），而不是"降低复杂度"。
+These frameworks are all explorations of Harness Engineering best practices, each with highlights, but with overlapping capabilities. Current Skill management tools take the approach of "hiding complexity" (enable/disable a Skill), rather than "reducing complexity."
 
 ---
 
-## 卡颂的解法
+## Kasong's Solution
 
-以一个框架为基础，把其他框架的亮点**合并**进来，而非并行安装：
+Use one framework as the foundation and **merge** highlights from other frameworks into it, rather than installing them in parallel:
 
 ```
-选定基础框架（如 superpowers）
-  → 识别其他框架的独特亮点（如 compound 的持续学习）
-    → 用 Skill 来合并、测试其他 Skill
-      → 控制 Skill 数量的膨胀速度
+Select base framework (e.g., superpowers)
+  → Identify unique highlights from other frameworks (e.g., compound's continuous learning)
+    → Use Skills to merge and test other Skills
+      → Control the rate of Skill count explosion
 ```
 
-关键洞察：**用 Skill 来管理 Skill**。合并和测试的工作本身也由 Agent 完成。
+Key insight: **Use Skills to manage Skills**. The merging and testing work itself is also done by the Agent.
 
 ---
 
 ## Why It Matters
 
-Skill 膨胀是 Harness Engineering 面临的一个系统性问题：
+Skill explosion is a systemic problem facing Harness Engineering:
 
-1. **发现成本低** — 安装一个 Skill 太容易了
-2. **移除成本高** — 你不确定移除后会不会出问题
-3. **交互测试难** — Skill A 和 Skill B 的组合行为难以预测
+1. **Low discovery cost** — Installing a Skill is too easy
+2. **High removal cost** — You're not sure if removing it will cause problems
+3. **Hard interaction testing** — The combined behavior of Skill A and Skill B is hard to predict
 
-这与 [Zeratul's Law](zeratul-law-harness-bloat.md) 描述的 harness 膨胀是同一个问题的不同表现形式。一个发生在 harness 层面，一个发生在 skill 层面。
+This is a different manifestation of the same problem described in [Zeratul's Law](zeratul-law-harness-bloat.md) about harness bloat. One occurs at the harness level, the other at the skill level.
 
 ---
 

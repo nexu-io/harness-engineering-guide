@@ -1,4 +1,4 @@
-# Kitaru 0.4.0: 把记忆内置于 Harness
+# Kitaru 0.4.0: Building Memory Into the Harness
 
 > **Original**: [Tweet](https://x.com/strickvl/status/2043620630273343925) · Alex Strick van Linschoten ([@strickvl](https://x.com/strickvl)) · April 13, 2026
 > **Category**: Practice / Implementation
@@ -7,37 +7,37 @@
 
 ## Overview
 
-Harrison Chase 提出 "Your Harness, Your Memory" 之后，Kitaru 团队是第一批将这个理念落地实现的。Kitaru 0.4.0 把记忆系统直接内置于 harness 基底，而非依赖外部记忆服务。
+After Harrison Chase proposed "Your Harness, Your Memory," the Kitaru team was among the first to implement this vision. Kitaru 0.4.0 builds the memory system directly into the harness foundation, rather than relying on external memory services.
 
 ---
 
 ## Three Design Decisions
 
-### 1. 版本化免费获得
+### 1. Versioning Comes Free
 
-每次 `memory.set()` 都创建一个新版本。软删除留下 tombstone。你可以问 "哪次 run 教会了 agent 这个？" 并得到真实的答案。
+Every `memory.set()` creates a new version. Soft deletes leave tombstones. You can ask "which run taught the agent this?" and get a real answer.
 
-### 2. 作用域匹配 Agent 实际工作方式
+### 2. Scoping Matches How Agents Actually Work
 
-- **Namespace** — 项目/repo 级别的约定
-- **Flow** — 每个 agent 的学习状态
-- **Execution** — 每次 run 的进度
+- **Namespace** — Project/repo-level conventions
+- **Flow** — Each agent's learning state
+- **Execution** — Per-run progress
 
-不需要把所有东西塞进一个全局 blob。
+No need to stuff everything into a single global blob.
 
-### 3. 溯源自动化
+### 3. Provenance Is Automated
 
-因为 memory 和 artifacts 共享同一个后端，审计追踪不需要跨系统拼接。
+Since memory and artifacts share the same backend, audit trails don't need to be stitched together across systems.
 
 ---
 
 ## Why Not External Memory Providers?
 
-Kitaru 团队考虑过集成 Mem0、Letta 等专门的记忆服务。但一旦映射出版本化和溯源在两个系统之间会是什么样子，"接缝"就开始显现。
+The Kitaru team considered integrating dedicated memory services like Mem0 and Letta. But once they mapped out what versioning and provenance would look like across two systems, the "seams" started showing.
 
 > *"Managing memory is a core responsibility of the harness, not a peripheral one."*
 
-这呼应了 Harrison Chase 的核心观点：记忆不应该被外包给第三方。
+This echoes Harrison Chase's core point: memory should not be outsourced to third parties.
 
 ---
 

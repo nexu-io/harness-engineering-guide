@@ -43,9 +43,9 @@ export default async function ZhGuidePage({ params }: { params: Promise<{ slug: 
       headings={content.headings}
       prev={prev}
       next={next}
-      prevPrefix="/zh-guide"
-      nextPrefix="/zh-guide"
-      sidebar={<GuideSidebar chapters={chapters} basePath="/zh-guide" />}
+      prevPrefix="/zh/guide"
+      nextPrefix="/zh/guide"
+      sidebar={<GuideSidebar chapters={chapters} basePath="/zh/guide" />}
     />
   );
 }

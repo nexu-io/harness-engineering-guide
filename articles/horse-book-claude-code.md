@@ -1,4 +1,4 @@
-# 驾驭工程：从 Claude Code 源码到 AI 编码最佳实践（《马书》）
+# Harness Engineering: From Claude Code Source to AI Coding Best Practices ("The Horse Book")
 
 > **Original**: [Tweet](https://x.com/QingQ77/status/2040709023058583774) · Geek Lite ([@QingQ77](https://x.com/QingQ77)) · April 5, 2026
 > **Engagement**: 400 likes · 127 retweets · 34K views · 561 bookmarks
@@ -8,24 +8,24 @@
 
 ## Overview
 
-《马书》（Harness = 马具，故名"马书"）是一本围绕 Harness Engineering 的中文技术书，以 Claude Code v2.1.88 的公开发布包与 source map 还原结果为分析材料。
+"The Horse Book" (named because "Harness" = horse gear in Chinese, 马具) is a Chinese technical book on Harness Engineering that uses Claude Code v2.1.88's public release bundle and source map reconstructions as analytical material.
 
-它不试图复刻官方产品文档，而是从真实工程实现中提炼 AI 编码 Agent 的架构模式、上下文策略、权限体系和生产实践。
+Rather than replicating official product documentation, it distills architectural patterns, context strategies, permission systems, and production practices from real engineering implementations of AI coding agents.
 
 ---
 
 ## Core Topics
 
-- **架构模式**：Claude Code 的主循环如何设计，控制流如何分发
-- **上下文策略**：context window 填满时的处理机制
-- **权限体系**：哪些工具需要用户确认，安全边界如何划定
-- **生产实践**：从源码中可观察到的工程决策和 trade-off
+- **Architectural Patterns**: How Claude Code's main loop is designed and how control flow is dispatched
+- **Context Strategy**: Handling mechanisms when the context window fills up
+- **Permission System**: Which tools require user confirmation and how security boundaries are defined
+- **Production Practices**: Engineering decisions and trade-offs observable from the source code
 
 ---
 
 ## Why It Matters
 
-这是目前少数基于 **实际源码分析**（而非猜测或官方文档转述）的 harness 技术书籍。对于想深入理解 Claude Code 内部机制的开发者来说，这是必读材料。
+This is one of the few harness technical books based on **actual source code analysis** (rather than speculation or paraphrased official docs). It's essential reading for developers who want to deeply understand Claude Code's internal mechanisms.
 
 ---
 
