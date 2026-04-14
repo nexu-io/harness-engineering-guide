@@ -5,28 +5,47 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
-const navLinks = [
+const enNavLinks = [
   { href: "/guide/introduction", label: "Guide" },
   { href: "/articles", label: "Articles" },
   { href: "/landscape/open-source", label: "Landscape" },
   { href: "/papers/foundational", label: "Papers" },
 ];
 
+const zhNavLinks = [
+  { href: "/zh/guide/introduction", label: "指南" },
+  { href: "/zh/articles", label: "文章" },
+];
+
 export default function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  
+  const isZh = pathname.startsWith("/zh");
+  const navLinks = isZh ? zhNavLinks : enNavLinks;
 
   const isActive = (href: string) => {
+    if (isZh) {
+      // For zh routes, match /zh/guide, /zh/articles etc.
+      const parts = href.split("/").filter(Boolean); // ["zh", "guide", "introduction"]
+      const section = parts.length >= 2 ? `/${parts[0]}/${parts[1]}` : href;
+      return pathname.startsWith(section);
+    }
     const section = href.split("/")[1];
     return pathname.startsWith(`/${section}`);
   };
+
+  const currentLang = isZh ? "中文" : "EN";
+  const switchLang = isZh
+    ? { href: "/", label: "English" }
+    : { href: "/zh", label: "中文" };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg-primary)]/80 backdrop-blur-xl transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href={isZh ? "/zh" : "/"} className="flex items-center gap-2 group">
             <span className="text-lg font-bold font-[family-name:var(--font-heading)] tracking-tight text-[var(--color-text-primary)]">
               harness
             </span>
@@ -55,12 +74,25 @@ export default function Navigation() {
           {/* Right side */}
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Link
-              href="/zh"
-              className="px-3 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border border-[var(--color-border)] rounded-md transition-colors hover:border-[var(--color-border-hover)]"
-            >
-              中文
-            </Link>
+            {/* Language switcher with hover dropdown */}
+            <div className="relative group">
+              <button
+                className="px-3 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] border border-[var(--color-border)] rounded-md transition-colors hover:border-[var(--color-border-hover)] hover:text-[var(--color-text-primary)] flex items-center gap-1"
+              >
+                {currentLang}
+                <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute right-0 mt-1 w-28 py-1 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
+                <Link
+                  href={switchLang.href}
+                  className="block px-3 py-1.5 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-card-hover)] transition-colors"
+                >
+                  {switchLang.label}
+                </Link>
+              </div>
+            </div>
             <a
               href="https://github.com/nexu-io/harness-engineering-guide"
               target="_blank"
@@ -113,10 +145,11 @@ export default function Navigation() {
             ))}
             <div className="flex gap-2 pt-3 border-t border-[var(--color-border)]">
               <Link
-                href="/zh"
+                href={switchLang.href}
+                onClick={() => setMobileOpen(false)}
                 className="px-3 py-1.5 text-xs text-[var(--color-text-secondary)] border border-[var(--color-border)] rounded-md"
               >
-                中文
+                {switchLang.label}
               </Link>
               <a
                 href="https://github.com/nexu-io/harness-engineering-guide"

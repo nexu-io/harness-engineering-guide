@@ -26,13 +26,9 @@ export default async function ZhHomePage() {
             </span>
           </div>
 
-          <h1 className="animate-fade-in-up stagger-2 font-[family-name:var(--font-heading)] text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+          <h1 className="animate-fade-in-up stagger-2 font-[family-name:var(--font-heading)] text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
             <span className="text-[var(--color-text-primary)]">驾驭</span>
-            <br />
-            <span className="bg-gradient-to-r from-[var(--color-accent-cyan)] to-[var(--color-accent-cyan)]/60 bg-clip-text text-transparent">
-              工程
-            </span>
-            <br />
+            <span className="bg-gradient-to-r from-[var(--color-accent-cyan)] to-[var(--color-accent-cyan)]/60 bg-clip-text text-transparent">工程</span>
             <span className="text-[var(--color-text-primary)]">指南</span>
           </h1>
 
