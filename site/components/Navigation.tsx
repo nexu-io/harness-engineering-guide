@@ -7,10 +7,12 @@ import ThemeToggle from "./ThemeToggle";
 
 const enNavLinks = [
   { href: "/guide/what-is-harness", label: "Guide" },
+  { href: "/changelog", label: "Changelog" },
 ];
 
 const zhNavLinks = [
   { href: "/zh/guide/what-is-harness", label: "指南" },
+  { href: "/zh/changelog", label: "日报" },
 ];
 
 function LangSwitcher({ isZh }: { isZh: boolean }) {

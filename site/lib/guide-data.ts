@@ -49,6 +49,12 @@ export const guideSections: GuideSection[] = [
       { slug: "glossary", title: "Glossary", zhTitle: "术语表" },
     ],
   },
+  {
+    id: "showcase",
+    label: "Showcase",
+    zhLabel: "分享",
+    items: [],
+  },
 ];
 
 // Flat list of all guide slugs in order
