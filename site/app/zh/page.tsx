@@ -3,7 +3,7 @@ import ContentCard from "@/components/ContentCard";
 import { guideSections } from "@/lib/guide-data";
 
 export const metadata = {
-  title: "驾驭工程指南 | Harness Engineering Guide",
+  title: "Harness Engineering Guide | Harness Engineering Guide",
   description: "Harness Engineering 实战指南 — 从零到一搭建 AI Agent 运行时",
 };
 
@@ -15,7 +15,7 @@ export default function ZhHomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-accent-cyan)]/5 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-[family-name:var(--font-heading)] text-5xl sm:text-6xl font-bold text-[var(--color-text-primary)] mb-6 leading-tight">
-            驾驭工程指南
+            Harness Engineering Guide
           </h1>
           <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-10">
             从零到一学习 AI Agent Harness 的设计、实现和优化。每篇配有可运行的代码示例。

@@ -19,4 +19,4 @@
 
 ---
 
-*See also: [Claude Code & Codex Harness Design Philosophy](wquguru-harness-design-philosophy.md) · [驾驭工程：《马书》](horse-book-claude-code.md)*
+*See also: [Claude Code & Codex Harness Design Philosophy](wquguru-harness-design-philosophy.md) · [Harness Engineering：《马书》](horse-book-claude-code.md)*

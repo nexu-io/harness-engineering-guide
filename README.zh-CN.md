@@ -1,4 +1,4 @@
-# 驾驭工程指南
+# Harness Engineering Guide
 
 <p align="center">
   <em>AI Agent Harness 实战指南 — 每篇配有可运行的代码示例。</em>

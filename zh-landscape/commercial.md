@@ -13,4 +13,4 @@
 
 ---
 
-*本列表聚焦有重大 Harness 工程创新的平台。遗漏不代表评价 — [欢迎提交 PR 补充](https://github.com/nexu-io/harness-engineering-guide/pulls)。*
+*本列表聚焦有重大 Harness Engineering创新的平台。遗漏不代表评价 — [欢迎提交 PR 补充](https://github.com/nexu-io/harness-engineering-guide/pulls)。*

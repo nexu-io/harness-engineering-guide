@@ -1,4 +1,4 @@
-# 2小时速通 Harness 工程：如何从零搭一套 Claude Code 智能体系统
+# 2小时速通 Harness Engineering：如何从零搭一套 Claude Code 智能体系统
 
 > **原文**: [微信公众号 龙井Agent](https://mp.weixin.qq.com/s/WTD0TEKn0h_vjgNR1WGSxQ) · 龙井Agent · 2026-04-01
 > **分类**: 教程 / 实践
@@ -8,7 +8,7 @@
 
 ## 概述
 
-基于 GitHub 项目 learn-claude-code 的 12 章节，从零到一用 Harness 工程搭建一个类 Claude Code 的 Agent 系统。核心观点：别去"开发"智能体，去给它造一个好用的工作环境。
+基于 GitHub 项目 learn-claude-code 的 12 章节，从零到一用 Harness Engineering搭建一个类 Claude Code 的 Agent 系统。核心观点：别去"开发"智能体，去给它造一个好用的工作环境。
 
 ## 核心理念
 

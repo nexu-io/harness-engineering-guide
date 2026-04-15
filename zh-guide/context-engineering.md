@@ -4,7 +4,7 @@ author: Nexu
 
 # Context 工程
 
-> **核心洞察：** 模型不知道你没告诉它的事。Context 工程是一门决定什么进入 Context Window、以什么顺序、空间不够时砍掉什么的学科。这是 Harness 工程中杠杆最高的工作——比选模型、调 Prompt、设计 Tool 都重要。
+> **核心洞察：** 模型不知道你没告诉它的事。Context 工程是一门决定什么进入 Context Window、以什么顺序、空间不够时砍掉什么的学科。这是 Harness Engineering中杠杆最高的工作——比选模型、调 Prompt、设计 Tool 都重要。
 
 ## 问题
 

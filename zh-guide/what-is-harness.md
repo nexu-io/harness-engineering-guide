@@ -10,7 +10,7 @@ author: Nexu
 
 **Harness** 是将裸语言模型转化为 **Agent** 的运行时包装层——一个能感知环境、做出决策、并通过多步操作实现目标的自主系统。
 
-这里有必要区分一下 "Agent" 的含义。在 2023-2024 年，"Agent" 通常指*模型加 Tool*——给 GPT 一个搜索工具就叫 Agent。而 Harness 工程面向的 Agent 复杂得多：
+这里有必要区分一下 "Agent" 的含义。在 2023-2024 年，"Agent" 通常指*模型加 Tool*——给 GPT 一个搜索工具就叫 Agent。而 Harness Engineering面向的 Agent 复杂得多：
 
 | 组件 | 2023 "Agent" | Harness 时代的 Agent |
 |-----------|-------------|-------------------|

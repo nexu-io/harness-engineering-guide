@@ -65,7 +65,7 @@ export default function Navigation() {
             href={isZh ? "/zh" : "/"}
             className="font-[family-name:var(--font-heading)] text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent-cyan)] transition-colors"
           >
-            {isZh ? "⚡ 驾驭工程指南" : "⚡ Harness Guide"}
+            {isZh ? "⚡ Harness Engineering Guide" : "⚡ Harness Guide"}
           </Link>
 
           {/* Desktop nav */}

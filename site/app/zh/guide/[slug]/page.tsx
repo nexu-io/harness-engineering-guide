@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const content = await getContentBySlug("zh-guide", slug);
   return {
-    title: `${content.title} | 驾驭工程指南`,
+    title: `${content.title} | Harness Engineering Guide`,
     description: content.description,
   };
 }

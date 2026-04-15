@@ -4,7 +4,7 @@ author: Nexu
 
 # 术语表
 
-Harness 工程指南中使用的核心术语，用直白语言定义。
+Harness Engineering指南中使用的核心术语，用直白语言定义。
 
 ---
 

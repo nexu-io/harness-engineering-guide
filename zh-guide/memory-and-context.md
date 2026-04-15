@@ -4,7 +4,7 @@ author: Nexu
 
 # Memory 与 Context
 
-> **Core Insight:** 模型只知道 Context 窗口中的内容。Memory 是连接模型*需要知道的*和它在单次 API 调用中*能看到的*之间的桥梁。把这件事做对，是 Harness 工程中杠杆最高的问题。
+> **Core Insight:** 模型只知道 Context 窗口中的内容。Memory 是连接模型*需要知道的*和它在单次 API 调用中*能看到的*之间的桥梁。把这件事做对，是 Harness Engineering中杠杆最高的问题。
 
 ## 三个不同的概念
 

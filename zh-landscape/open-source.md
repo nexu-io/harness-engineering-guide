@@ -1,6 +1,6 @@
 # 开源 Harness 项目
 
-AI Agent Harness 工程领域的开源项目精选列表。
+AI Agent Harness Engineering领域的开源项目精选列表。
 
 ## Agent 运行时 & Harness
 

@@ -41,26 +41,26 @@ export default function Hero() {
         <div className="animate-fade-in-up stagger-4 flex flex-wrap justify-center gap-6 mb-10 text-sm text-[var(--color-text-muted)]">
           <span className="flex items-center gap-1.5">
             <span className="w-1 h-1 rounded-full bg-[var(--color-accent-cyan)]" />
-            17 Articles
+            14 Tutorials
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-1 h-1 rounded-full bg-[var(--color-accent-amber)]" />
-            5 Guide Chapters
+            4 Core Concepts
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-1 h-1 rounded-full bg-[var(--color-accent-cyan)]" />
-            8 Papers
+            5 Practice Guides
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-1 h-1 rounded-full bg-[var(--color-accent-amber)]" />
-            20+ Tools
+            Real Code Examples
           </span>
         </div>
 
         {/* CTAs */}
         <div className="animate-fade-in-up stagger-5 flex flex-wrap justify-center gap-4">
           <Link
-            href="/guide/introduction"
+            href="/guide/what-is-harness"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[var(--color-accent-cyan)] rounded-lg hover:opacity-90 transition-all hover:shadow-[0_0_30px_var(--color-accent-cyan-dim)]"
           >
             Start Reading
