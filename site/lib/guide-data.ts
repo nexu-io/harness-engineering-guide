@@ -53,7 +53,9 @@ export const guideSections: GuideSection[] = [
     id: "showcase",
     label: "Showcase",
     zhLabel: "分享",
-    items: [],
+    items: [
+      { slug: "nexu-windows-packaging", title: "Shipping Our Windows Client", zhTitle: "Windows 客户端百亿 Token 实战" },
+    ],
   },
 ];
 
