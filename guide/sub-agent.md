@@ -50,13 +50,11 @@ import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 
-
 @dataclass
 class SubTask:
     name: str
     instruction: str
     working_dir: str | None = None
-
 
 @dataclass
 class SubResult:
@@ -64,7 +62,6 @@ class SubResult:
     success: bool
     output: str
     artifacts: list[str]  # Paths to files produced
-
 
 class SubAgentSpawner:
     """Spawn and manage sub-agents as isolated processes."""
@@ -156,7 +153,6 @@ import json
 import time
 from pathlib import Path
 
-
 class FileInbox:
     """File-based message passing between agents."""
 
@@ -234,7 +230,6 @@ When sub-agents need to modify code simultaneously, git worktrees prevent branch
 ```python
 import subprocess
 
-
 def create_worktree(repo_path: str, branch_name: str) -> str:
     """Create a git worktree for a sub-agent to work in."""
     worktree_path = f"/tmp/worktrees/{branch_name}"
@@ -244,7 +239,6 @@ def create_worktree(repo_path: str, branch_name: str) -> str:
         check=True,
     )
     return worktree_path
-
 
 def merge_worktrees(repo_path: str, branches: list[str], target: str = "main"):
     """Merge all sub-agent branches back into the target branch."""
@@ -259,7 +253,6 @@ def merge_worktrees(repo_path: str, branches: list[str], target: str = "main"):
         if result.returncode != 0:
             print(f"Conflict merging {branch}: {result.stderr}")
             subprocess.run(["git", "merge", "--abort"], cwd=repo_path)
-
 
 def cleanup_worktrees(repo_path: str, branches: list[str]):
     """Remove worktrees and branches after merge."""

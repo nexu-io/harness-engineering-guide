@@ -108,7 +108,6 @@ import json
 from pathlib import Path
 from dataclasses import dataclass, field
 
-
 @dataclass
 class Skill:
     name: str
@@ -116,7 +115,6 @@ class Skill:
     doc: str                           # Contents of SKILL.md
     tools: list[dict] = field(default_factory=list)        # Tool schemas
     handlers: dict = field(default_factory=dict)            # name → callable
-
 
 class SkillRegistry:
     """Registry with on-demand skill loading."""

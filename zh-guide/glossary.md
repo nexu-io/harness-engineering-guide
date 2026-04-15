@@ -79,4 +79,3 @@ Agent Session 的完整记录：每条发送的消息、每次 Tool 调用、每
 
 ---
 
-*返回 [什么是 Harness？ →](what-is-harness.md)*

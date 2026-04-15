@@ -113,9 +113,7 @@ result = exec("claude-code --print 'Review this PR'")
 - **Choosing based on hype** — Pick the harness that fits your workflow, not the one with the most GitHub stars.
 - **Ignoring memory** — If your tasks span sessions, a harness without persistent memory means re-explaining context every time.
 - **Assuming "open source" means "free"** — The harness is free; the model API calls are not. Budget for API costs.
-- **Locking into one harness** — File-based configurations (AGENTS.md, MEMORY.md) are portable. Proprietary memory is not. See [Memory Portability →](memory-portability.md).
 
 ## Further Reading
 
-- [Scaling Dimensions →](scaling-dimensions.md) — How these harnesses scale across time, space, and interaction
-- [Glossary →](glossary.md) — Key terms used throughout this guide
+- [Glossary →](/guide/glossary) — Key terms used throughout this guide

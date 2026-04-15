@@ -240,4 +240,4 @@ This is fine. The framework taught you what you need. The harness gives you cont
 - [LangChain Documentation](https://python.langchain.com/) — The most popular framework
 - [CrewAI Documentation](https://docs.crewai.com/) — Multi-agent orchestration
 - [AutoGen](https://microsoft.github.io/autogen/) — Microsoft's multi-agent framework
-- [Your First Harness](your-first-harness.md) — Build the raw version yourself
+- [Your First Harness](/guide/your-first-harness) — Build the raw version yourself

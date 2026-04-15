@@ -240,4 +240,4 @@ Framework 不是坏东西。以下场景确实有帮助：
 - [LangChain Documentation](https://python.langchain.com/) —— 最流行的 Framework
 - [CrewAI Documentation](https://docs.crewai.com/) —— 多 Agent 编排
 - [AutoGen](https://microsoft.github.io/autogen/) —— 微软的多 Agent 框架
-- [你的第一个 Harness](your-first-harness.md) —— 自己动手写原生版本
+- [你的第一个 Harness](/guide/your-first-harness) —— 自己动手写原生版本

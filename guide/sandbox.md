@@ -47,7 +47,6 @@ import tempfile
 import json
 from pathlib import Path
 
-
 class DockerSandbox:
     """Execute agent commands inside a restricted Docker container."""
 
@@ -143,7 +142,6 @@ Each microVM boots in ~125ms with a minimal Linux kernel. The hypervisor boundar
 ```python
 import json
 import socket
-
 
 class FirecrackerSandbox:
     """Manage a Firecracker microVM for agent execution."""

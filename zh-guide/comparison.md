@@ -113,9 +113,7 @@ result = exec("claude-code --print 'Review this PR'")
 - **跟风选择** —— 选适合你工作流的 Harness，不是 GitHub star 最多的。
 - **忽视 Memory** —— 如果你的任务跨 Session，没有持久 Memory 的 Harness 意味着每次都要重新解释 Context。
 - **认为"开源"等于"免费"** —— Harness 是免费的；模型 API 调用不是。做好 API 成本预算。
-- **绑死在一个 Harness 上** —— 基于文件的配置（AGENTS.md、MEMORY.md）是可移植的。闭源 Memory 不是。详见 [Memory 可移植性 →](memory-portability.md)。
 
 ## 延伸阅读
 
-- [扩展维度 →](scaling-dimensions.md) — 这些 Harness 如何在时间、空间和交互维度上扩展
-- [术语表 →](glossary.md) — 本指南使用的核心术语
+- [术语表 →](/guide/glossary) — 本指南使用的核心术语

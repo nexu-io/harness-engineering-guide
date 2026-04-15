@@ -20,13 +20,11 @@ Not all errors are equal. The recovery strategy depends on the error class:
 ```python
 from enum import Enum
 
-
 class ErrorClass(Enum):
     TRANSIENT = "transient"
     PERMANENT = "permanent"
     MODEL = "model"
     RESOURCE = "resource"
-
 
 def classify_error(error: Exception, context: dict | None = None) -> ErrorClass:
     """Classify an error to determine the recovery strategy."""
@@ -73,14 +71,12 @@ from typing import TypeVar, Callable, Any
 
 T = TypeVar("T")
 
-
 class RetryExhausted(Exception):
     """All retry attempts failed."""
     def __init__(self, last_error: Exception, attempts: int):
         self.last_error = last_error
         self.attempts = attempts
         super().__init__(f"Failed after {attempts} attempts: {last_error}")
-
 
 def retry(
     max_attempts: int = 3,
@@ -110,7 +106,6 @@ def retry(
             raise RetryExhausted(last_error, max_attempts)
         return wrapper
     return decorator
-
 
 # Usage
 @retry(max_attempts=3, base_delay=2.0)
@@ -192,7 +187,6 @@ class EscalationLevel(Enum):
     CONFIRM = "confirm"   # Ask human before proceeding
     BLOCK = "block"       # Stop and wait for human input
 
-
 def determine_escalation(
     error: Exception,
     error_class: ErrorClass,
@@ -218,7 +212,6 @@ def determine_escalation(
 
     return EscalationLevel.AUTO
 
-
 def escalate(level: EscalationLevel, message: str) -> str | None:
     """Execute the escalation action. Returns human response if blocking."""
     if level == EscalationLevel.AUTO:
@@ -243,7 +236,6 @@ Long-running tasks (20+ turns) are vulnerable to mid-task failures. Checkpointin
 import json
 import os
 from datetime import datetime
-
 
 class Checkpoint:
     """Save and restore agent progress for long-running tasks."""
@@ -279,7 +271,6 @@ class Checkpoint:
         path = os.path.join(self.checkpoint_dir, f"{task_id}.json")
         if os.path.exists(path):
             os.unlink(path)
-
 
 # Usage in the agentic loop
 checkpoint = Checkpoint()

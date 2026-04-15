@@ -37,7 +37,6 @@ def estimate_tokens(text: str) -> int:
     """Fast token estimation using tiktoken."""
     return len(encoder.encode(text))
 
-
 class ContextAssembler:
     """Assemble context with priority-based token budgeting."""
 

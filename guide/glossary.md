@@ -79,4 +79,3 @@ A complete recording of an agent session: every message sent, every tool called,
 
 ---
 
-*Back to [What is a Harness? →](what-is-harness.md)*
