@@ -1,14 +1,14 @@
-# Context Compression
+# 上下文压缩
 
-Context compression is the practice of reducing token usage without losing critical information. It's not a single technique but three lines of defense: auto-decay removes stale content passively, threshold compression triggers when usage hits a limit, and active compression is the agent deliberately summarizing its own history.
+上下文压缩是在不丢失关键信息的前提下减少 Token 消耗的实践。它不是一种单一技术，而是三道防线：自动衰减被动移除过期内容，阈值压缩在使用量达到上限时触发，主动压缩是 Agent 有意识地对自己的历史做摘要。
 
-## Why It Matters
+## 为什么重要
 
-A 30-turn agent session can easily consume 100K+ tokens. At $3/M input tokens, that's $0.30 per session — and each subsequent API call resends the entire history. By turn 30, you're paying for those early file reads over and over. Compression cuts costs 40-70% and keeps the agent within its context window on long tasks.
+一个 30 轮的 Agent 会话轻松消耗 100K+ Token。按 $3/M input tokens 计，每次会话 $0.30 — 而且每次后续 API 调用都会重新发送整个历史。到第 30 轮，你在为早期的文件读取一遍又一遍地付费。压缩能降低 40-70% 的成本，并让 Agent 在长任务中保持在 Context Window 之内。
 
-## Line 1: Auto-Decay
+## 第一道防线：自动衰减
 
-Auto-decay passively degrades old content. Tool results older than N turns get replaced with summaries or stubs. No model call needed — it's pure string manipulation.
+自动衰减被动降级旧内容。超过 N 轮的工具结果被替换为摘要或占位符。不需要模型调用 — 纯字符串操作。
 
 ```python
 import tiktoken
@@ -40,22 +40,22 @@ def auto_decay(messages: list[dict], current_turn: int, decay_after: int = 5) ->
     return result
 ```
 
-**Before/after on a real session:**
+**真实会话的前后对比：**
 
 ```
-Turn 15, no decay:
-  Total context: 67,000 tokens
-  Tool results:  45,000 tokens (67%)
+第 15 轮，无衰减:
+  总上下文: 67,000 tokens
+  工具结果: 45,000 tokens (67%)
 
-Turn 15, with decay (decay_after=5):
-  Total context: 31,000 tokens
-  Tool results:  9,000 tokens (29%)
-  Savings:       36,000 tokens (54%)
+第 15 轮，有衰减 (decay_after=5):
+  总上下文: 31,000 tokens
+  工具结果:  9,000 tokens (29%)
+  节省:     36,000 tokens (54%)
 ```
 
-## Line 2: Threshold Compression
+## 第二道防线：阈值压缩
 
-When total context exceeds a threshold, compress the conversation history using a cheap model.
+当总上下文超过阈值时，用一个便宜的模型压缩对话历史。
 
 ```python
 def threshold_compress(
@@ -115,19 +115,19 @@ Target: ~500 words.
     return compressed
 ```
 
-**Typical results:**
+**典型效果：**
 
 ```
-Before: 85,000 tokens (threshold hit)
-After:  32,000 tokens
-Cost of compression call: ~$0.003 (gpt-4o-mini)
-Savings on next 10 turns: ~$0.15 (avoiding resending 53K tokens each turn)
+压缩前: 85,000 tokens（触发阈值）
+压缩后: 32,000 tokens
+压缩调用成本: ~$0.003 (gpt-4o-mini)
+后续 10 轮的节省: ~$0.15（避免每轮重发 53K tokens）
 ROI: 50x
 ```
 
-## Line 3: Active Compression
+## 第三道防线：主动压缩
 
-The agent itself decides to compress. Add a tool that lets the model trigger compression when it notices the context is getting large:
+Agent 自己决定压缩。添加一个让模型在发现上下文变大时触发压缩的工具：
 
 ```python
 def compress_context_tool(messages: list[dict], client) -> str:
@@ -160,14 +160,14 @@ compress_tool = {
 }
 ```
 
-With this tool, the agent might say:
+有了这个工具，Agent 可能会说：
 
-> "I need to read several large files for this refactor. Let me compress the earlier debugging conversation first."
+> "这次重构我需要读好几个大文件。让我先压缩之前的调试对话。"
 >
 > 🔧 compress_context()
 > → "Compressed context from 72,000 to 28,000 tokens (44,000 freed)."
 
-## All Three Together
+## 三道防线协同
 
 ```python
 class ContextManager:
@@ -202,12 +202,12 @@ class ContextManager:
         return response
 ```
 
-## Token Savings Over a Session
+## 整个会话的 Token 节省
 
-A 30-turn session with and without compression:
+30 轮会话，有无压缩的对比：
 
 ```
-Turn │ No Compression │ With Compression │ Savings
+轮次 │ 无压缩          │ 有压缩           │ 节省
 ─────┼────────────────┼──────────────────┼────────
   1  │      2,100     │       2,100      │    0%
   5  │     15,000     │      12,000      │   20%
@@ -215,40 +215,40 @@ Turn │ No Compression │ With Compression │ Savings
  15  │     67,000     │      31,000      │   54%
  20  │     95,000     │      38,000      │   60%
  25  │    118,000     │      42,000      │   64%
- 30  │    OVERFLOW ❌  │      45,000      │    —
+ 30  │    溢出 ❌      │      45,000      │    —
 
-Cumulative input tokens billed:
-  No compression:  ~1,200,000 tokens ($3.60)
-  With compression:  ~480,000 tokens ($1.44)
-  Total savings: $2.16 per session (60%)
+累计 input tokens 计费:
+  无压缩:    ~1,200,000 tokens ($3.60)
+  有压缩:      ~480,000 tokens ($1.44)
+  总节省: 每次会话 $2.16 (60%)
 ```
 
-## Compression Quality
+## 压缩质量
 
-The key to good compression: preserve **decisions** and **state**, drop **content**.
+好的压缩的关键：保留**决策**和**状态**，丢弃**内容**。
 
-Good compression keeps:
-- "User wants to refactor auth module to use JWT"
-- "Found bug in `src/auth.py:142` — missing null check"
-- "Tests passing after fix in PR #247"
+好的压缩保留：
+- "用户要重构 auth 模块改用 JWT"
+- "在 `src/auth.py:142` 发现 bug — 缺少 null 检查"
+- "PR #247 修复后测试通过"
 
-Good compression drops:
-- The actual file contents (agent can re-read them)
-- Verbose test output (just keep pass/fail)
-- The back-and-forth of figuring something out (just keep the conclusion)
+好的压缩丢弃：
+- 实际文件内容（Agent 可以重新读取）
+- 冗长的测试输出（只保留通过/失败）
+- 搞明白一个问题的来回过程（只保留结论）
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Compressing too aggressively** — If the agent loses track of what it was doing, you compressed too much. Always keep the last 30% of conversation untouched.
-- **Not counting tokens accurately** — Use `tiktoken` for OpenAI models. Rough estimates (1 token ≈ 4 chars) are off by 20-30% and lead to overflow.
-- **Compressing system prompts** — Never compress the system prompt, AGENTS.md, or MEMORY.md. These are the agent's identity and instructions — they must remain verbatim.
+- **压缩过于激进** — 如果 Agent 丢失了对当前任务的追踪，说明压缩太多了。始终保留最后 30% 的对话不动。
+- **Token 计数不准** — OpenAI 模型用 `tiktoken`。粗略估算（1 Token ≈ 4 字符）偏差 20-30%，会导致溢出。
+- **压缩 system prompt** — 永远不要压缩 system prompt、AGENTS.md 或 MEMORY.md。这些是 Agent 的身份和指令 — 必须逐字保留。
 
-## Further Reading
+## 延伸阅读
 
-- [LLMLingua](https://github.com/microsoft/LLMLingua) — Microsoft's prompt compression library
-- [Lost in the Middle](https://arxiv.org/abs/2307.03172) — Why position in context matters
-- [Anthropic Prompt Caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — Cache static context to avoid re-processing
+- [LLMLingua](https://github.com/microsoft/LLMLingua) — 微软的 prompt 压缩库
+- [Lost in the Middle](https://arxiv.org/abs/2307.03172) — 为什么上下文中的位置很重要
+- [Anthropic Prompt Caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — 缓存静态上下文避免重复处理
 
 ---
 
-*Next: [Multi-Agent Patterns →](multi-agent.md)*
+*下一篇: [多 Agent 协作 →](multi-agent.md)*

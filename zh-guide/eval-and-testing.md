@@ -1,22 +1,22 @@
-# Eval & Testing
+# 评估与测试
 
-You can't improve what you can't measure. Agent harnesses are notoriously hard to test — the model is non-deterministic, tool calls have side effects, and "correct" behavior is often subjective. But that doesn't mean you skip testing. It means you test differently.
+不能衡量的东西就无法改进。Agent Harness 出了名地难测——模型是非确定性的，工具调用有副作用，而"正确"行为往往是主观的。但这不意味着你跳过测试，而是意味着你用不同的方式测试。
 
-This guide covers three testing strategies: behavioral tests, regression tests via trace replay, and eval metrics for production monitoring.
+本指南覆盖三种测试策略：行为测试、基于 trace 回放的回归测试、以及生产环境的评估指标。
 
-## Why Traditional Testing Falls Short
+## 为什么传统测试不够
 
-Unit tests assert exact outputs. Agents don't produce exact outputs. Ask the same agent the same question twice and you'll get different wording, different tool call order, maybe different tools entirely — all producing correct results.
+单元测试断言精确输出。Agent 不产生精确输出。同一个 Agent 问同一个问题两次，你会得到不同的措辞、不同的工具调用顺序、甚至不同的工具——但都产生正确的结果。
 
-What you *can* test:
-- **Did the agent call the right tools?** (behavioral)
-- **Did the agent produce an acceptable result?** (outcome)
-- **Is the agent getting worse over time?** (regression)
-- **Is the agent cost-efficient?** (economic)
+你**能**测试的是：
+- **Agent 调用了正确的工具吗？**（行为）
+- **Agent 产生了可接受的结果吗？**（结果）
+- **Agent 在变差吗？**（回归）
+- **Agent 的成本效率如何？**（经济性）
 
-## Behavioral Testing
+## 行为测试
 
-Behavioral tests verify that given a specific input, the agent exhibits expected behavior — not exact output, but structural patterns.
+行为测试验证：给定特定输入，Agent 表现出预期行为——不是精确输出，而是结构化模式。
 
 ```python
 import pytest
@@ -60,7 +60,7 @@ class TestFileEditBehavior:
                "Should use find-and-replace, not full overwrite"
 ```
 
-The `MockToolSet` is key. It records every tool call without executing side effects, letting you assert on behavior patterns:
+`MockToolSet` 是关键。它记录每次工具调用但不执行副作用，让你可以对行为模式做断言：
 
 ```python
 class MockToolSet:
@@ -85,9 +85,9 @@ class MockToolSet:
         self._responses["read_file"] = content
 ```
 
-## Regression Testing with Trace Replay
+## 基于 Trace 回放的回归测试
 
-A **trace** is a complete recording of an agent session: every message, tool call, tool result, and final output. Traces are your regression test suite.
+**Trace** 是 Agent 会话的完整记录：每条消息、每次工具调用、每个工具结果、以及最终输出。Trace 就是你的回归测试套件。
 
 ```python
 import json
@@ -132,7 +132,7 @@ class TraceRecorder:
         return path
 ```
 
-To use traces for regression testing, you replay the user input and check that the agent's behavior hasn't degraded:
+用 trace 做回归测试时，重放用户输入并检查 Agent 行为是否退化：
 
 ```python
 class TraceRegression:
@@ -189,9 +189,9 @@ Return just the number."""
         return int(response.strip())
 ```
 
-## A Minimal Eval Framework
+## 极简评估框架
 
-Here's a self-contained eval framework you can use to benchmark your harness:
+一个自包含的评估框架，用来对你的 Harness 做基准测试：
 
 ```python
 import time
@@ -305,44 +305,44 @@ print(f"Avg cost: ${report['avg_cost']:.4f}")
 print(f"Avg duration: {report['avg_duration']:.1f}s")
 ```
 
-## Key Eval Metrics
+## 核心评估指标
 
-Track these metrics in production:
+在生产环境中跟踪以下指标：
 
-| Metric | What it measures | Target |
-|--------|-----------------|--------|
-| **Task completion rate** | % of tasks completed without escalation | > 85% |
-| **Tool call accuracy** | % of tool calls that succeed | > 95% |
-| **Cost per task** | Average USD spent per task | Varies by use case |
-| **Latency (P50/P95)** | Time from input to final output | < 30s P50 |
-| **Loop iterations** | Average tool calls per task | Lower is more efficient |
-| **Escalation rate** | % of tasks requiring human help | < 10% |
-| **Regression rate** | % of trace replays scoring < 3 | < 5% |
+| 指标 | 衡量什么 | 目标 |
+|------|----------|------|
+| **任务完成率** | 无需升级完成的任务百分比 | > 85% |
+| **工具调用准确率** | 成功的工具调用百分比 | > 95% |
+| **单任务成本** | 每个任务的平均 USD 花费 | 因场景而异 |
+| **延迟 (P50/P95)** | 从输入到最终输出的时间 | < 30s P50 |
+| **循环迭代数** | 每个任务的平均工具调用次数 | 越少越高效 |
+| **升级率** | 需要人工帮助的任务百分比 | < 10% |
+| **回归率** | trace 回放评分低于 3 的百分比 | < 5% |
 
-## The Testing Pyramid for Agents
+## Agent 测试金字塔
 
 ```
-        /  LLM Judge  \        ← Expensive, comprehensive
-       / Trace Replay   \      ← Medium cost, catches regressions
-      / Behavioral Tests  \    ← Cheap, fast, catches structural bugs
-     / Tool Unit Tests      \  ← Cheapest, test tools in isolation
+        /  LLM Judge  \        ← 昂贵，全面
+       / Trace Replay   \      ← 中等成本，捕获回归
+      / Behavioral Tests  \    ← 便宜，快速，捕获结构性 bug
+     / Tool Unit Tests      \  ← 最便宜，隔离测试工具
     ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 ```
 
-Start from the bottom. Tool unit tests don't need an LLM at all — just test that your tool implementations work. Behavioral tests use the model but with mocked tools (cheap). Trace replay is periodic. LLM-judge evals are for release gates.
+从底层开始。工具单元测试完全不需要 LLM——只测试你的工具实现是否正常工作。行为测试用模型但用 mock 工具（便宜）。Trace 回放是周期性的。LLM judge 评估用于发版门禁。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Testing exact outputs** — Agent outputs vary. Test structure and behavior, not verbatim strings.
-- **No baseline traces** — Without recorded traces, you can't detect regressions. Start recording today.
-- **Ignoring cost metrics** — A harness that works but costs $2 per task is broken for most use cases. Track cost alongside correctness.
-- **Running evals on every commit** — LLM-based evals are slow and expensive. Run them on PRs and releases, not every push.
+- **测试精确输出** — Agent 输出是变化的。测试结构和行为，不要测逐字字符串。
+- **没有基线 trace** — 没有录制的 trace，就检测不到回归。今天就开始录制。
+- **忽略成本指标** — 一个能用但每个任务花 $2 的 Harness，在大多数场景下就是坏的。成本和正确性一起追踪。
+- **每次提交都跑评估** — 基于 LLM 的评估又慢又贵。在 PR 和发版时跑，不要每次 push 都跑。
 
-## Further Reading
+## 延伸阅读
 
-- [Error Recovery →](error-recovery.md) — Test that your recovery patterns actually work
-- [Meta-Harness →](meta-harness.md) — Agents that use eval results to optimize themselves
+- [错误恢复 →](error-recovery.md) — 测试你的恢复模式是否真的有效
+- [Meta-Harness →](meta-harness.md) — 用评估结果来优化自身的 Agent
 
 ---
 
-*Next: [Harness as a Service →](harness-as-a-service.md)*
+*下一篇：[Harness 即服务 →](harness-as-a-service.md)*

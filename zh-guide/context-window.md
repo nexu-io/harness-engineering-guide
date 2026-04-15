@@ -1,26 +1,26 @@
-# Context Window Management
+# 上下文窗口管理
 
-The context window is everything the model can see in a single API call — system prompt, tools, memory, conversation history, and files. Managing it is the art of deciding what goes in, what stays out, and what gets compressed. Get it wrong and your agent forgets instructions, hallucinates, or runs out of space mid-task.
+Context Window 是模型在单次 API 调用中能看到的所有内容 — system prompt、工具、记忆、对话历史和文件。管理它就是决定什么放进去、什么留在外面、什么需要压缩的艺术。搞砸了，你的 Agent 会丢失指令、产生幻觉，或者在任务进行到一半时空间就用完了。
 
-## Why It Matters
+## 为什么重要
 
-Models have finite context windows: 128K tokens for GPT-4o, 200K for Claude 3.5 Sonnet, 1M for Gemini 1.5 Pro. Sounds like a lot, but a single codebase can be 500K+ tokens. A day of conversation history might be 30K tokens. Every tool definition, every file read, every system instruction competes for the same space. Without active management, you'll blow through the window in 10 minutes of work.
+模型有有限的 Context Window：GPT-4o 128K Token，Claude 3.5 Sonnet 200K，Gemini 1.5 Pro 1M。听起来很多，但一个代码库就可能有 500K+ Token。一天的对话历史可能 30K Token。每个工具定义、每次文件读取、每条系统指令都在争夺同样的空间。不主动管理的话，10 分钟的工作就能把窗口打爆。
 
-## Priority System
+## 优先级系统
 
-Not all context is equal. Use a priority hierarchy:
+不是所有上下文都同等重要。使用优先级层级：
 
 ```
-Priority 1 (ALWAYS load):  System prompt + AGENTS.md
-Priority 2 (ALWAYS load):  Tool definitions (active tools only)
-Priority 3 (ALWAYS load):  MEMORY.md (curated long-term memory)
-Priority 4 (LOAD if fits): Active files the user is working on
-Priority 5 (LOAD if fits): Recent conversation history
-Priority 6 (COMPRESS):     Older conversation history
-Priority 7 (DROP):         Stale file contents, old tool results
+优先级 1（始终加载）:  System prompt + AGENTS.md
+优先级 2（始终加载）:  工具定义（仅活跃工具）
+优先级 3（始终加载）:  MEMORY.md（精选长期记忆）
+优先级 4（空间足够则加载）: 用户正在处理的文件
+优先级 5（空间足够则加载）: 近期对话历史
+优先级 6（压缩）:     较早的对话历史
+优先级 7（丢弃）:     过期文件内容、旧工具结果
 ```
 
-### Implementation
+### 实现
 
 ```python
 from dataclasses import dataclass
@@ -56,37 +56,37 @@ def assemble_context(blocks: list[ContextBlock], budget: int) -> list[ContextBlo
     return selected
 ```
 
-## Token Budget Allocation
+## Token 预算分配
 
-A practical allocation for a 128K-token model:
+128K Token 模型的实际分配方案：
 
 ```
 ┌──────────────────────────────────────────────────┐
-│              128K Token Budget                    │
+│              128K Token 预算                      │
 ├──────────────────────────────────────────────────┤
 │ System Prompt + AGENTS.md      │    2,000 (1.6%) │
 │ Tool Schemas (5-10 tools)      │    2,000 (1.6%) │
 │ MEMORY.md                      │      700 (0.5%) │
 │ ─────────────────────────────  │ ──────────────  │
-│ Reserved (always loaded)       │    4,700 (3.7%) │
+│ 保留区（始终加载）               │    4,700 (3.7%) │
 │                                │                  │
-│ Active Files                   │   20,000 (15.6%)│
-│ Conversation History           │   60,000 (46.9%)│
+│ 活跃文件                        │   20,000 (15.6%)│
+│ 对话历史                        │   60,000 (46.9%)│
 │ ─────────────────────────────  │ ──────────────  │
-│ Working Space                  │   80,000 (62.5%)│
+│ 工作空间                        │   80,000 (62.5%)│
 │                                │                  │
-│ Model Output                   │    8,000 (6.3%) │
-│ Safety Margin                  │   35,300 (27.5%)│
+│ 模型输出                        │    8,000 (6.3%) │
+│ 安全余量                        │   35,300 (27.5%)│
 │ ─────────────────────────────  │ ──────────────  │
-│ Headroom                       │   43,300 (33.8%)│
+│ 预留空间                        │   43,300 (33.8%)│
 └──────────────────────────────────────────────────┘
 ```
 
-The safety margin matters — tool results can be unpredictable in size. A `read_file` call might return 50 tokens or 50,000. Budget conservatively.
+安全余量很重要 — 工具结果的大小不可预测。一次 `read_file` 调用可能返回 50 Token，也可能返回 50,000 Token。预算要保守。
 
-## Sliding Window for Conversation History
+## 对话历史的滑动窗口
 
-The simplest approach: keep recent messages, drop old ones.
+最简单的方案：保留最近的消息，丢弃旧的。
 
 ```python
 import tiktoken
@@ -123,9 +123,9 @@ def sliding_window(messages: list[dict], max_tokens: int, model: str = "gpt-4o")
     return preserved + selected
 ```
 
-## Smart Truncation
+## 智能截断
 
-Instead of a hard cutoff, summarize what was dropped:
+不做硬截断，而是对被丢弃的内容做摘要：
 
 ```python
 def sliding_window_with_summary(
@@ -168,9 +168,9 @@ def sliding_window_with_summary(
     ]
 ```
 
-## File Content Management
+## 文件内容管理
 
-Large file reads are the biggest context window threat. Manage them:
+大文件读取是 Context Window 最大的威胁。需要主动管理：
 
 ```python
 def smart_read_file(path: str, max_lines: int = 200) -> str:
@@ -209,53 +209,53 @@ def evict_stale_files(messages: list[dict], max_age: int = 5) -> list[dict]:
     return result
 ```
 
-## Real-World Numbers
+## 真实数据
 
-How fast does context fill up during a coding session:
+编码会话中上下文的增长速度：
 
 ```
-Turn 1:  User asks to fix a bug
-         System prompt:    2,000 tokens
-         User message:       100 tokens
-         Total:            2,100 tokens
+第 1 轮:  用户要求修一个 bug
+          System prompt:    2,000 tokens
+          用户消息:           100 tokens
+          总计:             2,100 tokens
 
-Turn 2:  Agent reads 3 files
-         Tool calls:         150 tokens
-         File contents:    8,000 tokens
-         Total:           10,250 tokens
+第 2 轮:  Agent 读取 3 个文件
+          工具调用:           150 tokens
+          文件内容:         8,000 tokens
+          总计:            10,250 tokens
 
-Turn 3:  Agent writes a fix
-         Analysis:         1,000 tokens
-         Tool calls:         200 tokens
-         Total:           11,450 tokens
+第 3 轮:  Agent 写修复代码
+          分析:             1,000 tokens
+          工具调用:           200 tokens
+          总计:            11,450 tokens
 
-Turn 5:  Agent reads test output
-         Test results:     2,000 tokens
-         Total:           15,450 tokens
+第 5 轮:  Agent 读取测试输出
+          测试结果:         2,000 tokens
+          总计:            15,450 tokens
 
-Turn 10: Deep debugging
-         More files:      12,000 tokens
-         Total:           35,000 tokens
+第 10 轮: 深度调试
+          更多文件:        12,000 tokens
+          总计:            35,000 tokens
 
-Turn 20: Complex refactor
-         Many files + history
-         Total:           80,000+ tokens  ← Approaching limits
+第 20 轮: 复杂重构
+          大量文件 + 历史
+          总计:            80,000+ tokens  ← 逼近上限
 ```
 
-Without management, a 30-turn coding session easily exceeds 128K tokens.
+不做管理的话，30 轮编码会话轻松超过 128K Token。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Loading entire files when you need one function** — Use targeted reads (`grep`, line ranges) instead of reading whole files. A 2,000-line file is ~10,000 tokens; the function you need is 200 tokens.
-- **Keeping all tool results forever** — A file read from 15 turns ago is almost certainly stale. Evict it or summarize it.
-- **Ignoring the output token budget** — If you set `max_tokens=8000` for the model's response but only have 2,000 tokens of headroom left, the response will be truncated silently.
+- **需要一个函数却加载整个文件** — 用定向读取（`grep`、行范围）代替读取整个文件。一个 2,000 行的文件约 10,000 Token；你需要的函数只有 200 Token。
+- **永远保留所有工具结果** — 15 轮之前读取的文件内容几乎肯定已经过期。淘汰它或者做摘要。
+- **忽视输出 Token 预算** — 如果你设置 `max_tokens=8000` 给模型的回复，但只剩 2,000 Token 的余量，回复会被静默截断。
 
-## Further Reading
+## 延伸阅读
 
-- [Anthropic: Long Context Tips](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — Prompt caching for repeated context
-- [Lost in the Middle](https://arxiv.org/abs/2307.03172) — Research on how models handle information position in long contexts
-- [tiktoken](https://github.com/openai/tiktoken) — OpenAI's fast token counter
+- [Anthropic: Long Context Tips](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — 重复上下文的 prompt 缓存
+- [Lost in the Middle](https://arxiv.org/abs/2307.03172) — 关于模型如何处理长上下文中信息位置的研究
+- [tiktoken](https://github.com/openai/tiktoken) — OpenAI 的快速 Token 计数器
 
 ---
 
-*Next: [Context Compression →](context-compression.md)*
+*下一篇: [上下文压缩 →](context-compression.md)*

@@ -1,14 +1,14 @@
-# Structured Output
+# 结构化输出
 
-Structured output is getting an LLM to return data in a machine-parseable format — JSON, YAML, typed objects — instead of free-form text. This is how agents bridge the gap between natural language reasoning and programmatic action: the model thinks in text, but your code needs structured data to act on.
+结构化输出是让 LLM 以机器可解析的格式返回数据——JSON、YAML、类型化对象——而不是自由文本。这是 Agent 弥合自然语言推理和程序化动作之间鸿沟的方式：模型用文本思考，但你的代码需要结构化数据才能执行。
 
-## Why It Matters
+## 为什么重要
 
-When an agent decides to "create a file at path X with content Y," that decision needs to be parsed reliably. Free-form text is ambiguous: does "create hello.txt with greeting" mean the filename is "hello.txt" or "hello.txt with greeting"? Structured output removes ambiguity. The model returns `{"path": "hello.txt", "content": "greeting"}` and your code knows exactly what to do.
+当 Agent 决定"在路径 X 创建内容为 Y 的文件"时，这个决策需要被可靠地解析。自由文本是有歧义的："create hello.txt with greeting" 到底是说文件名是 "hello.txt" 还是 "hello.txt with greeting"？结构化输出消除了歧义。模型返回 `{"path": "hello.txt", "content": "greeting"}`，你的代码就能准确知道该做什么。
 
-## Approach 1: Tool-Based Extraction (Best)
+## 方法 1：基于工具的提取（最佳）
 
-The most reliable method. Instead of asking the model to output JSON, define tools whose parameters ARE the structure. The model's tool call IS structured output.
+最可靠的方法。不是要求模型输出 JSON，而是定义参数就是目标结构的工具。模型的 tool call 本身就是结构化输出。
 
 ```python
 from openai import OpenAI
@@ -66,11 +66,11 @@ print(issue)
 # }
 ```
 
-**Why this is best**: The model is trained specifically to produce valid tool call arguments. It's more reliable than asking it to write JSON in prose.
+**为什么这是最佳方案**：模型是专门针对生成有效的 tool call 参数进行微调的，比让它在文本中写 JSON 更可靠。
 
-## Approach 2: JSON Mode
+## 方法 2：JSON Mode
 
-OpenAI and Anthropic support native JSON response format:
+OpenAI 和 Anthropic 支持原生 JSON 响应格式：
 
 ```python
 # OpenAI JSON mode
@@ -112,9 +112,9 @@ print(meeting.attendees)       # ["Alice", "Bob"]
 print(meeting.duration_minutes) # 30
 ```
 
-## Approach 3: Schema Validation with Retry
+## 方法 3：Schema 校验 + 重试
 
-For models that don't support native JSON mode, validate and retry:
+对于不支持原生 JSON mode 的模型，校验后重试：
 
 ```python
 import json
@@ -175,9 +175,9 @@ for comment in review["comments"]:
     print(f"  {comment['file']}:{comment['line']} [{comment['severity']}] {comment['message']}")
 ```
 
-## Approach 4: Extract-Then-Validate Pipeline
+## 方法 4：先提取再校验流水线
 
-For complex extraction from long documents, split into two steps:
+对于从长文档中做复杂提取的场景，分两步进行：
 
 ```python
 def extract_entities(client, document: str) -> list[dict]:
@@ -210,12 +210,12 @@ def extract_entities(client, document: str) -> list[dict]:
     return json.loads(structure_resp.choices[0].message.content)["entities"]
 ```
 
-## Reliability Comparison
+## 可靠性对比
 
-Tested on 1,000 extraction tasks:
+在 1,000 个提取任务上的测试结果：
 
 ```
-Method                      Success Rate    Avg Tokens    Avg Cost
+方法                        成功率          平均 Token    平均成本
 ──────────────────────────  ────────────    ──────────    ────────
 Tool-based (forced)         99.7%           320           $0.001
 Structured Outputs (Pydantic) 99.5%         280           $0.001
@@ -224,11 +224,11 @@ Free-form + parse           89.1%           420           $0.001
 Free-form + retry           96.8%           680           $0.002
 ```
 
-Tool-based extraction is the most reliable because the model was specifically fine-tuned for tool calling.
+基于工具的提取最可靠，因为模型是专门针对 tool calling 微调过的。
 
-## YAML Output for Configs
+## YAML 输出用于配置
 
-Sometimes YAML is more natural than JSON for configuration:
+有时候 YAML 比 JSON 更适合做配置：
 
 ```python
 import yaml
@@ -259,19 +259,19 @@ config = yaml.safe_load(yaml_text)
 # }
 ```
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Relying on regex to parse model output** — Regex breaks the moment the model changes formatting. Use proper JSON parsing with the structured output features your provider offers.
-- **Putting the schema only in the system prompt** — Models follow tool schemas more reliably than prose instructions. If your provider supports structured outputs or tool calling, use those instead of prompt-based JSON.
-- **Not handling partial/malformed JSON** — Models can be cut off by `max_tokens`. Always wrap JSON parsing in try/except and have a retry strategy.
+- **依赖正则来解析模型输出** — 模型稍微换一下格式，正则就会崩。使用你的 provider 提供的结构化输出特性做正规的 JSON 解析。
+- **把 schema 只放在 system prompt 里** — 模型遵循 tool schema 比遵循文字指令更可靠。如果你的 provider 支持 structured outputs 或 tool calling，优先使用它们而非基于 prompt 的 JSON。
+- **没处理不完整/格式错误的 JSON** — 模型可能因为 `max_tokens` 被截断。JSON 解析必须用 try/except 包裹，并准备好重试策略。
 
-## Further Reading
+## 延伸阅读
 
-- [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) — Native schema-constrained generation
-- [Anthropic Tool Use](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude's tool-based structured output
-- [Instructor](https://github.com/jxnl/instructor) — Python library for structured LLM output with Pydantic
-- [Outlines](https://github.com/outlines-dev/outlines) — Grammar-constrained generation for open-source models
+- [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) — 原生 schema 约束生成
+- [Anthropic Tool Use](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude 基于工具的结构化输出
+- [Instructor](https://github.com/jxnl/instructor) — 用 Pydantic 做 LLM 结构化输出的 Python 库
+- [Outlines](https://github.com/outlines-dev/outlines) — 开源模型的语法约束生成
 
 ---
 
-*Next: [Error Recovery →](error-recovery.md)*
+*下一篇：[错误恢复 →](error-recovery.md)*

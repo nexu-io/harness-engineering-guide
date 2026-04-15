@@ -1,12 +1,12 @@
-# Thin Harness + Thick Skills
+# 薄 Harness + 厚 Skill
 
-A thin harness is a minimal runtime that does only three things: manage the tool loop, assemble context, and dispatch tool calls. All domain logic, specialized behavior, and complex workflows live in skill files that the harness loads on demand. The harness is the skeleton; skills are the muscles.
+薄 Harness 是一个最小化的运行时，只做三件事：管理 Tool Loop、组装上下文、分发工具调用。所有领域逻辑、专业行为和复杂工作流都放在 Skill 文件里，由 Harness 按需加载。Harness 是骨架；Skill 是肌肉。
 
-## Why It Matters
+## 为什么重要
 
-A monolithic harness embeds everything — tools, prompts, memory logic, error handling — into one codebase. This makes it fragile: changing how email works might break how GitHub works. A thin harness decouples the runtime from the behavior, so skills can be added, updated, or removed without touching the core loop. This is how OpenClaw, Claude Code, and most production agent systems are built.
+单体 Harness 把所有东西都塞在一个代码库里 — 工具、prompt、记忆逻辑、错误处理。这样很脆弱：改邮件功能可能把 GitHub 功能搞坏。薄 Harness 将运行时和行为解耦，Skill 可以独立增删改而不碰核心循环。OpenClaw、Claude Code 以及大多数生产级 Agent 系统都是这样构建的。
 
-## Architecture
+## 架构
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -34,9 +34,9 @@ A monolithic harness embeds everything — tools, prompts, memory logic, error h
     └─────────┘   └────────────┘  └─────────┘
 ```
 
-## The Thin Harness (Complete)
+## 薄 Harness（完整版）
 
-The entire harness fits in a single file:
+整个 Harness 放在一个文件里：
 
 ```python
 #!/usr/bin/env python3
@@ -184,9 +184,9 @@ if __name__ == "__main__":
     print(harness.run("Check my GitHub notifications"))
 ```
 
-## A Skill: tools.py
+## 一个 Skill: tools.py
 
-Skills register their tools by calling back to the harness:
+Skill 通过回调 Harness 来注册自己的工具：
 
 ```python
 # skills/github/tools.py
@@ -216,10 +216,10 @@ def gh_pr_create(args):
     return subprocess.run(cmd, shell=True, capture_output=True, text=True).stdout
 ```
 
-## Thin vs. Monolithic Comparison
+## 薄 Harness vs. 单体对比
 
 ```
-MONOLITHIC HARNESS                 THIN HARNESS + THICK SKILLS
+单体 HARNESS                       薄 HARNESS + 厚 SKILL
 ─────────────────────              ────────────────────────────
 harness.py (2,000 lines)          harness.py (100 lines)
 ├── github tools                   skills/
@@ -234,39 +234,39 @@ harness.py (2,000 lines)          harness.py (100 lines)
                                    │   └── tools.py
                                    └── (add more without touching harness)
 
-Change email? Edit 2,000-line file  Change email? Edit skills/email/
-Add a tool? Modify the core loop    Add a tool? Drop a new skill/ folder
-Test github? Load everything        Test github? Load only that skill
+改邮件功能？编辑 2,000 行的文件      改邮件功能？编辑 skills/email/
+加个工具？修改核心循环                加个工具？新增一个 skill/ 目录
+测试 github？加载所有东西            测试 github？只加载那一个 Skill
 ```
 
-## The Key Metric: Lines That Change
+## 核心指标：变更的代码行数
 
-When you add a new capability:
+当你添加新能力时：
 
-| Approach | Files changed | Lines in core modified |
-|----------|--------------|----------------------|
-| Monolithic | 1 (harness.py) | 50-200 |
-| Thin + Skills | 1 (new skill/) | 0 |
+| 方案 | 变更文件数 | 核心代码修改行数 |
+|------|-----------|----------------|
+| 单体 | 1 (harness.py) | 50-200 |
+| 薄 + Skill | 1 (new skill/) | 0 |
 
-When you fix a bug in one tool:
+当你修复某个工具的 bug 时：
 
-| Approach | Blast radius |
-|----------|-------------|
-| Monolithic | Could break anything — it's all one file |
-| Thin + Skills | Only that skill's directory |
+| 方案 | 影响范围 |
+|------|---------|
+| 单体 | 可能影响一切 — 都在同一个文件里 |
+| 薄 + Skill | 只影响那个 Skill 的目录 |
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Putting business logic in the harness** — The harness should not know about GitHub, email, or any specific domain. If you're writing `if tool == "github":` in the harness, it belongs in a skill.
-- **Skills that depend on harness internals** — Skills should interact through the registration API only. If a skill reaches into `harness._private_method()`, the architecture is leaking.
-- **No skill isolation** — A buggy skill shouldn't crash the harness. Wrap skill loading and tool execution in try/except at the harness level.
+- **把业务逻辑写进 Harness** — Harness 不应该知道 GitHub、邮件或任何特定领域。如果你在 Harness 里写 `if tool == "github":`，那它应该放进 Skill 里。
+- **Skill 依赖 Harness 内部实现** — Skill 应该只通过注册 API 与 Harness 交互。如果一个 Skill 访问 `harness._private_method()`，架构就泄漏了。
+- **没有 Skill 隔离** — 一个有 bug 的 Skill 不应该搞崩 Harness。在 Harness 层面用 try/except 包住 Skill 加载和工具执行。
 
-## Further Reading
+## 延伸阅读
 
-- [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) — "Do one thing well" — the same principle
-- [Plugin Architecture Patterns](https://martinfowler.com/articles/plugin-architecture.html) — Martin Fowler on extensible systems
-- [OpenClaw Skills System](https://docs.openclaw.ai) — Production implementation of thin harness + skills
+- [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) — "做好一件事" — 同样的原则
+- [Plugin Architecture Patterns](https://martinfowler.com/articles/plugin-architecture.html) — Martin Fowler 关于可扩展系统的论述
+- [OpenClaw Skills System](https://docs.openclaw.ai) — 薄 Harness + Skill 的生产级实现
 
 ---
 
-*Next: [Context Window Management →](context-window.md)*
+*下一篇: [上下文窗口管理 →](context-window.md)*

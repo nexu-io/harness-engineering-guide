@@ -1,22 +1,22 @@
 # Meta-Harness
 
-What if an agent could optimize its own harness? Not just execute tasks, but learn from failures, rewrite its own instructions, and improve over time without human intervention. This is the **meta-harness** pattern: agents that debug and upgrade themselves.
+如果 Agent 能优化自己的 Harness 呢？不仅仅是执行任务，而是从失败中学习、重写自己的指令、无需人工干预就能持续改进。这就是 **Meta-Harness** 模式：能调试和升级自身的 Agent。
 
-## The Core Idea
+## 核心思路
 
-Every harness has configuration that affects agent behavior: system prompts, tool definitions, AGENTS.md instructions, memory files. Usually, a human tunes these by hand based on observing failures. The meta-harness automates this loop:
+每个 Harness 都有影响 Agent 行为的配置：system prompt、工具定义、AGENTS.md 指令、记忆文件。通常由人工根据观察到的失败手动调优。Meta-Harness 把这个循环自动化了：
 
 ```
-Run task → Collect traces → Analyze failures → Rewrite config → Repeat
+运行任务 → 收集 trace → 分析失败 → 重写配置 → 重复
 ```
 
-The agent becomes its own harness engineer.
+Agent 成了自己的 Harness 工程师。
 
-## The AutoAgent Pattern
+## AutoAgent 模式
 
-The clearest implementation of this idea comes from the **AutoAgent** paper (2025), which achieved 96.5% on SpreadsheetBench — a benchmark where previous state-of-the-art was around 78%. The system works by having a "meta-agent" observe a "task-agent" and iteratively improve its instructions.
+这个思路最清晰的实现来自 **AutoAgent** 论文（2025），在 SpreadsheetBench 上达到了 96.5%——此前最好成绩约 78%。系统的工作方式是让一个"meta-agent"观察"task-agent"并迭代改进其指令。
 
-The architecture has two layers:
+架构分两层：
 
 ```
 ┌─────────────────────────────────────┐
@@ -33,11 +33,11 @@ The architecture has two layers:
 └─────────────────────────────────────┘
 ```
 
-The Task Agent runs normally. The Meta-Agent watches, learns, and rewrites.
+Task Agent 正常运行。Meta-Agent 观察、学习并重写。
 
-## Implementation
+## 实现
 
-Here's a working meta-harness loop:
+一个可运行的 Meta-Harness 循环：
 
 ```python
 from pathlib import Path
@@ -170,13 +170,13 @@ Return the complete new AGENTS.md content."""
         return "\n".join(report)
 ```
 
-## What Gets Rewritten
+## 什么会被重写
 
-The meta-agent can modify several configuration surfaces:
+Meta-Agent 可以修改多个配置面：
 
 ### 1. System Prompt (AGENTS.md)
 
-The most common target. The meta-agent adds, removes, or refines instructions:
+最常见的目标。Meta-Agent 增加、删除或细化指令：
 
 ```markdown
 # Before (causes loops on file editing)
@@ -193,9 +193,9 @@ When editing files:
 5. Maximum 3 edit attempts per file before asking for help
 ```
 
-### 2. Tool Definitions
+### 2. 工具定义
 
-The meta-agent can add parameter constraints or usage hints:
+Meta-Agent 可以添加参数约束或使用提示：
 
 ```python
 # Before
@@ -217,9 +217,9 @@ The meta-agent can add parameter constraints or usage hints:
 }
 ```
 
-### 3. Memory Files
+### 3. 记忆文件
 
-The meta-agent can update MEMORY.md with lessons learned:
+Meta-Agent 可以用学到的经验更新 MEMORY.md：
 
 ```markdown
 ## Lessons Learned (auto-generated)
@@ -228,9 +228,9 @@ The meta-agent can update MEMORY.md with lessons learned:
 - User prefers bullet points over paragraphs
 ```
 
-## Safeguards
+## 安全防护
 
-Self-modifying agents sound dangerous. They are, without guardrails:
+自我修改的 Agent 听起来很危险。没有防护栏的话确实如此：
 
 ```python
 class SafeMetaHarness(MetaHarness):
@@ -283,43 +283,43 @@ class SafeMetaHarness(MetaHarness):
             print("⏪ Rolled back to previous config")
 ```
 
-## Real-World Results
+## 实际效果
 
-The AutoAgent paper demonstrates the power of this pattern on SpreadsheetBench:
+AutoAgent 论文在 SpreadsheetBench 上展示了这个模式的威力：
 
-| Approach | Success Rate |
-|----------|-------------|
-| Direct prompting (GPT-4) | 44.2% |
+| 方法 | 成功率 |
+|------|--------|
+| 直接提示 (GPT-4) | 44.2% |
 | ReAct agent | 58.1% |
-| Hand-tuned harness | 78.3% |
-| **AutoAgent (self-optimizing)** | **96.5%** |
+| 手动调优的 Harness | 78.3% |
+| **AutoAgent（自优化）** | **96.5%** |
 
-The key insight: the meta-agent discovered domain-specific patterns that human engineers missed. For spreadsheet tasks, it learned to always check cell types before operations, validate formulas incrementally, and break complex operations into atomic steps.
+关键发现：Meta-Agent 发现了人类工程师忽略的领域特定模式。对于电子表格任务，它学会了在操作前始终检查单元格类型、增量验证公式、以及将复杂操作拆解为原子步骤。
 
-## When to Use Meta-Harness
+## 适用场景
 
-**Good fit:**
-- Repetitive task domains (data processing, testing, code review)
-- Large eval suites with clear success criteria
-- Teams without dedicated prompt engineers
+**适合：**
+- 重复性任务领域（数据处理、测试、代码审查）
+- 有明确成功标准的大型评估套件
+- 没有专职 prompt 工程师的团队
 
-**Bad fit:**
-- One-off creative tasks (no repetition to learn from)
-- Safety-critical domains (self-modification adds risk)
-- Very small task sets (not enough signal for optimization)
+**不适合：**
+- 一次性的创意任务（没有重复可供学习）
+- 安全关键领域（自我修改增加风险）
+- 很小的任务集（信号不够用于优化）
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Overfitting to failures** — The meta-agent may add instructions so specific they break general cases. Always re-run the full suite after rewriting, not just the failures.
-- **Config drift** — After many iterations, the config becomes bloated. Periodically have the meta-agent consolidate and simplify.
-- **No rollback** — If a rewrite makes things worse, you need to undo it. Always keep version history.
-- **Unbounded iteration** — Set a maximum iteration count. If the agent can't reach target quality in 5 rounds, the problem is architectural, not configurational.
+- **对失败过拟合** — Meta-Agent 可能添加过于具体的指令，导致通用场景出问题。重写后始终重跑完整套件，而不仅仅是失败的部分。
+- **配置漂移** — 经过多次迭代，配置会变得臃肿。定期让 Meta-Agent 合并和精简。
+- **没有回滚** — 如果重写让情况变糟，你需要能撤回。始终保留版本历史。
+- **无限迭代** — 设置最大迭代次数。如果 Agent 在 5 轮内达不到目标质量，问题在于架构而非配置。
 
-## Further Reading
+## 延伸阅读
 
-- [AutoAgent: Fully Automated and Zero-Code Framework for LLM Agents](https://arxiv.org/abs/2502.05957) — The paper that demonstrated 96.5% on SpreadsheetBench
-- [Eval & Testing →](eval-and-testing.md) — Build the eval suite the meta-harness optimizes against
+- [AutoAgent: Fully Automated and Zero-Code Framework for LLM Agents](https://arxiv.org/abs/2502.05957) — 在 SpreadsheetBench 上达到 96.5% 的论文
+- [评估与测试 →](eval-and-testing.md) — 构建 Meta-Harness 用于优化的评估套件
 
 ---
 
-*Next: [Memory Portability →](memory-portability.md)*
+*下一篇：[记忆可移植性 →](memory-portability.md)*

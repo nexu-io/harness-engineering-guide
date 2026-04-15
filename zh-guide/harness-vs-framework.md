@@ -1,40 +1,40 @@
-# Harness vs. Framework
+# Harness 和框架的区别
 
-A harness is code you write from scratch to wrap a model with tools, memory, and context. A framework is a library that provides abstractions for building agents — LangChain, CrewAI, AutoGen, and others. The choice between them isn't about which is "better" — it's about when each one pays off.
+Harness 是你从头写的代码，用来给模型包上工具、记忆和上下文。框架是用于构建 Agent 的库 — LangChain、CrewAI、AutoGen 等。两者之间的选择不是"谁更好"的问题，而是什么场景下各自更划算。
 
-## Why It Matters
+## 为什么重要
 
-Picking the wrong approach costs real time. A framework adds 500+ dependencies and layers of abstraction for a task that might need 50 lines of Python. Conversely, hand-rolling multi-agent orchestration from scratch when CrewAI already solves it wastes weeks. The decision tree below helps you choose.
+选错方案会浪费真金白银的时间。一个框架引入 500+ 依赖和多层抽象，而你的需求可能只要 50 行 Python 就能搞定。反过来，当 CrewAI 已经解决了多 Agent 编排的问题时，你从头手搓就是在浪费几周时间。下面的决策树帮你做选择。
 
-## Decision Tree
+## 决策树
 
 ```
-Need an agent? 
+需要一个 Agent？
 │
-├── Is it a single-model loop with < 5 tools?
-│   └── YES → Write a raw harness (50-200 lines)
+├── 是不是单模型循环 + 不到 5 个工具？
+│   └── 是 → 写原生 Harness（50-200 行）
 │
-├── Do you need multi-agent orchestration out of the box?
-│   └── YES → Consider CrewAI or AutoGen
+├── 需要开箱即用的多 Agent 编排？
+│   └── 是 → 考虑 CrewAI 或 AutoGen
 │
-├── Do you need complex RAG pipelines with vector stores?
-│   └── YES → Consider LangChain
+├── 需要复杂的 RAG 管道 + 向量存储？
+│   └── 是 → 考虑 LangChain
 │
-├── Is this a production product where you need full control?
-│   └── YES → Write a raw harness (own every line)
+├── 这是一个需要完全掌控的生产产品？
+│   └── 是 → 写原生 Harness（每一行代码都是你的）
 │
-├── Are you prototyping / exploring quickly?
-│   └── YES → Framework is fine, expect to rewrite later
+├── 只是在快速验证原型？
+│   └── 是 → 框架没问题，做好后面重写的准备
 │
-└── Do you need to understand what's actually happening?
-    └── YES → Write a raw harness first, then decide
+└── 你需要搞清楚底层到底发生了什么？
+    └── 是 → 先写一个原生 Harness，然后再决定
 ```
 
-## The Same Task: Three Ways
+## 同一个任务：三种实现方式
 
-**Task**: Read a CSV file, analyze it, and write a summary to a Markdown file.
+**任务**: 读取一个 CSV 文件，分析数据，把摘要写入 Markdown 文件。
 
-### Raw Harness (~60 lines)
+### 原生 Harness（~60 行）
 
 ```python
 import json, csv, io
@@ -100,11 +100,11 @@ def run(task):
 run("Read data.csv, analyze the trends, and write a summary to report.md")
 ```
 
-**Dependencies**: `openai` (1 package)
-**Lines of code**: ~60
-**You control**: everything
+**依赖**: `openai`（1 个包）
+**代码行数**: ~60
+**你掌控的**: 一切
 
-### LangChain (~40 lines, but...)
+### LangChain（~40 行，但是……）
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -136,11 +136,11 @@ executor = AgentExecutor(agent=agent, tools=[read_file, write_file], verbose=Tru
 executor.invoke({"input": "Read data.csv, analyze trends, write summary to report.md"})
 ```
 
-**Dependencies**: `langchain`, `langchain-openai`, `langchain-core`, plus their transitive deps (~50+ packages)
-**Lines of code**: ~40 (but the abstraction layers below are thousands)
-**You control**: tool definitions, prompt template. Everything else is LangChain's.
+**依赖**: `langchain`、`langchain-openai`、`langchain-core`，加上它们的传递依赖（~50+ 个包）
+**代码行数**: ~40（但底层的抽象层有数千行）
+**你掌控的**: 工具定义、prompt 模板。其他全是 LangChain 的。
 
-### CrewAI (~35 lines)
+### CrewAI（~35 行）
 
 ```python
 from crewai import Agent, Task, Crew
@@ -164,28 +164,28 @@ crew = Crew(agents=[analyst], tasks=[task], verbose=True)
 crew.kickoff()
 ```
 
-**Dependencies**: `crewai`, `crewai-tools`, plus their deps (~80+ packages)
-**Lines of code**: ~35
-**You control**: agent roles, task descriptions. Execution flow is CrewAI's.
+**依赖**: `crewai`、`crewai-tools`，加上它们的依赖（~80+ 个包）
+**代码行数**: ~35
+**你掌控的**: Agent 角色、任务描述。执行流程是 CrewAI 的。
 
-## The Tradeoff Matrix
+## 权衡矩阵
 
-| Dimension | Raw Harness | LangChain | CrewAI |
-|-----------|------------|-----------|--------|
-| Lines of code | More | Less | Least |
-| Dependencies | 1 | ~50 | ~80 |
-| Debugging | Easy (it's your code) | Hard (deep stack traces) | Medium |
-| Flexibility | Total | Limited by abstractions | Role-based only |
-| Multi-agent | Build it yourself | Possible but complex | Built-in |
-| Learning curve | Understand the model API | Learn LangChain concepts | Learn CrewAI concepts |
-| Upgrade path | Change what you want | Wait for LangChain updates | Wait for CrewAI updates |
-| Production readiness | You decide | Depends on version stability | Newer, less battle-tested |
+| 维度 | 原生 Harness | LangChain | CrewAI |
+|------|-------------|-----------|--------|
+| 代码行数 | 更多 | 更少 | 最少 |
+| 依赖 | 1 个 | ~50 | ~80 |
+| 调试 | 简单（就是你的代码） | 困难（深层堆栈跟踪） | 中等 |
+| 灵活性 | 完全掌控 | 受抽象层限制 | 只能基于角色 |
+| 多 Agent | 自己搭 | 可以但复杂 | 内置 |
+| 学习曲线 | 理解模型 API | 学 LangChain 概念 | 学 CrewAI 概念 |
+| 升级路径 | 想改哪里改哪里 | 等 LangChain 更新 | 等 CrewAI 更新 |
+| 生产就绪 | 你说了算 | 取决于版本稳定性 | 更新、实战检验更少 |
 
-## The Hidden Cost of Frameworks
+## 框架的隐性成本
 
-### 1. Debugging Black Boxes
+### 1. 调试黑盒
 
-When something breaks in a raw harness, you look at your 60 lines. When something breaks in LangChain:
+在原生 Harness 里出了问题，你看你的 60 行代码。在 LangChain 里出问题：
 
 ```
 File "langchain/agents/openai_tools/base.py", line 147, in _plan
@@ -195,51 +195,51 @@ File "langchain_core/callbacks/manager.py", line 442, in _handle_event
 ...
 ```
 
-You're debugging someone else's architecture.
+你在调试别人的架构。
 
-### 2. Abstraction Lock-in
+### 2. 抽象锁定
 
-Want to add streaming? Custom memory? A non-standard tool calling pattern? In a raw harness, you just write it. In a framework, you work within its extension points — or fork the library.
+想加流式输出？自定义记忆？非标准的工具调用模式？在原生 Harness 里，直接写。在框架里，你得在它的扩展点里操作 — 或者 fork 整个库。
 
-### 3. Version Churn
+### 3. 版本变更
 
-LangChain has had multiple major API overhauls. Code written 6 months ago may not run today. A raw harness with just the `openai` package has been stable for years.
+LangChain 经历过多次大版本 API 重构。6 个月前写的代码今天可能已经跑不了了。只用 `openai` 包的原生 Harness 已经稳定运行了好几年。
 
-## When Frameworks Win
+## 框架什么时候更好
 
-Frameworks aren't bad. They genuinely help when:
+框架不是坏东西。在这些场景下它们确实有帮助：
 
-- **You're prototyping** — Get something working in an afternoon to validate an idea. Rewrite later.
-- **Multi-agent orchestration** — CrewAI's agent-task model is genuinely good for complex multi-role workflows.
-- **RAG pipelines** — LangChain's document loaders, splitters, and vector store integrations save real work.
-- **You don't care about the plumbing** — If the agent is a small part of a bigger product and you just need it to work.
+- **你在做原型** — 用一个下午把东西跑通来验证想法。后面再重写。
+- **多 Agent 编排** — CrewAI 的 agent-task 模型对复杂的多角色工作流确实好用。
+- **RAG 管道** — LangChain 的文档加载器、分割器和向量存储集成省了很多活。
+- **你不关心底层管道** — 如果 Agent 只是更大产品的一小部分，你只需要它能跑。
 
-## The Hybrid Approach
+## 混合方案
 
-Many production teams start with a framework and migrate to a raw harness:
+很多生产团队先用框架起步，再迁移到原生 Harness：
 
 ```
-Week 1:  LangChain prototype → "It works!"
-Week 4:  Hit a limitation → "Why can't I do X?"
-Week 8:  Fork/override half the framework → "I'm fighting the framework"
-Week 12: Rewrite as raw harness → "This is 200 lines and does exactly what I need"
+第 1 周:  LangChain 原型 → "能跑了！"
+第 4 周:  撞上限制 → "为什么做不了 X？"
+第 8 周:  Fork / 覆写了框架一半的东西 → "我在跟框架对着干"
+第 12 周: 重写为原生 Harness → "200 行代码，精准满足我的需求"
 ```
 
-This is fine. The framework taught you what you need. The harness gives you control.
+这完全没问题。框架教会了你需要什么。Harness 给你掌控权。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Starting with a framework before understanding the basics** — You can't debug what you don't understand. Build a raw harness once, even if you never use it in production.
-- **Choosing based on GitHub stars** — Stars ≠ fit. A framework with 80K stars that's designed for RAG pipelines won't help you build a coding agent.
-- **Fear of "reinventing the wheel"** — The wheel here is 50 lines of Python. It's not that much wheel.
+- **在理解基础之前就上框架** — 你无法调试你不理解的东西。先从头搭一个原生 Harness，哪怕生产环境不用它。
+- **根据 GitHub stars 选型** — Stars ≠ 适合。一个 80K stars 的框架如果是为 RAG 管道设计的，对你搭 coding agent 没有帮助。
+- **害怕"重新造轮子"** — 这里的轮子就 50 行 Python。没多少轮子好造的。
 
-## Further Reading
+## 延伸阅读
 
-- [LangChain Documentation](https://python.langchain.com/) — The most popular framework
-- [CrewAI Documentation](https://docs.crewai.com/) — Multi-agent orchestration
-- [AutoGen](https://microsoft.github.io/autogen/) — Microsoft's multi-agent framework
-- [Your First Harness](your-first-harness.md) — Build the raw version yourself
+- [LangChain Documentation](https://python.langchain.com/) — 最流行的框架
+- [CrewAI Documentation](https://docs.crewai.com/) — 多 Agent 编排
+- [AutoGen](https://microsoft.github.io/autogen/) — 微软的多 Agent 框架
+- [搭建你的第一个 Harness](your-first-harness.md) — 自己动手搭原生版本
 
 ---
 
-*Next: [The MEMORY.md Pattern →](memory-md.md)*
+*下一篇: [MEMORY.md 模式 →](memory-md.md)*

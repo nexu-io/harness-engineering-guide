@@ -1,23 +1,23 @@
-# Your First Harness
+# 搭建你的第一个 Harness
 
-A harness is just a loop: send messages to a model, execute any tool calls it makes, feed the results back, and repeat until it's done. You can build a working one in under 50 lines of Python.
+Harness 就是一个循环：把消息发给模型，执行它发出的工具调用，把结果喂回去，重复直到完成。你可以用不到 50 行 Python 搭一个能跑的出来。
 
-## Why It Matters
+## 为什么重要
 
-Most agent tutorials start with a framework — LangChain, CrewAI, AutoGen. But frameworks hide the mechanism. Building a harness from scratch teaches you exactly what's happening: the tool loop, context assembly, and the model's decision-making process. Once you understand this, every framework becomes transparent.
+大多数 Agent 教程一上来就用框架 — LangChain、CrewAI、AutoGen。但框架隐藏了机制。从头搭建 Harness 能让你真正理解底层发生了什么：Tool Loop、上下文组装、模型的决策过程。一旦你理解了这些，任何框架对你来说都是透明的。
 
-## The Complete Harness
+## 完整的 Harness
 
-Here's a fully working harness with two tools (read file and write file). Copy-paste this and run it.
+这是一个带两个工具（读文件和写文件）的完整 Harness。复制粘贴就能跑。
 
-### Prerequisites
+### 前置条件
 
 ```bash
 pip install openai
 export OPENAI_API_KEY="sk-your-key-here"
 ```
 
-### The Code
+### 代码
 
 ```python
 #!/usr/bin/env python3
@@ -127,7 +127,7 @@ if __name__ == "__main__":
         print(f"\nAgent: {response}")
 ```
 
-### Try It
+### 试试看
 
 ```bash
 python harness.py
@@ -150,33 +150,33 @@ Agent: Here's the content of hello.txt:
 "Semicolons fall / Like rain upon the server / Compile error: none"
 ```
 
-## Anatomy of the Harness
+## Harness 的解剖
 
-The entire harness is four components:
+整个 Harness 由四个组件构成：
 
 ```
 ┌────────────────────────────────┐
-│         System Prompt          │  ← Who the agent is
+│         System Prompt          │  ← Agent 的身份定义
 ├────────────────────────────────┤
-│        Tool Definitions        │  ← What it can do (JSON schema)
+│        Tool Definitions        │  ← 它能做什么（JSON schema）
 ├────────────────────────────────┤
-│        Tool Execution          │  ← How tools actually run
+│        Tool Execution          │  ← 工具实际如何运行
 ├────────────────────────────────┤
-│          Tool Loop             │  ← The cycle: think → act → observe
+│          Tool Loop             │  ← 循环：思考 → 行动 → 观察
 └────────────────────────────────┘
 ```
 
-**System prompt**: Sets the agent's personality and constraints. This is the cheapest, highest-leverage piece — a single sentence change here can completely alter behavior.
+**System prompt**: 设定 Agent 的人设和约束。这是性价比最高的部分 — 改一句话就能完全改变行为。
 
-**Tool definitions**: JSON schemas the model reads to understand what tools exist. The model never sees your Python code — only the descriptions and parameter schemas.
+**Tool definitions**: 模型读取的 JSON schema，用来了解有哪些工具可用。模型永远看不到你的 Python 代码 — 只能看到描述和参数 schema。
 
-**Tool execution**: Your code that actually performs actions. The model outputs structured JSON; you parse it and do the real work.
+**Tool execution**: 你写的代码，真正执行动作。模型输出结构化 JSON；你解析并执行实际操作。
 
-**Tool loop**: The orchestrator. Call the model, check for tool calls, execute them, feed results back. Repeat until the model responds with plain text.
+**Tool Loop**: 编排器。调用模型、检查工具调用、执行、把结果喂回去。重复直到模型返回纯文本。
 
-## Adding a Third Tool
+## 添加第三个工具
 
-Want to add shell commands? Just add a tool definition and a handler:
+想加 shell 命令？只需要加一个工具定义和一个处理函数：
 
 ```python
 # Add to TOOLS list:
@@ -202,11 +202,11 @@ elif name == "run_shell":
     return r.stdout + r.stderr
 ```
 
-The loop doesn't change. The model automatically discovers and uses the new tool.
+循环不用改。模型会自动发现并使用新工具。
 
-## Swapping Models
+## 切换模型
 
-The harness is model-agnostic. Switch to Anthropic's Claude by changing the client:
+Harness 是模型无关的。换成 Anthropic 的 Claude 只需要改 client：
 
 ```python
 from anthropic import Anthropic
@@ -231,34 +231,34 @@ for block in response.content:
         result = execute_tool(block.name, block.input)
 ```
 
-Same loop. Same tools. Different model.
+同样的循环。同样的工具。不同的模型。
 
-## What's Missing (and What Comes Next)
+## 缺少什么（以及后续内容）
 
-This harness works, but production agents need more:
+这个 Harness 能用，但生产级 Agent 还需要更多：
 
-| Feature | This harness | Production harness |
-|---------|-------------|-------------------|
-| Memory | None (stateless) | MEMORY.md + daily logs |
-| Context management | Entire history | Priority-based windowing |
-| Error recovery | Basic try/catch | Retry + escalation |
-| Security | None | Sandboxed execution |
-| Tool loading | All at once | On-demand skills |
+| 特性 | 当前 Harness | 生产级 Harness |
+|------|-------------|---------------|
+| 记忆 | 无（无状态） | MEMORY.md + 每日日志 |
+| 上下文管理 | 完整历史 | 基于优先级的窗口化 |
+| 错误恢复 | 基础 try/catch | 重试 + 升级处理 |
+| 安全 | 无 | 沙箱执行 |
+| 工具加载 | 全部一次加载 | 按需加载 Skill |
 
-Each of these is covered in the rest of this guide.
+这些内容在本指南的后续章节中会逐一覆盖。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Forgetting to append the assistant message** — If you don't add `msg` to `messages` before the tool results, the model loses track of what it asked for. Always append the full assistant response first.
-- **Stringifying tool results wrong** — Tool results must be strings. If your tool returns a dict, `json.dumps()` it. Returning a raw Python object will crash.
-- **No iteration limit** — Without `MAX_TURNS`, a confused model can loop forever, burning tokens. Always cap it.
+- **忘记追加 assistant 消息** — 如果你不把 `msg` 加到 `messages` 里（在工具结果之前），模型会丢失它请求的上下文。一定要先追加完整的 assistant 响应。
+- **工具结果序列化错误** — 工具结果必须是字符串。如果你的工具返回 dict，用 `json.dumps()` 转换。返回原始 Python 对象会直接崩溃。
+- **没有迭代上限** — 没有 `MAX_TURNS` 的话，困惑的模型可能会无限循环，疯狂烧 Token。一定要设上限。
 
-## Further Reading
+## 延伸阅读
 
-- [OpenAI Function Calling Guide](https://platform.openai.com/docs/guides/function-calling) — Official docs on tool definitions
-- [Anthropic Tool Use Guide](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude's equivalent
-- [ReAct Paper](https://arxiv.org/abs/2210.03629) — The academic foundation for tool loops
+- [OpenAI Function Calling Guide](https://platform.openai.com/docs/guides/function-calling) — 工具定义的官方文档
+- [Anthropic Tool Use Guide](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude 的对应文档
+- [ReAct Paper](https://arxiv.org/abs/2210.03629) — Tool Loop 的学术基础
 
 ---
 
-*Next: [Harness vs. Framework →](harness-vs-framework.md)*
+*下一篇: [Harness 和框架的区别 →](harness-vs-framework.md)*

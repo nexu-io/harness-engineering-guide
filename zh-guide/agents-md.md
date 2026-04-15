@@ -1,16 +1,16 @@
-# The AGENTS.md Pattern
+# AGENTS.md 模式
 
-AGENTS.md is a plain-text file that defines how an AI agent should behave. Drop it in a directory, and any compatible harness will read it automatically — no config UI, no API calls, just a file.
+AGENTS.md 是一个纯文本文件，定义 AI Agent 应该如何行为。把它放到目录里，任何兼容的 Harness 都会自动读取 — 不需要配置 UI，不需要 API 调用，就是一个文件。
 
-## Why It Matters
+## 为什么重要
 
-Before AGENTS.md, agent behavior was configured through platform UIs, JSON configs, or scattered across code. The file-based approach solves three problems:
+在 AGENTS.md 出现之前，Agent 行为通过平台 UI、JSON 配置或分散在代码各处来配置。基于文件的方案解决了三个问题：
 
-1. **Version control** — Agent behavior lives in Git, reviewable in PRs
-2. **Portability** — Switch harness implementations without rewriting config
-3. **Transparency** — Anyone can read what the agent does and doesn't do
+1. **版本控制** — Agent 行为存在 Git 里，可以在 PR 中审查
+2. **可移植性** — 切换 Harness 实现不需要重写配置
+3. **透明性** — 任何人都能看到 Agent 做什么、不做什么
 
-## Basic Structure
+## 基本结构
 
 ```markdown
 # AGENTS.md
@@ -32,13 +32,13 @@ and follow the project's existing patterns.
 5. Commit with a descriptive message
 ```
 
-That's a working AGENTS.md. The agent reads it at session start and follows it throughout.
+这就是一个可用的 AGENTS.md。Agent 在会话开始时读取，全程遵循。
 
-## Real-World Examples
+## 真实案例
 
-### Claude Code (Anthropic)
+### Claude Code（Anthropic）
 
-Claude Code reads `CLAUDE.md` — same pattern, different filename:
+Claude Code 读取 `CLAUDE.md` — 同样的模式，不同的文件名：
 
 ```markdown
 # CLAUDE.md
@@ -59,7 +59,7 @@ This is a Next.js 14 app with TypeScript, Tailwind, and Prisma.
 
 ### OpenClaw / Nexu
 
-OpenClaw uses `AGENTS.md` plus companion files:
+OpenClaw 使用 `AGENTS.md` 加配套文件：
 
 ```markdown
 # AGENTS.md
@@ -79,11 +79,11 @@ Capture what matters. Skip secrets.
 - When in doubt, ask
 ```
 
-The companion files (`SOUL.md`, `USER.md`, `MEMORY.md`) are the agent's persistent context. The harness reads them at session start.
+配套文件（`SOUL.md`、`USER.md`、`MEMORY.md`）是 Agent 的持久化上下文。Harness 在会话开始时读取它们。
 
-## Advanced Patterns
+## 进阶用法
 
-### Conditional Rules
+### 条件规则
 
 ```markdown
 ## Rules
@@ -92,7 +92,7 @@ The companion files (`SOUL.md`, `USER.md`, `MEMORY.md`) are the agent's persiste
 - If CI fails: fix it before asking for review
 ```
 
-### Tool Restrictions
+### 工具限制
 
 ```markdown
 ## Allowed Tools
@@ -105,7 +105,7 @@ The companion files (`SOUL.md`, `USER.md`, `MEMORY.md`) are the agent's persiste
 - No `rm -rf` ever
 ```
 
-### Multi-Agent Setup
+### 多 Agent 设置
 
 ```markdown
 ## Sub-Agents
@@ -114,16 +114,16 @@ The companion files (`SOUL.md`, `USER.md`, `MEMORY.md`) are the agent's persiste
 - Deploy: requires human approval
 ```
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Too vague** — "Be helpful" is useless. "Run `pytest` after every code change" is useful.
-- **Too long** — The file goes into the context window. Every line costs tokens. Be concise.
-- **Contradictory rules** — "Always commit" + "Never commit without tests" + "Tests are optional" → agent confusion.
+- **太模糊** — "Be helpful" 没用。"Run `pytest` after every code change" 才有用。
+- **太长** — 文件会进 Context Window。每一行都消耗 Token。保持精简。
+- **矛盾的规则** — "Always commit" + "Never commit without tests" + "Tests are optional" → Agent 会混乱。
 
-## The Ecosystem
+## 生态系统
 
-| Harness | Config File | Auto-loaded? |
-|---------|------------|-------------|
+| Harness | 配置文件 | 自动加载？ |
+|---------|---------|----------|
 | Claude Code | CLAUDE.md | ✅ |
 | OpenClaw | AGENTS.md | ✅ |
 | Codex | codex.md | ✅ |
@@ -131,13 +131,13 @@ The companion files (`SOUL.md`, `USER.md`, `MEMORY.md`) are the agent's persiste
 | Cline | .clinerules | ✅ |
 | Cursor | .cursorrules | ✅ |
 
-The naming varies, but the pattern is universal: **a human-readable file in the repo root that defines agent behavior**.
+命名各有不同，但模式是通用的：**一个在仓库根目录的、人类可读的文件，定义 Agent 行为**。
 
-## Further Reading
+## 延伸阅读
 
-- [OpenAI: AGENTS.md as table of contents](https://openai.com/index/harness-engineering/) — How OpenAI uses AGENTS.md in Codex
-- [MEMORY.md Pattern →](memory-md.md) — The companion file for persistent memory
+- [OpenAI: AGENTS.md as table of contents](https://openai.com/index/harness-engineering/) — OpenAI 在 Codex 中如何使用 AGENTS.md
+- [MEMORY.md 模式 →](memory-md.md) — 持久化记忆的配套文件
 
 ---
 
-*Next: [The MEMORY.md Pattern →](memory-md.md)*
+*下一篇: [MEMORY.md 模式 →](memory-md.md)*

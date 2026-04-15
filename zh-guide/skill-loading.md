@@ -1,14 +1,14 @@
-# Skill Loading
+# Skill 按需加载
 
-Skill loading is the practice of giving an agent access to a large library of tools but only loading the ones needed for the current task. Instead of stuffing every tool definition into the context window upfront, the agent reads a menu of available skills and loads them on demand.
+Skill 按需加载的做法是：让 Agent 能访问一个大型工具库，但只加载当前任务需要的工具。不是把所有工具定义一股脑塞进 Context Window，而是让 Agent 先看一个可用 Skill 的菜单，需要时再按需加载。
 
-## Why It Matters
+## 为什么重要
 
-Every tool definition costs tokens. A typical tool schema is 100-300 tokens. If your agent has 50 tools loaded at all times, that's 5,000-15,000 tokens consumed before any conversation starts — every single session. Skill loading cuts this to ~500 tokens for the menu plus ~300 tokens per tool actually used. For agents with large toolsets, this saves 80-90% of tool-related token costs.
+每个工具定义都消耗 Token。典型的工具 schema 占 100-300 Token。如果你的 Agent 始终加载 50 个工具，在任何对话开始之前就要消耗 5,000-15,000 Token — 每次会话都是如此。Skill 按需加载把这个开销降到约 500 Token（菜单）+ 每个实际使用的工具约 300 Token。对于工具集很大的 Agent，这能节省 80-90% 的工具相关 Token 成本。
 
-## The SKILL.md Pattern
+## SKILL.md 模式
 
-Each skill lives in its own directory with a `SKILL.md` file that describes what it does and how to use it:
+每个 Skill 有自己的目录和一个 `SKILL.md` 文件，描述它能做什么以及如何使用：
 
 ```
 skills/
@@ -24,7 +24,7 @@ skills/
     └── SKILL.md
 ```
 
-A SKILL.md file:
+一个 SKILL.md 文件：
 
 ```markdown
 # GitHub Skill
@@ -51,9 +51,9 @@ labels: [bug, feature, docs]
 ```
 ```
 
-## The Menu System
+## 菜单系统
 
-Instead of loading all tools, the agent sees a compact menu:
+Agent 看到的不是所有工具，而是一个紧凑的菜单：
 
 ```python
 import os, glob
@@ -80,7 +80,7 @@ def build_skill_menu(skills_dir: str) -> str:
     return "\n".join(menu_lines)
 ```
 
-This produces a menu like:
+生成的菜单如下：
 
 ```markdown
 # Available Skills
@@ -93,11 +93,11 @@ Load a skill by name when you need it.
 - **web-search**: Search the web using multiple engines.
 ```
 
-**Cost**: ~150 tokens for 5 skills, vs ~1,500+ tokens if all tool schemas were loaded.
+**成本**：5 个 Skill 约 150 Token，相比之下加载所有工具 schema 需要 1,500+ Token。
 
-## The Load Tool
+## 加载工具
 
-Give the agent a tool to load a skill when needed:
+给 Agent 一个按需加载 Skill 的工具：
 
 ```python
 LOADED_SKILLS = {}
@@ -134,31 +134,31 @@ SKILL_LOADER_TOOL = {
 }
 ```
 
-## Token Cost Comparison
+## Token 成本对比
 
-A real-world example with 20 skills:
+一个有 20 个 Skill 的实际案例：
 
 ```
-Approach: All tools loaded at once
+方案：全部加载
 ─────────────────────────────────
 20 skills × ~250 tokens/tool = 5,000 tokens
 × 3 tools avg per skill = 15,000 tokens
-Per session, every session
+每次会话都要付出的成本
 
-Approach: Menu + on-demand loading
+方案：菜单 + 按需加载
 ──────────────────────────────────
-Menu:           20 × ~15 tokens = 300 tokens   (every session)
-Loaded skills:  2 × ~400 tokens = 800 tokens   (only when used)
-Total:                           = 1,100 tokens
+菜单:           20 × ~15 tokens = 300 tokens   (每次会话)
+加载的 Skill:   2 × ~400 tokens = 800 tokens   (只在使用时)
+总计:                            = 1,100 tokens
 
-Savings: ~13,900 tokens per session (93% reduction)
-At $3/M input tokens: saves ~$0.04 per session
-At 1,000 sessions/day: saves ~$40/day = $1,200/month
+节省: 每次会话约 13,900 Token（93% 降幅）
+按 $3/M input tokens 计: 每次会话省 ~$0.04
+每天 1,000 次会话: 每天省 ~$40 = 每月 $1,200
 ```
 
-## Auto-Detection Pattern
+## 自动检测模式
 
-For a smarter approach, let the harness auto-detect which skills might be relevant:
+更智能的方案是让 Harness 自动判断哪些 Skill 可能相关：
 
 ```python
 import re
@@ -189,9 +189,9 @@ for skill_name in suggestions:
     load_skill("skills/", skill_name)
 ```
 
-## Skill Composition
+## Skill 组合
 
-Skills can reference other skills:
+Skill 之间可以相互引用：
 
 ```markdown
 # Deploy Skill
@@ -208,7 +208,7 @@ Deploy static websites to Cloudflare Pages.
 3. Deploy with `wrangler pages deploy`
 ```
 
-The harness handles transitive loading:
+Harness 处理传递加载：
 
 ```python
 def load_skill_with_deps(skills_dir: str, name: str) -> list[str]:
@@ -227,9 +227,9 @@ def load_skill_with_deps(skills_dir: str, name: str) -> list[str]:
     return loaded
 ```
 
-## Unloading Skills
+## 卸载 Skill
 
-For long sessions, unload skills that are no longer needed:
+对于长会话，可以卸载不再需要的 Skill：
 
 ```python
 def unload_skill(name: str) -> str:
@@ -249,17 +249,17 @@ def get_active_context() -> str:
     return "\n\n---\n\n".join(parts)
 ```
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Loading all skills "just in case"** — This defeats the purpose. Trust the model to load what it needs, or use auto-detection with a conservative keyword list.
-- **Skill descriptions that are too vague** — "Useful utility skill" tells the model nothing. Be specific: "Read and send email via IMAP/SMTP. Supports Gmail, Outlook, 163.com."
-- **Forgetting to include the menu in the system prompt** — If the model doesn't know skills exist, it can't load them. Always include the menu even when no skills are pre-loaded.
+- **"以防万一"加载所有 Skill** — 这样做就失去了意义。相信模型能按需加载它需要的东西，或者用保守的关键词列表做自动检测。
+- **Skill 描述太模糊** — "Useful utility skill" 对模型毫无帮助。要写具体："Read and send email via IMAP/SMTP. Supports Gmail, Outlook, 163.com."
+- **忘记在 system prompt 中包含菜单** — 如果模型不知道有哪些 Skill 存在，它就无法加载。即使没有预加载任何 Skill，菜单也要始终包含。
 
-## Further Reading
+## 延伸阅读
 
-- [OpenClaw Skills Architecture](https://github.com/anthropics/anthropic-cookbook) — Production skill loading system
-- [Gorilla: Large Language Model Connected with Massive APIs](https://arxiv.org/abs/2305.15334) — Research on LLMs selecting from large API libraries
+- [OpenClaw Skills Architecture](https://github.com/anthropics/anthropic-cookbook) — 生产级 Skill 加载系统
+- [Gorilla: Large Language Model Connected with Massive APIs](https://arxiv.org/abs/2305.15334) — LLM 从大型 API 库中选择的研究
 
 ---
 
-*Next: [Thin Harness Architecture →](thin-harness.md)*
+*下一篇: [薄 Harness 架构 →](thin-harness.md)*

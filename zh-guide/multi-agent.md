@@ -1,14 +1,14 @@
-# Multi-Agent Patterns
+# 多 Agent 模式
 
-Multi-agent systems use two or more agents to accomplish tasks that are too complex, too large, or too varied for a single context window. The patterns range from a simple leader that delegates subtasks to fully autonomous agents that discover and claim work independently.
+多 Agent 系统使用两个或更多 Agent 来完成单个 Context Window 难以胜任的复杂、大规模或多样化任务。模式从简单的 Leader 委派子任务，到完全自主的 Agent 自行发现和认领工作，覆盖范围很广。
 
-## Why It Matters
+## 为什么重要
 
-A single agent hits three walls: context window limits (can't hold an entire codebase), capability limits (one agent can't be expert at everything), and time limits (serial execution is slow). Multi-agent patterns break through all three by splitting work across parallel, independent contexts — each agent with its own tools, memory, and focus.
+单个 Agent 会撞上三面墙：Context Window 限制（装不下整个代码库）、能力限制（一个 Agent 不可能精通所有领域）、时间限制（串行执行太慢）。多 Agent 模式通过将工作拆分到并行、独立的上下文中来突破这三重限制——每个 Agent 拥有自己的工具、记忆和关注点。
 
-## Pattern 1: Leader-Worker
+## 模式 1：Leader-Worker
 
-The simplest pattern. A leader agent receives a task, decomposes it, spawns worker agents, and synthesizes their results.
+最简单的模式。一个 Leader Agent 接收任务，分解任务，生成 Worker Agent，最后汇总结果。
 
 ```python
 import json
@@ -62,9 +62,9 @@ Task: {task}"""
     return synthesis.choices[0].message.content
 ```
 
-## Pattern 2: File-Based Inbox
+## 模式 2：基于文件的收件箱
 
-Agents communicate through files on disk. No network, no message queue — just a shared directory. Simple, debuggable, and works with any agent.
+Agent 之间通过磁盘上的文件通信。不需要网络，不需要消息队列——只要一个共享目录就够了。简单、可调试，兼容任何 Agent。
 
 ```
 work/
@@ -80,7 +80,7 @@ work/
     └── task-000.md      # Output from completed task
 ```
 
-The inbox protocol:
+收件箱协议：
 
 ```python
 import json, os, shutil, time, fcntl
@@ -126,9 +126,9 @@ def complete_task(task_id: str, result: str):
         f.write(result)
 ```
 
-## Pattern 3: Request-Response Handshake
+## 模式 3：请求-响应握手
 
-For tightly coordinated work — one agent needs another's output before continuing.
+适用于紧耦合协作——一个 Agent 需要等待另一个 Agent 的输出才能继续。
 
 ```python
 import uuid, time
@@ -156,9 +156,9 @@ def request_response(requester_client, responder_client, request: str, shared_di
     raise TimeoutError(f"No response for request {req_id}")
 ```
 
-## Pattern 4: Auto-Claim Workers
+## 模式 4：自动认领 Worker
 
-Workers run continuously, claiming tasks from a shared queue. Scale by adding more workers.
+Worker 持续运行，从共享队列中认领任务。需要扩容时只要加 Worker 即可。
 
 ```python
 # worker.py — runs as a persistent process
@@ -187,7 +187,7 @@ def worker_loop(worker_id: str):
             print(f"Worker {worker_id} failed: {task['id']} — {e}")
 ```
 
-Launch multiple workers:
+启动多个 Worker：
 
 ```bash
 # Start 3 parallel workers
@@ -199,9 +199,9 @@ python worker.py --id worker-3 &
 python post_tasks.py --task "Fix bug #123" --task "Write tests for auth" --task "Update README"
 ```
 
-## Pattern 5: Git Worktree Isolation
+## 模式 5：Git Worktree 隔离
 
-For coding agents, each worker gets its own git worktree — a separate working directory on a separate branch, so they can't conflict.
+对于编码 Agent，每个 Worker 获得独立的 Git worktree——单独的工作目录和分支，互不冲突。
 
 ```bash
 # Create isolated worktrees for each worker
@@ -238,39 +238,39 @@ def spawn_coding_agent(repo_dir: str, branch: str, task: str) -> str:
         subprocess.run(["git", "worktree", "remove", worktree_dir], cwd=repo_dir)
 ```
 
-## Choosing a Pattern
+## 如何选择模式
 
 ```
-Need parallel execution?
+需要并行执行？
 │
-├── Tasks are independent → Auto-Claim Workers (Pattern 4)
-│   (e.g., fix 5 bugs simultaneously)
+├── 任务相互独立 → 自动认领 Worker（模式 4）
+│   （例：同时修 5 个 bug）
 │
-├── Tasks need coordination → Leader-Worker (Pattern 1)
-│   (e.g., decompose a feature, then integrate)
+├── 任务需要协调 → Leader-Worker（模式 1）
+│   （例：分解一个功能，然后集成）
 │
-├── Tasks modify shared files → Git Worktree Isolation (Pattern 5)
-│   (e.g., multiple code changes in one repo)
+├── 任务修改共享文件 → Git Worktree 隔离（模式 5）
+│   （例：同一仓库中的多个代码改动）
 │
-├── Agents need to talk → Request-Response (Pattern 3)
-│   (e.g., code agent asks review agent for feedback)
+├── Agent 之间需要对话 → 请求-响应（模式 3）
+│   （例：编码 Agent 向审查 Agent 请求反馈）
 │
-└── Simple, debuggable → File-Based Inbox (Pattern 2)
-    (e.g., any of the above, but you want to inspect state easily)
+└── 追求简单可调试 → 基于文件的收件箱（模式 2）
+    （例：以上任一场景，但你想方便地查看状态）
 ```
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Shared mutable state** — Two agents editing the same file simultaneously guarantees conflicts. Use git worktrees or assign files exclusively.
-- **Over-decomposing** — Splitting a 30-minute task into 10 subtasks adds coordination overhead (spawning, synthesizing) that may exceed the time saved. Only parallelize when each subtask takes 2+ minutes.
-- **Ignoring failure modes** — What happens when worker 2 of 5 fails? Design for partial failure: retry individual tasks, let the leader work with incomplete results, or have a human review step.
+- **共享可变状态** — 两个 Agent 同时编辑同一个文件必然产生冲突。使用 Git worktree 或独占分配文件。
+- **过度分解** — 把 30 分钟的任务拆成 10 个子任务会带来协调开销（生成、汇总），可能超过节省的时间。只有每个子任务耗时 2 分钟以上时才值得并行化。
+- **忽略失败模式** — 5 个 Worker 中第 2 个失败了怎么办？要为部分失败做设计：重试单个任务、让 Leader 用不完整的结果继续工作、或加入人工审查环节。
 
-## Further Reading
+## 延伸阅读
 
-- [AutoGen: Multi-Agent Conversations](https://microsoft.github.io/autogen/) — Microsoft's multi-agent framework
-- [CrewAI](https://docs.crewai.com/) — Role-based multi-agent orchestration
-- [Git Worktree Isolation →](git-worktree-isolation.md) — Deep dive on worktree-based parallelism
+- [AutoGen: Multi-Agent Conversations](https://microsoft.github.io/autogen/) — 微软的多 Agent 框架
+- [CrewAI](https://docs.crewai.com/) — 基于角色的多 Agent 编排
+- [Git Worktree 隔离 →](git-worktree-isolation.md) — 基于 worktree 的并行化深入讲解
 
 ---
 
-*Next: [Git Worktree Isolation →](git-worktree-isolation.md)*
+*下一篇：[Git Worktree 隔离 →](git-worktree-isolation.md)*

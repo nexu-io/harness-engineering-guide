@@ -1,34 +1,34 @@
-# Scaling Dimensions
+# 三维扩展
 
-Not all agents need to scale the same way. A code editor agent needs to see many files simultaneously. A research agent needs to think for minutes on a single question. A customer service agent needs to coordinate with humans and other agents. These are three fundamentally different scaling axes.
+不是所有 Agent 都需要以相同的方式扩展。代码编辑器 Agent 需要同时看到很多文件。研究型 Agent 需要在一个问题上思考几分钟。客服 Agent 需要与人类和其他 Agent 协作。这是三个根本不同的扩展维度。
 
-Wayne Zhang's framework identifies three dimensions of agent scaling: **Time**, **Space**, and **Interaction**. Understanding which dimension your use case needs determines how you design the harness.
+Wayne Zhang 的框架提出了 Agent 扩展的三个维度：**时间**、**空间**和**交互**。理解你的场景需要哪个维度，决定了你如何设计 Harness。
 
-## The Three Dimensions
+## 三个维度
 
 ```
-                        Time (Depth)
+                        Time (深度)
                         │
-                        │  Longer context windows
-                        │  Deeper reasoning chains
-                        │  Extended planning
+                        │  更大的 Context Window
+                        │  更深的推理链
+                        │  更长的规划
                         │
                         │
-     Space (Breadth) ───┼─── Interaction (Coordination)
-     Multi-file scope       Multi-agent collaboration
-     Repo-wide context      Human-in-the-loop
-     Cross-system reach     Orchestration patterns
+     Space (广度) ──────┼────── Interaction (协作)
+     多文件范围                 多 Agent 协作
+     仓库级上下文               人工介入循环
+     跨系统触达                 编排模式
 ```
 
-Each dimension maps to different harness design decisions, different performance bottlenecks, and different product categories.
+每个维度对应不同的 Harness 设计决策、不同的性能瓶颈和不同的产品类别。
 
-## Dimension 1: Time (Depth)
+## 维度 1：时间（深度）
 
-**Exemplar:** Anthropic's Claude (deep thinking, extended context)
+**代表产品：** Anthropic 的 Claude（深度思考，超长上下文）
 
-Time scaling means giving the agent more *sequential* reasoning capacity. More thinking steps, longer context windows, deeper chains of thought.
+时间扩展意味着给 Agent 更多的*顺序*推理能力。更多的思考步骤，更大的 Context Window，更深的思维链。
 
-### What Time Scaling Looks Like
+### 时间扩展的样子
 
 ```python
 # Shallow (low time scaling): single-turn, fast response
@@ -43,15 +43,15 @@ response = llm.chat(
 )
 ```
 
-### Harness Design for Time Scaling
+### 时间维度的 Harness 设计
 
-| Design Decision | Time-Optimized Choice |
-|---|---|
-| **Context window** | Maximum (200K+). Load entire files, full history. |
-| **Thinking budget** | High. Let the model reason internally before responding. |
-| **Tool loop iterations** | Many (50+). Complex tasks need many sequential steps. |
-| **Memory strategy** | Dense. Include full conversation history, prior analysis. |
-| **Timeout** | Long (minutes). Deep analysis takes time. |
+| 设计决策 | 时间优化的选择 |
+|----------|----------------|
+| **Context Window** | 最大化（200K+）。加载完整文件、完整历史。 |
+| **思考预算** | 高。让模型在响应前做内部推理。 |
+| **Tool Loop 迭代** | 多（50+）。复杂任务需要很多顺序步骤。 |
+| **记忆策略** | 密集。包含完整对话历史、之前的分析。 |
+| **超时** | 长（分钟级）。深度分析需要时间。 |
 
 ```python
 class TimeOptimizedHarness:
@@ -90,15 +90,15 @@ and correct than fast and wrong. Use extended thinking for
 complex reasoning before responding."""
 ```
 
-**Use cases:** Security auditing, code review, legal analysis, research, debugging complex systems.
+**适用场景：** 安全审计、代码审查、法律分析、研究、复杂系统调试。
 
-## Dimension 2: Space (Breadth)
+## 维度 2：空间（广度）
 
-**Exemplar:** Cursor (multi-file, repo-wide operations)
+**代表产品：** Cursor（多文件，仓库级操作）
 
-Space scaling means giving the agent a wider *simultaneous* view. More files at once, more systems in scope, broader context across a project.
+空间扩展意味着给 Agent 更宽的*同时*视野。同时看更多文件，覆盖更多系统，在整个项目范围内建立更广的上下文。
 
-### What Space Scaling Looks Like
+### 空间扩展的样子
 
 ```python
 # Narrow (low space scaling): single file
@@ -111,15 +111,15 @@ response = agent.run(
 )
 ```
 
-### Harness Design for Space Scaling
+### 空间维度的 Harness 设计
 
-| Design Decision | Space-Optimized Choice |
-|---|---|
-| **Context strategy** | Selective loading. Index everything, load on demand. |
-| **File indexing** | Required. The agent needs to *find* relevant files fast. |
-| **Tool design** | Grep, tree, search tools. Navigation > reading everything. |
-| **Context compression** | Aggressive. Summarize files to fit more in context. |
-| **Parallelism** | High. Read multiple files simultaneously. |
+| 设计决策 | 空间优化的选择 |
+|----------|----------------|
+| **上下文策略** | 选择性加载。索引一切，按需加载。 |
+| **文件索引** | 必须。Agent 需要快速*找到*相关文件。 |
+| **工具设计** | grep、tree、搜索工具。导航 > 读完所有内容。 |
+| **上下文压缩** | 激进。摘要文件以在上下文中塞入更多。 |
+| **并行度** | 高。同时读取多个文件。 |
 
 ```python
 class SpaceOptimizedHarness:
@@ -178,15 +178,15 @@ class SpaceOptimizedHarness:
         return overview
 ```
 
-**Use cases:** Large refactors, codebase migrations, multi-file feature development, cross-service changes.
+**适用场景：** 大规模重构、代码库迁移、多文件功能开发、跨服务修改。
 
-## Dimension 3: Interaction (Coordination)
+## 维度 3：交互（协作）
 
-**Exemplar:** OpenAI's multi-agent architecture, human-in-the-loop systems
+**代表产品：** OpenAI 的多 Agent 架构，人工介入系统
 
-Interaction scaling means giving the agent the ability to collaborate — with other agents, with humans, or with external systems — during task execution.
+交互扩展意味着给 Agent 在任务执行过程中与其他 Agent、人类或外部系统协作的能力。
 
-### What Interaction Scaling Looks Like
+### 交互扩展的样子
 
 ```python
 # Solo (low interaction): agent works alone
@@ -211,15 +211,15 @@ result = await orchestrator.run(
 )
 ```
 
-### Harness Design for Interaction Scaling
+### 交互维度的 Harness 设计
 
-| Design Decision | Interaction-Optimized Choice |
-|---|---|
-| **Architecture** | Multi-agent with message passing. |
-| **Session model** | Shared context between agents, isolated execution. |
-| **Human touchpoints** | Explicit approval gates, escalation policies. |
-| **Communication** | Structured handoffs with clear input/output contracts. |
-| **Error recovery** | Delegate to specialist agent or escalate to human. |
+| 设计决策 | 交互优化的选择 |
+|----------|----------------|
+| **架构** | 多 Agent + 消息传递。 |
+| **会话模型** | Agent 间共享上下文，执行隔离。 |
+| **人工触点** | 显式的审批门、升级策略。 |
+| **通信** | 结构化交接，清晰的输入/输出契约。 |
+| **错误恢复** | 委派给专家 Agent 或升级给人工。 |
 
 ```python
 class InteractionOptimizedHarness:
@@ -277,44 +277,44 @@ class InteractionOptimizedHarness:
         return response.lower() == "y"
 ```
 
-**Use cases:** Content pipelines, customer service with escalation, code review workflows, research teams.
+**适用场景：** 内容流水线、带升级机制的客服、代码审查流程、研究团队。
 
-## Mapping Dimensions to Products
+## 维度到产品的映射
 
-Real products combine all three dimensions but emphasize different ones:
+真实产品组合了三个维度，但各有侧重：
 
-| Product | Time | Space | Interaction | Primary Focus |
-|---------|------|-------|-------------|---------------|
-| **Claude Code** | ★★★ | ★★ | ★ | Deep reasoning on code |
-| **Cursor** | ★★ | ★★★ | ★ | Repo-wide awareness |
-| **OpenAI Codex** | ★★ | ★★ | ★★ | Balanced, sandboxed |
-| **OpenClaw** | ★★ | ★★ | ★★★ | Multi-agent, skills |
-| **Devin** | ★★★ | ★★★ | ★★ | End-to-end autonomy |
-| **ChatGPT** | ★★★ | ★ | ★ | General reasoning |
+| 产品 | 时间 | 空间 | 交互 | 主要侧重 |
+|------|------|------|------|----------|
+| **Claude Code** | ★★★ | ★★ | ★ | 代码的深度推理 |
+| **Cursor** | ★★ | ★★★ | ★ | 仓库级感知 |
+| **OpenAI Codex** | ★★ | ★★ | ★★ | 平衡，沙箱化 |
+| **OpenClaw** | ★★ | ★★ | ★★★ | 多 Agent，Skill |
+| **Devin** | ★★★ | ★★★ | ★★ | 端到端自主 |
+| **ChatGPT** | ★★★ | ★ | ★ | 通用推理 |
 
-## Choosing Your Scaling Strategy
+## 选择你的扩展策略
 
-Ask three questions about your use case:
+对你的场景问三个问题：
 
-1. **Does the task require deep thinking?** (Time) → Invest in larger context, longer timeouts, extended thinking.
+1. **任务需要深度思考吗？**（时间）→ 投资更大的上下文、更长的超时、扩展思考。
 
-2. **Does the task span many files or systems?** (Space) → Invest in indexing, search tools, context compression.
+2. **任务跨越很多文件或系统吗？**（空间）→ 投资索引、搜索工具、上下文压缩。
 
-3. **Does the task require collaboration?** (Interaction) → Invest in multi-agent orchestration, human touchpoints, message passing.
+3. **任务需要协作吗？**（交互）→ 投资多 Agent 编排、人工触点、消息传递。
 
-Most harnesses start by scaling one dimension well, then expand to others. Trying to scale all three simultaneously from day one leads to complexity without clarity.
+大多数 Harness 先在一个维度上做好，然后扩展到其他维度。试图从第一天就同时扩展三个维度，只会带来复杂性而没有清晰度。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Scaling the wrong dimension** — A chatbot doesn't need multi-agent orchestration. A code editor doesn't need 5-minute thinking budgets. Match the scaling to the use case.
-- **Confusing time with space** — Loading more files isn't time scaling — it's space scaling. Time scaling is about *thinking depth*, not context size.
-- **Ignoring the interaction dimension** — Solo agents hit a ceiling. Adding human checkpoints or specialist sub-agents is often the highest-leverage improvement.
+- **扩展错误的维度** — 聊天机器人不需要多 Agent 编排。代码编辑器不需要 5 分钟的思考预算。让扩展匹配场景。
+- **混淆时间和空间** — 加载更多文件不是时间扩展——而是空间扩展。时间扩展关注的是*思考深度*，不是上下文大小。
+- **忽略交互维度** — 单打独斗的 Agent 有天花板。添加人工检查点或专家子 Agent 往往是杠杆最高的改进。
 
-## Further Reading
+## 延伸阅读
 
-- [Comparison →](comparison.md) — How major harnesses scale across dimensions
-- [Harness as a Service →](harness-as-a-service.md) — Infrastructure for scaling dimensions in production
+- [实现对比 →](comparison.md) — 主流 Harness 在各维度的扩展情况
+- [Harness 即服务 →](harness-as-a-service.md) — 在生产中扩展各维度的基础设施
 
 ---
 
-*Next: [Comparison →](comparison.md)*
+*下一篇：[实现对比 →](comparison.md)*

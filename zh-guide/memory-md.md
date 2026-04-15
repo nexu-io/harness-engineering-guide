@@ -1,14 +1,14 @@
-# The MEMORY.md Pattern
+# MEMORY.md 模式
 
-MEMORY.md is a plain-text file that gives an AI agent persistent memory across sessions. The agent reads it at startup, updates it during work, and curates it over time — like a human's long-term memory stored as a Markdown file.
+MEMORY.md 是一个纯文本文件，赋予 AI Agent 跨会话的持久记忆。Agent 在启动时读取它，工作中更新它，并随时间推移进行整理 — 就像人类的长期记忆存储在一个 Markdown 文件里。
 
-## Why It Matters
+## 为什么重要
 
-LLMs are stateless. Every API call starts from zero — no recollection of yesterday's conversation, no knowledge of user preferences, no memory of past mistakes. MEMORY.md solves this with the simplest possible mechanism: a file. No vector database, no embeddings, no infrastructure. Just a Markdown file the agent reads and writes.
+LLM 是无状态的。每次 API 调用都从零开始 — 不记得昨天的对话，不知道用户偏好，不记得过去的错误。MEMORY.md 用最简单的机制解决了这个问题：一个文件。不需要向量数据库，不需要 embedding，不需要基础设施。就是一个 Agent 读写的 Markdown 文件。
 
-## File Structure
+## 文件结构
 
-A production memory system has two layers:
+生产级记忆系统有两层：
 
 ```
 project/
@@ -20,11 +20,11 @@ project/
     └── heartbeat-state.json     # Metadata for periodic checks
 ```
 
-**MEMORY.md** — Curated, high-signal. Like your brain's long-term memory. Periodically updated by the agent reviewing daily logs and extracting what's worth keeping.
+**MEMORY.md** — 精心整理、高信噪比。相当于你大脑的长期记忆。由 Agent 定期回顾每日日志并提取值得保留的内容来更新。
 
-**memory/YYYY-MM-DD.md** — Raw daily logs. Everything that happened, decisions made, problems solved. Like a journal.
+**memory/YYYY-MM-DD.md** — 原始每日日志。发生了什么、做了什么决定、解决了什么问题。相当于日记。
 
-## A Real MEMORY.md
+## 一个真实的 MEMORY.md
 
 ```markdown
 # MEMORY.md
@@ -55,7 +55,7 @@ project/
 - PR descriptions: include "## What" and "## Why" sections
 ```
 
-## A Real Daily Log
+## 一个真实的每日日志
 
 ```markdown
 # 2025-07-10
@@ -77,9 +77,9 @@ project/
 - Sarah confirmed she prefers morning deployments (before 9am PT)
 ```
 
-## How the Harness Uses Memory
+## Harness 如何使用记忆
 
-### Loading at Session Start
+### 会话启动时加载
 
 ```python
 import os
@@ -117,9 +117,9 @@ Use this memory to provide context-aware responses. Update memory files
 when you learn new information about the user or project."""
 ```
 
-### Writing Daily Logs
+### 写入每日日志
 
-Give the agent a tool to append to today's log:
+给 Agent 一个追加今日日志的工具：
 
 ```python
 from datetime import datetime
@@ -143,9 +143,9 @@ def append_to_daily_log(workspace: str, entry: str) -> str:
     return f"Logged to {log_path}"
 ```
 
-### Curating Long-Term Memory
+### 整理长期记忆
 
-Periodically (daily or via heartbeat), the agent reviews recent logs and updates MEMORY.md:
+定期（每天或通过 heartbeat），Agent 回顾近期日志并更新 MEMORY.md：
 
 ```python
 def curate_memory(client, workspace: str):
@@ -181,9 +181,9 @@ Output the updated MEMORY.md content only."""
         f.write(response.choices[0].message.content)
 ```
 
-## Token Budget
+## Token 预算
 
-Memory competes with everything else for context window space:
+记忆和其他所有东西竞争 Context Window 空间：
 
 ```
 128K context window (GPT-4o)
@@ -195,36 +195,36 @@ Memory competes with everything else for context window space:
 └── Remaining:         ~65,800 tokens (for model output + headroom)
 ```
 
-The key constraint: MEMORY.md should be **concise enough to load every session** without significantly impacting the token budget. 500 words (~700 tokens) is a good target. If it grows past 1,000 words, it's time to prune.
+核心约束：MEMORY.md 应该**精简到每次会话都能加载**，不会显著影响 Token 预算。500 词（~700 Token）是一个好的目标。如果超过 1,000 词，就该精简了。
 
-## Memory Hygiene
+## 记忆卫生
 
-### What Belongs in MEMORY.md
+### 应该放进 MEMORY.md 的
 
-- User preferences and working style
-- Project-specific facts (commands, URLs, conventions)
-- Lessons learned from past mistakes
-- Key decisions and their rationale
+- 用户偏好和工作习惯
+- 项目相关事实（命令、URL、惯例）
+- 从过去错误中学到的教训
+- 关键决定及其理由
 
-### What Doesn't Belong
+### 不应该放进去的
 
-- Temporary task state (use daily logs)
-- Large code snippets (link to files instead)
-- Secrets, API keys, passwords (never)
-- Verbatim conversation transcripts (summarize instead)
+- 临时任务状态（用每日日志）
+- 大段代码片段（链接到文件）
+- 密钥、API key、密码（永远不要）
+- 逐字对话记录（改用摘要）
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Letting MEMORY.md grow unchecked** — Without curation, it becomes a dump of everything that ever happened. Set a word limit and enforce it during the curation step.
-- **Loading too many daily logs** — Each daily log might be 500-1,000 tokens. Loading a week's worth eats 5K+ tokens every session. Load today + yesterday; the rest should be curated into MEMORY.md.
-- **Storing secrets in memory files** — Memory files are plain text, often committed to Git. Never store API keys, passwords, or tokens in them.
+- **让 MEMORY.md 无限增长** — 不做整理的话，它会变成所有事情的垃圾堆。在整理步骤中设定字数上限并严格执行。
+- **加载太多天的每日日志** — 每个每日日志可能 500-1,000 Token。加载一周的内容每次会话就要吃掉 5K+ Token。只加载今天和昨天；其余应该被整理进 MEMORY.md。
+- **在记忆文件中存储密钥** — 记忆文件是纯文本，经常被提交到 Git。永远不要在里面存 API key、密码或 Token。
 
-## Further Reading
+## 延伸阅读
 
-- [OpenClaw AGENTS.md Memory Pattern](https://github.com/anthropics/anthropic-cookbook) — Companion files for agent persistence
-- [Letta (MemGPT)](https://github.com/letta-ai/letta) — More sophisticated memory management with tiered storage
-- [Memory Portability →](memory-portability.md) — Moving memory between harness implementations
+- [OpenClaw AGENTS.md Memory Pattern](https://github.com/anthropics/anthropic-cookbook) — Agent 持久化的配套文件
+- [Letta (MemGPT)](https://github.com/letta-ai/letta) — 更复杂的分层存储记忆管理
+- [记忆可移植性 →](memory-portability.md) — 在不同 Harness 实现之间迁移记忆
 
 ---
 
-*Next: [Skill Loading →](skill-loading.md)*
+*下一篇: [Skill 按需加载 →](skill-loading.md)*

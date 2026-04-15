@@ -1,12 +1,12 @@
-# Git Worktree Isolation
+# Git Worktree 隔离
 
-Git worktree lets you check out multiple branches of the same repository into separate directories simultaneously. For agent systems, this means multiple agents can work on the same codebase in parallel — each on its own branch, in its own directory — with zero conflict risk.
+Git worktree 允许你将同一个仓库的多个分支同时检出到不同目录。对 Agent 系统而言，这意味着多个 Agent 可以并行处理同一个代码库——各自在自己的分支、自己的目录里工作——完全没有冲突风险。
 
-## Why It Matters
+## 为什么重要
 
-When two agents edit the same repository at the same time, they collide: one overwrites the other's changes, merge conflicts pile up, and the codebase ends up in an inconsistent state. Git worktrees eliminate this entirely. Each agent works in an isolated copy that shares the same `.git` history but has its own working directory. They can't step on each other, and their changes merge cleanly through normal Git workflows.
+当两个 Agent 同时编辑同一个仓库时，它们会冲突：一个覆盖另一个的修改，merge conflict 不断累积，代码库最终处于不一致状态。Git worktree 彻底消除了这个问题。每个 Agent 在一个隔离的副本中工作，共享同一个 `.git` 历史但拥有独立的工作目录。它们不会互相踩脚，修改通过正常的 Git 流程干净地合并。
 
-## The Basics
+## 基本用法
 
 ```bash
 # You have a main checkout
@@ -31,15 +31,15 @@ git worktree list
 # /Users/dev/projects/my-app-update-api   abc1234 [agent/update-api]
 ```
 
-Key properties:
-- **Shared `.git`** — all worktrees share the same object database (no disk duplication)
-- **Independent branches** — each worktree is on a different branch
-- **Independent working directory** — changes in one don't affect others
-- **One branch per worktree** — you can't check out the same branch in two worktrees
+关键特性：
+- **共享 `.git`** — 所有 worktree 共享同一个对象数据库（无磁盘重复）
+- **独立分支** — 每个 worktree 在不同分支上
+- **独立工作目录** — 一个 worktree 的修改不影响其他的
+- **每个 worktree 一个分支** — 不能在两个 worktree 中检出同一个分支
 
-## Agent Spawn Script
+## Agent 启动脚本
 
-A complete script to spawn an agent in an isolated worktree:
+一个完整的脚本，用于在隔离的 worktree 中启动 Agent：
 
 ```bash
 #!/bin/bash
@@ -89,7 +89,7 @@ echo "🧹 Removing worktree..."
 git -C "$REPO_DIR" worktree remove "$WORKTREE_DIR" --force
 ```
 
-Usage:
+用法：
 
 ```bash
 # Spawn 3 agents in parallel
@@ -101,9 +101,9 @@ wait  # Wait for all to finish
 echo "All agents done!"
 ```
 
-## Python Orchestrator
+## Python 编排器
 
-A more sophisticated version with error handling and status tracking:
+一个更完善的版本，带错误处理和状态追踪：
 
 ```python
 import subprocess
@@ -209,17 +209,17 @@ orch.add_task("agent/refactor-db", "Refactor database queries to use connection 
 results = orch.run_all(max_parallel=3)
 ```
 
-## Disk Space and Performance
+## 磁盘空间与性能
 
-Worktrees are lightweight because they share the Git object database:
+Worktree 很轻量，因为它们共享 Git 对象数据库：
 
 ```
-Regular clone:    150 MB (full repo copy)
-Worktree:          ~5 MB (working directory files only, shared .git)
-3 worktrees:      ~15 MB (vs 450 MB for 3 clones)
+普通 clone：        150 MB（完整仓库副本）
+Worktree：          ~5 MB（仅工作目录文件，共享 .git）
+3 个 worktree：     ~15 MB（对比 3 个 clone 的 450 MB）
 ```
 
-But watch out for `node_modules` and build artifacts:
+但要注意 `node_modules` 和构建产物：
 
 ```bash
 # Each worktree needs its own node_modules (can't share)
@@ -234,9 +234,9 @@ if grep -q "npm test" "$WORKTREE_DIR/agent-task.json"; then
 fi
 ```
 
-## Cleanup
+## 清理
 
-Worktrees should be ephemeral. Clean up after tasks complete:
+Worktree 应该是临时的。任务完成后及时清理：
 
 ```bash
 # Remove a specific worktree
@@ -253,18 +253,18 @@ git worktree list --porcelain | grep "^worktree" | grep -v "$(git rev-parse --sh
 # 0 3 * * * cd ~/projects/my-app && git worktree prune
 ```
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Running two worktrees on the same branch** — Git forbids this. Each worktree must be on a unique branch. Use a naming convention: `agent/<task-slug>-<timestamp>`.
-- **Forgetting to clean up** — Stale worktrees don't auto-delete. If agent processes crash, worktrees persist and accumulate. Use `git worktree prune` regularly.
-- **Sharing `node_modules` or build caches** — Each worktree is a separate directory tree. They can't share `node_modules`. Budget disk space accordingly or use CI instead for heavy builds.
+- **在同一个分支上运行两个 worktree** — Git 禁止这样做。每个 worktree 必须在唯一的分支上。使用命名规范：`agent/<task-slug>-<timestamp>`。
+- **忘记清理** — 过期的 worktree 不会自动删除。如果 Agent 进程崩溃，worktree 会残留并不断累积。定期运行 `git worktree prune`。
+- **共享 `node_modules` 或构建缓存** — 每个 worktree 是独立的目录树，不能共享 `node_modules`。预留足够的磁盘空间，或者改用 CI 来处理重度构建。
 
-## Further Reading
+## 延伸阅读
 
-- [Git Worktree Documentation](https://git-scm.com/docs/git-worktree) — Official reference
-- [GitHub CLI (`gh`)](https://cli.github.com/) — Used for PR creation in the scripts above
-- [Multi-Agent Patterns](multi-agent.md) — The broader context for parallel agent work
+- [Git Worktree Documentation](https://git-scm.com/docs/git-worktree) — 官方参考文档
+- [GitHub CLI (`gh`)](https://cli.github.com/) — 上述脚本中用于创建 PR
+- [Multi-Agent Patterns](multi-agent.md) — 并行 Agent 工作的更广泛背景
 
 ---
 
-*Next: [Sandbox Security →](sandbox-security.md)*
+*下一篇：[沙箱与安全 →](sandbox-security.md)*

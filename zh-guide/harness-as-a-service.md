@@ -1,46 +1,46 @@
-# Harness as a Service (HaaS)
+# Harness 即服务 (HaaS)
 
-Running a harness on your laptop works for development. Running it for 10,000 users requires infrastructure. **Harness as a Service** is the pattern of deploying agent harnesses as managed, multi-tenant cloud services.
+在笔记本上跑 Harness 够开发用。服务 10,000 个用户则需要基础设施。**Harness as a Service** 是将 Agent Harness 部署为托管式多租户云服务的模式。
 
-This guide covers the architecture, session isolation, resource management, and a working FastAPI implementation.
+本指南覆盖架构、会话隔离、资源管理以及一个可运行的 FastAPI 实现。
 
-## Architecture
+## 架构
 
-A production HaaS deployment has four layers:
+生产级 HaaS 部署有四层：
 
 ```
 Client (Web/Mobile/CLI)
        │
        ▼
 ┌─────────────────┐
-│  API Gateway     │  ← Auth, rate limiting, routing
+│  API Gateway     │  ← 认证、限流、路由
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│ Session Manager  │  ← Create/resume/destroy sessions
+│ Session Manager  │  ← 创建/恢复/销毁会话
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│ Harness Worker   │  ← The actual agent loop
+│ Harness Worker   │  ← 实际的 Agent 循环
 │  ┌────────────┐  │
-│  │  Sandbox   │  │  ← Isolated tool execution
+│  │  Sandbox   │  │  ← 隔离的工具执行环境
 │  └────────────┘  │
 └──────────────────┘
 ```
 
-**API Gateway** — Handles authentication, rate limiting, and request routing. This is standard infrastructure (Kong, AWS API Gateway, Cloudflare Workers).
+**API Gateway** — 处理认证、限流和请求路由。这是标准基础设施（Kong、AWS API Gateway、Cloudflare Workers）。
 
-**Session Manager** — Maintains session state: which user, which conversation, which tools are active. Maps session IDs to harness workers.
+**Session Manager** — 维护会话状态：哪个用户、哪个对话、哪些工具激活。将会话 ID 映射到 Harness worker。
 
-**Harness Worker** — Runs the agent loop. Each active session gets a worker. Workers are stateless between requests — all state lives in the session store.
+**Harness Worker** — 运行 Agent 循环。每个活跃会话分配一个 worker。Worker 在请求之间是无状态的——所有状态存在会话存储中。
 
-**Sandbox** — Isolated execution environment for tool calls. File operations, code execution, and shell commands run inside containers with resource limits.
+**Sandbox** — 工具调用的隔离执行环境。文件操作、代码执行和 shell 命令运行在有资源限制的容器中。
 
-## Session Isolation
+## 会话隔离
 
-Multi-tenancy means multiple users share the same infrastructure. Their data must never leak between sessions.
+多租户意味着多个用户共享同一套基础设施。它们的数据绝不能在会话间泄露。
 
 ```python
 from dataclasses import dataclass, field
@@ -94,15 +94,15 @@ class SessionStore:
             cleanup_sandbox(session.sandbox_id)
 ```
 
-Key isolation boundaries:
-- **Memory** — Each user's memory files are namespaced by user ID. No shared filesystem.
-- **Sandbox** — Each session gets its own container. File operations are scoped to that container's filesystem.
-- **Context** — Conversation history never crosses sessions. Even the same user's two sessions are separate.
-- **Cost tracking** — Per-session spending limits prevent a runaway agent from draining your budget.
+关键隔离边界：
+- **记忆** — 每个用户的记忆文件按用户 ID 命名空间隔离。无共享文件系统。
+- **Sandbox** — 每个会话有自己的容器。文件操作仅限于该容器的文件系统。
+- **上下文** — 对话历史永远不跨会话。即使同一用户的两个会话也是分离的。
+- **成本追踪** — 按会话的消费限制，防止失控的 Agent 耗尽你的预算。
 
-## Resource Limits
+## 资源限制
 
-Without limits, one user's agent could consume all your compute. Set boundaries at every layer:
+没有限制的话，一个用户的 Agent 可能消耗你所有的计算资源。在每一层设置边界：
 
 ```python
 @dataclass
@@ -142,9 +142,9 @@ class ResourceGuard:
             )
 ```
 
-## A Minimal FastAPI Server
+## 极简 FastAPI 服务
 
-Here's a working HaaS server you can deploy:
+一个可部署的 HaaS 服务器：
 
 ```python
 from fastapi import FastAPI, HTTPException, Depends
@@ -290,9 +290,9 @@ async def run_agent_loop(session: Session,
     raise ResourceExhausted("Max turns exceeded")
 ```
 
-## Streaming Responses
+## 流式响应
 
-Production APIs need streaming — users shouldn't stare at a blank screen while the agent thinks:
+生产级 API 需要流式传输——用户不应该在 Agent 思考时盯着空白屏幕：
 
 ```python
 from fastapi.responses import StreamingResponse
@@ -318,9 +318,9 @@ async def chat_stream(request: ChatRequest,
     )
 ```
 
-## Deployment Topology
+## 部署拓扑
 
-For production, harness workers should be separate processes (or containers) that scale independently:
+生产环境中，Harness worker 应该是独立的进程（或容器），独立扩缩：
 
 ```
             ┌── Worker 1 ─── Sandbox
@@ -329,24 +329,24 @@ Gateway ── Session ─┼── Worker 2 ─── Sandbox
   (1)     Manager   │
            (1)      └── Worker N ─── Sandbox
 
-Scale: Gateway and Session Manager are singletons (or HA pairs).
-       Workers scale horizontally based on active sessions.
+扩展方式：Gateway 和 Session Manager 是单例（或 HA 对）。
+         Worker 根据活跃会话数水平扩展。
 ```
 
-Workers are stateless — they receive a session blob, run the loop, and return results. This means you can scale them with standard autoscalers (Kubernetes HPA, AWS ECS auto-scaling) based on active session count.
+Worker 是无状态的——它们接收会话数据，运行循环，返回结果。这意味着你可以用标准的自动扩缩器（Kubernetes HPA、AWS ECS auto-scaling）根据活跃会话数来扩展它们。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **No session TTL** — Abandoned sessions leak memory and sandbox resources. Always expire them.
-- **Shared filesystem** — If two sessions can see the same files, you have a data leak. Namespace everything.
-- **No cost limits** — One bad prompt can generate hundreds of tool calls. Set per-session and per-turn limits.
-- **Synchronous endpoints** — Agent loops can take 30+ seconds. Use async endpoints and streaming.
+- **没有会话 TTL** — 废弃的会话会泄露内存和 Sandbox 资源。始终设置过期时间。
+- **共享文件系统** — 如果两个会话能看到相同的文件，就会有数据泄露。所有内容按命名空间隔离。
+- **没有成本限制** — 一个坏的 prompt 可以生成数百次工具调用。设置按会话和按轮次的限制。
+- **同步端点** — Agent 循环可能耗时 30 秒以上。使用异步端点和流式传输。
 
-## Further Reading
+## 延伸阅读
 
-- [Error Recovery →](error-recovery.md) — Handle failures in multi-tenant environments
-- [Scaling Dimensions →](scaling-dimensions.md) — How HaaS maps to scaling axes
+- [错误恢复 →](error-recovery.md) — 在多租户环境中处理故障
+- [三维扩展 →](scaling-dimensions.md) — HaaS 如何映射到扩展维度
 
 ---
 
-*Next: [Meta-Harness →](meta-harness.md)*
+*下一篇：[Meta-Harness →](meta-harness.md)*

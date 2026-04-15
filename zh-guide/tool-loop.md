@@ -1,12 +1,12 @@
-# The Tool Loop
+# 工具调用循环
 
-The tool loop is the beating heart of every agent harness. It's the cycle where the model thinks, calls a tool, sees the result, and decides what to do next.
+Tool Loop 是每个 Agent Harness 的核心心跳。它是模型思考、调用工具、观察结果、然后决定下一步的循环。
 
-## Why It Matters
+## 为什么重要
 
-Without the tool loop, an LLM can only generate text. With it, the LLM can read files, run code, search the web, and take real actions. The tool loop is what turns a language model into an agent.
+没有 Tool Loop，LLM 只能生成文本。有了它，LLM 可以读文件、跑代码、搜索网页、执行真实操作。Tool Loop 是把语言模型变成 Agent 的关键。
 
-## The Basic Pattern
+## 基本模式
 
 ```python
 def agent_loop(messages, tools):
@@ -30,11 +30,11 @@ def agent_loop(messages, tools):
         # Loop back — model sees the tool results and decides next step
 ```
 
-This is the [ReAct pattern](https://arxiv.org/abs/2210.03629) in engineering terms: **Reason** (model thinks) → **Act** (tool executes) → **Observe** (model sees result) → repeat.
+这就是 [ReAct 模式](https://arxiv.org/abs/2210.03629) 的工程表达：**推理**（模型思考）→ **行动**（工具执行）→ **观察**（模型看到结果）→ 重复。
 
-## Real Implementation: Adding a Tool
+## 实际实现：添加一个工具
 
-Define a tool the model can call:
+定义一个模型可以调用的工具：
 
 ```python
 tools = [{
@@ -61,13 +61,13 @@ def execute_tool(name, args):
     raise ValueError(f"Unknown tool: {name}")
 ```
 
-The model sees the tool description and decides when to use it. You never tell it "now read the file" — it figures that out from context.
+模型看到工具描述后自己决定什么时候使用。你不需要告诉它"现在读文件" — 它会根据上下文自己判断。
 
-## Key Design Decisions
+## 关键设计决策
 
-### 1. Loop Termination
+### 1. 循环终止
 
-The model decides when to stop. But you need guardrails:
+模型自己决定何时停止。但你需要防护措施：
 
 ```python
 MAX_ITERATIONS = 25
@@ -83,9 +83,9 @@ messages.append({"role": "system", "content": "Maximum steps reached. Provide yo
 return llm.chat(messages).text
 ```
 
-### 2. Parallel vs. Sequential Tool Calls
+### 2. 并行 vs. 串行工具调用
 
-Some models return multiple tool calls at once:
+有些模型会一次返回多个工具调用：
 
 ```python
 # Sequential (one at a time)
@@ -99,11 +99,11 @@ response.tool_calls = [
 ]
 ```
 
-Execute parallel calls concurrently for speed. The model batches related reads to be efficient.
+并行调用应该并发执行以提高速度。模型会把相关的读取操作批量发出来提高效率。
 
-### 3. Error Handling
+### 3. 错误处理
 
-Tools fail. The model needs to see the error and recover:
+工具会失败。模型需要看到错误并自行恢复：
 
 ```python
 def execute_tool(name, args):
@@ -116,11 +116,11 @@ def execute_tool(name, args):
         return f"Error: Permission denied for '{args['path']}'"
 ```
 
-Don't catch and hide errors — return them to the model. It can often self-correct: "File not found, let me check the directory first."
+不要捕获并隐藏错误 — 把它们返回给模型。模型通常能自我纠正："文件没找到，让我先看看目录结构。"
 
-## Adding Tools Without Changing the Loop
+## 不改循环就能添加工具
 
-The best harness design: the loop never changes, only the tool registry grows.
+最好的 Harness 设计：循环永远不变，只有工具注册表在增长。
 
 ```python
 # Tool registry
@@ -147,20 +147,20 @@ def agent_loop(messages):
             messages.append(tool_result(call, result))
 ```
 
-This is the "thin harness + thick skills" architecture. The harness is the loop. The skills are the tools.
+这就是"薄 Harness + 厚 Skill"的架构。Harness 就是循环。Skill 就是工具。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **No iteration limit** — An agent can loop forever. Always set a max.
-- **Swallowing errors** — If a tool fails silently, the model hallucinates results. Always return errors.
-- **Too many tools** — Each tool definition takes context window space. Load tools on demand, not all at once. See [Skill Loading →](skill-loading.md).
-- **No tool confirmation** — Destructive tools (delete, send email) should require human approval before execution.
+- **没有迭代上限** — Agent 可能会无限循环。一定要设上限。
+- **吞掉错误** — 如果工具静默失败，模型会幻想结果。一定要返回错误信息。
+- **工具太多** — 每个工具定义都占 Context Window 空间。按需加载工具，而不是一次性全部加载。参考 [Skill 按需加载 →](skill-loading.md)。
+- **没有工具确认** — 破坏性工具（删除、发邮件）应该在执行前要求人工确认。
 
-## Further Reading
+## 延伸阅读
 
-- [ReAct: Synergizing Reasoning and Acting](https://arxiv.org/abs/2210.03629) — The paper behind the pattern
-- [Skill Loading →](skill-loading.md) — How to manage which tools are available
+- [ReAct: Synergizing Reasoning and Acting](https://arxiv.org/abs/2210.03629) — 该模式背后的论文
+- [Skill 按需加载 →](skill-loading.md) — 如何管理可用工具
 
 ---
 
-*Next: [Skill Loading →](skill-loading.md)*
+*下一篇: [Skill 按需加载 →](skill-loading.md)*

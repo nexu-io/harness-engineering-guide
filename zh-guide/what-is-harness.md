@@ -1,21 +1,21 @@
-# What is a Harness?
+# 什么是 Harness？
 
-A **harness** is the runtime layer that wraps an AI model and turns it into a useful agent. It handles everything the model can't do on its own: reading files, calling tools, remembering context across sessions, and deciding when to stop.
+**Harness** 是包裹 AI 模型的运行时层，把模型变成一个有用的 Agent。它负责模型自身做不了的所有事情：读取文件、调用工具、跨会话记忆上下文、决定何时停止。
 
-## Why It Matters
+## 为什么重要
 
-Models are stateless. Every API call starts from zero. The harness gives the model:
+模型是无状态的。每次 API 调用都从零开始。Harness 赋予模型：
 
-- **Tools** — file access, web search, code execution
-- **Memory** — what happened in previous sessions
-- **Context** — which files are relevant right now
-- **Constraints** — what the agent is and isn't allowed to do
+- **工具** — 文件访问、网页搜索、代码执行
+- **记忆** — 之前会话中发生了什么
+- **上下文** — 当前哪些文件是相关的
+- **约束** — Agent 能做什么、不能做什么
 
-Without a harness, you have a chatbot. With one, you have an agent.
+没有 Harness，你只有一个聊天机器人。有了 Harness，你就有了一个 Agent。
 
-## A Minimal Example
+## 最简示例
 
-The simplest harness is a loop:
+最简单的 Harness 就是一个循环：
 
 ```python
 while True:
@@ -37,36 +37,36 @@ while True:
     break
 ```
 
-That's it. Every harness — from a 50-line script to Claude Code's 512K lines — is a variation of this loop. The complexity comes from what you put *around* it: context management, memory persistence, skill orchestration, error recovery, and security.
+就这样。从 50 行脚本到 Claude Code 的 512K 行代码，每个 Harness 都是这个循环的变体。复杂性来自循环*外围*的东西：上下文管理、记忆持久化、Skill 编排、错误恢复和安全机制。
 
-## Harness vs. Framework vs. Runtime
+## Harness vs. 框架 vs. 运行时
 
-| Term | What it is | Example |
-|------|-----------|---------|
-| **Harness** | The code wrapping a model to make it an agent | Claude Code, Codex CLI, OpenClaw |
-| **Framework** | A library for building agents | LangChain, CrewAI, AutoGen |
-| **Runtime** | The execution environment for an agent | OpenClaw runtime, Docker sandbox |
+| 术语 | 定义 | 示例 |
+|------|------|------|
+| **Harness** | 包裹模型使其成为 Agent 的代码 | Claude Code、Codex CLI、OpenClaw |
+| **框架** | 用于构建 Agent 的库 | LangChain、CrewAI、AutoGen |
+| **运行时** | Agent 的执行环境 | OpenClaw runtime、Docker sandbox |
 
-A framework helps you *build* a harness. A runtime helps you *run* one. The harness is the thing itself.
+框架帮你*构建* Harness。运行时帮你*运行* Harness。Harness 本身才是核心。
 
-## The Key Insight
+## 核心洞察
 
-> *"You don't own the model. You own the harness. And the harness owns the memory."*
+> *"你不拥有模型。你拥有的是 Harness。而 Harness 拥有记忆。"*
 > — Harrison Chase, LangChain
 
-Models are commoditizing. GPT, Claude, Gemini, open-source LLMs — all converge in capability. **The harness is the moat**: how you manage context, memory, tools, and agent lifecycle determines product quality.
+模型正在商品化。GPT、Claude、Gemini、开源 LLM — 能力都在趋同。**Harness 才是护城河**：你如何管理上下文、记忆、工具和 Agent 生命周期，决定了产品质量。
 
-## Common Pitfalls
+## 常见陷阱
 
-- **Confusing the harness with the model** — When an agent fails, it's usually a harness problem (wrong context, missing tools), not a model problem.
-- **Over-engineering from day one** — Start with the minimal loop above. Add complexity only when you hit a real limitation.
-- **Ignoring the context window** — The model can only see what's in its context. If you don't put it there, it doesn't exist.
+- **把 Harness 和模型混为一谈** — 当 Agent 出错时，问题通常出在 Harness（上下文不对、缺少工具），而不是模型。
+- **一开始就过度工程化** — 先从上面的最简循环开始。遇到真正的限制时再加复杂度。
+- **忽视 Context Window** — 模型只能看到上下文中的内容。你不放进去，它就不知道。
 
-## Further Reading
+## 延伸阅读
 
-- [OpenAI: Harness Engineering](https://openai.com/index/harness-engineering/) — The blog post that named the discipline
-- [Your First Harness →](your-first-harness.md) — Build one from scratch in 15 minutes
+- [OpenAI: Harness Engineering](https://openai.com/index/harness-engineering/) — 为这个领域命名的博客文章
+- [搭建你的第一个 Harness →](your-first-harness.md) — 15 分钟从零搭建一个
 
 ---
 
-*Next: [Your First Harness →](your-first-harness.md)*
+*下一篇: [搭建你的第一个 Harness →](your-first-harness.md)*
