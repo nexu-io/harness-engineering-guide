@@ -35,7 +35,7 @@ export default async function ZhChangelogPage() {
                 {entry.title}
               </h2>
               <div
-                className="prose-custom text-[var(--color-text-secondary)]"
+                className="prose text-[var(--color-text-secondary)]"
                 dangerouslySetInnerHTML={{ __html: entry.contentHtml }}
               />
             </article>
