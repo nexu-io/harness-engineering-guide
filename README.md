@@ -1,7 +1,7 @@
 # Harness Engineering Guide
 
 <p align="center">
-  <em>The open guide to Harness Engineering — concepts, tutorials, papers, tools, and resources for building and managing AI agent runtimes.</em>
+  <em>The practical guide to building AI agent harnesses — with real code examples you can copy and run.</em>
 </p>
 
 <p align="center">
@@ -10,158 +10,91 @@
 </p>
 
 <p align="center">
-  <b>English</b> | <a href="README.zh-CN.md">中文</a>
-</p>
-
-<p align="center">
   🌐 <b><a href="https://harness-guide.com">harness-guide.com</a></b> | <a href="https://harness-guide.com/zh/">中文站</a>
 </p>
 
----
-
-Harness Engineering is an emerging discipline focused on building, configuring, and managing the runtime layer that wraps AI models — the code that sits between a raw LLM and a useful agent. It covers everything from context management and memory persistence to skill orchestration and multi-agent coordination.
-
-As AI agents move from demos to production, the harness layer — not the model — is becoming the differentiator. This guide aims to be the most comprehensive open resource on Harness Engineering.
-
-<!-- 🌐 Documentation site coming soon -->
+<p align="center">
+  <b>English</b> | <a href="README.zh-CN.md">中文</a>
+</p>
 
 ---
 
-## Why Harness Engineering?
+A **harness** is the runtime layer that wraps an AI model and turns it into a useful agent. It handles everything the model can't do on its own: reading files, calling tools, remembering context, and deciding when to stop. As AI agents move from demos to production, the harness — not the model — is becoming the differentiator.
 
-> *"You don't own the model. You own the harness. And the harness owns the memory."*
-> — Harrison Chase, LangChain
-
-- **Models are commoditizing** — GPT, Claude, Gemini, open-source LLMs all converge in capability.
-- **The harness is the moat** — How you manage context, memory, tools, and agent lifecycle determines product quality.
-- **512K lines and counting** — Claude Code's harness alone is 512K lines. This is real engineering, not a wrapper.
+This guide covers every aspect of harness engineering, from writing your first tool loop to scaling multi-agent systems in production.
 
 ---
 
-## 📖 Guide
+## Getting Started
 
-| Title | Description |
+| Topic | Description |
 |-------|-------------|
-| [Introduction to Harness Engineering](guide/introduction.md) | What is a Harness? Harness vs Runtime vs Framework. Why it matters now. |
-| [Core Concepts](guide/concepts.md) | The five pillars: Context Management, Memory & Persistence, Skill Orchestration, Agent Lifecycle, Multi-Agent Coordination. |
-| [Architecture Patterns](guide/patterns.md) | Thin Harness + Thick Skills vs Monolithic vs Harness-as-a-Service. Side-by-side comparison of Claude Code, Codex, and OpenClaw. |
-| [Memory Systems](guide/memory.md) | The AGENTS.md / MEMORY.md pattern. Session vs long-term memory. Memory ownership & portability. |
-| [Security & Sandboxing](guide/security.md) | Permission models, sandbox architectures (Docker / Firecracker / WASM), trust boundaries. |
+| [What is a Harness?](guide/what-is-harness.md) | The concept in 3 minutes. Minimal code example. Harness vs. framework vs. runtime. |
+| [Your First Harness](guide/your-first-harness.md) | Build a working harness in 15 minutes. Complete Python code you can copy and run. |
+| [Harness vs. Framework](guide/harness-vs-framework.md) | When to use a raw harness vs. LangChain/CrewAI. Decision tree + code comparison. |
 
----
+## Core Patterns
 
-## 🔍 Landscape
-
-| Title | Description |
+| Topic | Description |
 |-------|-------------|
-| [Harness Implementations Compared](landscape/comparison.md) | Detailed comparison of 7 products across context management, memory, skills, and multi-agent support. |
-| [Open-Source Harness Projects](landscape/open-source.md) | 20+ curated open-source projects: agent runtimes, memory systems, multi-agent frameworks, skill ecosystems. |
-| [Commercial Platforms](landscape/commercial.md) | Commercial harness and managed agent platforms: Claude Code, Codex, Cursor, Windsurf, Devin. |
+| [The AGENTS.md Pattern](guide/agents-md.md) | Define agent behavior in a plain-text file. Version-controlled, portable, transparent. |
+| [The MEMORY.md Pattern](guide/memory-md.md) | Persistent memory with daily logs + curated long-term memory. |
+| [The Tool Loop](guide/tool-loop.md) | The ReAct loop in engineering terms. Adding tools without changing the loop. |
+| [Skill Loading](guide/skill-loading.md) | Loading tools on demand instead of all at once. Token cost comparison. |
+| [Thin Harness Architecture](guide/thin-harness.md) | Why the harness should be minimal. Thin harness + thick skills. |
+| [Context Window Management](guide/context-window.md) | Priority systems, token budgets, sliding window implementation. |
 
----
+## Techniques
 
-## 📝 Articles
-
-### Official & Foundational
-
-| Title | Author | Description |
-|-------|--------|-------------|
-| [OpenAI: Harness Engineering](articles/openai-harness-engineering.md) | OpenAI | The blog post that coined the term. 0 lines of human code, 1M+ lines by Codex, 1500 PRs in 5 months. AGENTS.md as table of contents, constraints > instructions. ([original](https://openai.com/index/harness-engineering/)) |
-| [Anthropic: Multi-Agent Harness Design](articles/anthropic-multi-agent-harness.md) | Anthropic | Generator + Evaluator multi-agent harness for long-running apps. Context reset > compaction. Harness components have expiration dates. ([original](https://www.anthropic.com/engineering/harness-design-long-running-apps)) |
-| [Your Harness, Your Memory](https://blog.langchain.dev/) | Harrison Chase | Memory belongs inside your agent harness, not behind a third-party API. Open memory standards will need to emerge. |
-
-### Deep Dives & Analysis
-
-| Title | Author | Description |
-|-------|--------|-------------|
-| [Three Scaling Dimensions of Harness Engineering](articles/wayne-zhang-scaling-dimensions.md) | Wayne Zhang ([@wayne_zhang0](https://x.com/wayne_zhang0)) | The unified framework: Time (Anthropic) × Space (Cursor) × Interaction (OpenAI). Four consensus points every harness article should address. 742 likes, 1299 bookmarks. ([original](https://yage.ai/share/harness-engineering-scalability-20260330.html)) |
-| [Claude Code & Codex Harness Design Philosophy](articles/wquguru-harness-design-philosophy.md) | WquGuru🦀 ([@wquguru](https://x.com/wquguru)) | Two PDF books dissecting harness architecture. "Comparing features is easy; comparing design assumptions is hard." 1976 likes, 3306 bookmarks. |
-| [Components of a Coding Agent](articles/coding-agent-components.md) | Sebastian Raschka / ℏεsam | 6 critical components: repo context, prompt cache, tools, context reduction, session memory, subagents. The LLM → Agent → Harness → Coding Harness stack. 394 likes. |
-| [池建强：为什么 Harness 现在才浮现](articles/wquguru-harness-design-philosophy.md) | 池建强 ([@sagacity](https://x.com/sagacity)) | Harness 一直存在，但之前被包裹在产品内部。随着源码公开，才作为独立学科浮现。 1112 likes, 1616 bookmarks. ([tweet](https://x.com/sagacity/status/2042515263837605900)) |
-| [驾驭工程：《马书》](articles/horse-book-claude-code.md) | Geek Lite ([@QingQ77](https://x.com/QingQ77)) | 从 Claude Code v2.1.88 源码分析的中文技术书。400 likes, 561 bookmarks. |
-| [Harness Engineering Orange Book](articles/orange-book-harness-engineering.md) | 花叔 ([@AlchainHust](https://x.com/AlchainHust)) | Open-source Harness Engineering reference book. ([repo](https://github.com/alchaincyf/harness-engineering-orange-book)) |
-| [30 Years of Software Engineering Led to the Harness Revolution](articles/huangjia-30-years-to-harness.md) | Huang Jia (via Datawhale) | Historical arc: GoF (1994) → Enterprise Patterns (2002) → Microservices (2010) → DDIA (2017) → Harness (2026). Six core Harness components. "Model intelligence is online; we're competing on Harness now." ([original](https://mp.weixin.qq.com/s/0CTwb4aEr5mWwsdRdwzwkw)) |
-| [Harness Revolution Overview](articles/huangjia-harness-revolution-overview.md) | Huang Jia | Comprehensive overview from 30 years of software evolution to Harness. Six core components. "Model intelligence is online; now we compete on Harness." |
-
-### Practice & Case Studies
-
-| Title | Author | Description |
-|-------|--------|-------------|
-| [Deux: Swift → Kotlin via Harness](articles/deux-swift-to-kotlin.md) | Hwang ([@hwwaanng](https://x.com/hwwaanng)) | A harness that auto-converts Swift to native Kotlin Android — self-verifying, self-iterating, spawning sub-agents. 655 likes, 887 bookmarks. |
-| [Meta-Harness: Automated Harness Optimization](articles/meta-harness-automated-optimization.md) | Lior Alexander / Yoonho Lee | 6x performance gap from harness changes alone. 10M tokens of raw traces per optimization step. #1 on TerminalBench. 242 likes. |
-| [AutoAgent: Self-Optimizing Agent](articles/autoagent-self-optimizing.md) | huangserva ([@servasyy_ai](https://x.com/servasyy_ai)) | Meta-Agent reads failure traces and rewrites its own harness. SpreadsheetBench 96.5% (#1), TerminalBench 55.1% (#1). |
-| [Kitaru 0.4.0: Memory in the Harness](articles/kitaru-memory-in-harness.md) | Alex Strick ([@strickvl](https://x.com/strickvl)) | "Your Harness, Your Memory" — versioned memory with provenance tracking built into the harness substrate. |
-| [Learn Harness Engineering](articles/learn-harness-engineering.md) | Sanbu ([@sanbuphy](https://x.com/sanbuphy)) | Complete practice guide following OpenAI & Anthropic official materials. 298 likes, 447 bookmarks. ([repo](https://github.com/walkinglabs/learn-harness-engineering)) |
-| [Ralph: Simple Harness Loop](articles/ralph-simple-harness-loop.md) | via Wayne Zhang | "Better than all the frameworks I've researched" — simple, effective, no context drift. 729 likes, 1162 bookmarks. ([repo](https://github.com/snarktank/ralph)) |
-| [2-Hour Harness Speedrun](articles/longjing-2h-harness-speedrun.md) | LongjingAgent | 12-chapter walkthrough building a Claude Code-like agent from scratch. Based on learn-claude-code project. |
-
-### Industry Perspectives
-
-| Title | Author | Description |
-|-------|--------|-------------|
-| [Anthropic 切掉第三方 Harness 订阅](articles/fuli-luo-compute-economics.md) | Fuli Luo ([@_LuoFuli](https://x.com/_LuoFuli)) | Compute economics analysis. "The Agent era belongs to whoever uses compute wisely." Co-evolution thesis. 1770 likes. |
-| [Claude Managed Agents 开源复刻](articles/managed-agents-open-source.md) | Berryxia / indigo | Open-source replication + 三核心概念四场景拆解。346 likes. |
-| [Zeratul's Law: Harness Bloat](articles/zeratul-law-harness-bloat.md) | z3ratul ([@z3ratul163071](https://x.com/z3ratul163071)) | "Every agent harness will bloat to become unusable within 2 months of hitting the GitHub exponential." |
-| [Skill 膨胀与框架整合](articles/skill-explosion-consolidation.md) | 卡颂 ([@kasong2048](https://x.com/kasong2048)) | Skill explosion across harness frameworks and consolidation strategies. 464 likes, 558 bookmarks. |
-
----
-
-## 📰 News
-
-Latest news from the Harness Engineering ecosystem.
-
-| Title | Description |
+| Topic | Description |
 |-------|-------------|
-| [Li Di's Harness Agent Startup](news/lidi-harness-agent-startup.md) | Li Kaifu and Lu Qi both invested in the same Harness agent company led by Li Di. 2 rounds in 4 months. |
+| [Context Compression](guide/context-compression.md) | Three lines of defense: auto-decay, threshold, active compression. |
+| [Multi-Agent Patterns](guide/multi-agent.md) | Leader-Worker, file-based inbox, handshake, auto-claim, git worktree isolation. |
+| [Git Worktree Isolation](guide/git-worktree-isolation.md) | Parallel agent tasks without conflicts. Step-by-step commands. |
+| [Sandbox & Security](guide/sandbox-security.md) | Docker, Firecracker, WASM. Permission models and trust boundaries. |
+| [Structured Output](guide/structured-output.md) | Getting agents to return parseable data. JSON mode, schema validation. |
+| [Error Recovery](guide/error-recovery.md) | Retry strategies, graceful degradation, human-in-the-loop escalation. |
+| [Evaluation & Testing](guide/eval-and-testing.md) | Behavioral testing, trace replay, minimal eval framework. |
+
+## Advanced
+
+| Topic | Description |
+|-------|-------------|
+| [Harness as a Service](guide/harness-as-a-service.md) | Running harnesses in the cloud. Multi-tenant architecture. |
+| [Meta-Harness](guide/meta-harness.md) | Agents that optimize their own harness. The AutoAgent pattern. |
+| [Memory Portability](guide/memory-portability.md) | Moving memory between harness implementations. Migration scripts. |
+| [Scaling Dimensions](guide/scaling-dimensions.md) | Time × Space × Interaction framework for analyzing any harness. |
+
+## Reference
+
+| Topic | Description |
+|-------|-------------|
+| [Implementation Comparison](guide/comparison.md) | Side-by-side comparison of OpenClaw, Claude Code, Codex, Cline, Aider, Cursor, Nexu. |
+| [Glossary](guide/glossary.md) | 23 key terms defined. |
 
 ---
 
 ## How to Contribute
 
-We welcome contributions from everyone — whether you're a harness engineer, a researcher, or just someone who found a useful resource. The easiest way to contribute is through **GitHub Issues**.
-
-### 📬 Submit a Resource (Easiest Way!)
-
-Found a paper, tool, blog post, or tutorial related to Harness Engineering? Submit it in 3 steps:
-
 1. Go to [**Issues → New Issue**](https://github.com/nexu-io/harness-engineering-guide/issues/new/choose)
 2. Choose **"📬 Submit a Resource"**
-3. Fill in the title, URL, and a brief note on why it's relevant
+3. Fill in the title, URL, and why it's relevant
 
-That's it! The maintainers will review your submission and add it to the appropriate section of the guide. You'll be credited as a contributor.
-
-### 💬 Join the Discussion
-
-Have questions, ideas, or insights? Head to [**Discussions**](https://github.com/nexu-io/harness-engineering-guide/discussions):
-
-- 💡 **Ideas** — Suggest improvements to the guide
-- ❓ **Q&A** — Ask technical questions about Harness Engineering
-- 📰 **Show & Tell** — Share your harness implementations and learnings
-
-### ✍️ Write Content (PRs Welcome)
-
-1. Fork the repository
-2. Create a branch: `git checkout -b your-topic`
-3. Write your content in Markdown
-4. Submit a Pull Request
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+Or submit a PR directly — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
 ## Community
 
 - 💬 **GitHub Discussions** — [Join the conversation](https://github.com/nexu-io/harness-engineering-guide/discussions)
-- 🐦 **Twitter** — Follow [@nexu](https://x.com/nexu) for updates
+- 🐦 **Twitter** — [@nexudotio](https://x.com/nexudotio)
 - 💬 **飞书群** — [加入 Harness Engineering 话题群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=717g465a-0bc8-4242-9281-12b23953491a)
 
 ---
 
 ## About
 
-Harness Engineering Guide is maintained by [Nexu](https://github.com/nexu-io) — the open-source Claude Co-worker & Managed Agent platform. We believe the harness layer is the next frontier of AI engineering, and this knowledge should be open.
-
----
+Maintained by [Nexu](https://github.com/nexu-io) — the open-source Claude Co-worker & Managed Agent platform.
 
 ## License
 
@@ -169,15 +102,14 @@ Harness Engineering Guide is maintained by [Nexu](https://github.com/nexu-io) �
 
 ---
 
-If you find this guide useful, please consider giving it a ⭐ — it helps others discover it.
+If you find this guide useful, please consider giving it a ⭐
 
 ```
 @misc{nexu_harness-engineering-guide_2026,
   author = {Nexu Team},
-  title = {Harness Engineering Guide: The Open Guide to Harness Engineering},
+  title = {Harness Engineering Guide},
   year = {2026},
   publisher = {GitHub},
-  journal = {GitHub repository},
   howpublished = {\url{https://github.com/nexu-io/harness-engineering-guide}}
 }
 ```

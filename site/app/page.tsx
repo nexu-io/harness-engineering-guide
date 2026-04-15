@@ -1,161 +1,41 @@
 import Hero from "@/components/Hero";
-import ContentCard from "@/components/ContentCard";
-import { getAllContent, guideChapters, guideOrder } from "@/lib/content";
+import Link from "next/link";
+import { guideSections } from "@/lib/guide-data";
 
-export default async function HomePage() {
-  const articles = await getAllContent("articles");
-  const news = await getAllContent("news");
-  const landscape = await getAllContent("landscape");
-
-  // Pick featured articles (first 4)
-  const featuredArticles = articles.slice(0, 4);
-
+export default function HomePage() {
   return (
     <div>
       <Hero />
 
-      {/* Guide Chapters */}
-      <section className="py-20 border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-2 animate-fade-in-up">
-            <span className="w-8 h-px bg-[var(--color-accent-cyan)]" />
-            <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-cyan)]">
-              The Guide
-            </span>
+      {/* Guide Sections */}
+      {guideSections.map((section) => (
+        <section
+          key={section.id}
+          className="py-16 border-t border-[var(--color-border)]"
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-8 h-px bg-[var(--color-accent-cyan)]" />
+              <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-cyan)]">
+                {section.label}
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+              {section.items.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/guide/${item.slug}`}
+                  className="group block p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-bg-card-hover)] transition-all"
+                >
+                  <h3 className="text-sm font-medium text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+                    {item.title}
+                  </h3>
+                </Link>
+              ))}
+            </div>
           </div>
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3 animate-fade-in-up stagger-1">
-            Start Here
-          </h2>
-          <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl animate-fade-in-up stagger-2">
-            Five chapters covering everything from what a harness is, to
-            production patterns, memory systems, and security.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {guideOrder.map((slug, i) => (
-              <ContentCard
-                key={slug}
-                href={`/guide/${slug}`}
-                title={guideChapters[slug]}
-                description={`Chapter ${i + 1} of the Harness Engineering Guide`}
-                category="Guide"
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Articles */}
-      <section className="py-20 border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="w-8 h-px bg-[var(--color-accent-amber)]" />
-            <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-amber)]">
-              Articles
-            </span>
-          </div>
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
-            Articles
-          </h2>
-          <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            Deep dives, tutorials, and analysis from practitioners building
-            with AI agent harnesses.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featuredArticles.map((article) => (
-              <ContentCard
-                key={article.slug}
-                href={`/articles/${article.slug}`}
-                title={article.title}
-                description={article.description}
-                author={article.author}
-                category={article.category}
-              />
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <a
-              href="/articles"
-              className="inline-flex items-center gap-2 text-sm text-[var(--color-accent-cyan)] hover:text-[var(--color-text-primary)] transition-colors"
-            >
-              View all {articles.length} articles
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Landscape */}
-      <section className="py-20 border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="w-8 h-px bg-[var(--color-accent-cyan)]" />
-            <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-cyan)]">
-              Landscape
-            </span>
-          </div>
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
-            The Ecosystem
-          </h2>
-          <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            Open-source projects, commercial platforms, and a comparison of the
-            tools shaping harness engineering.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {landscape.map((item) => (
-              <ContentCard
-                key={item.slug}
-                href={`/landscape/${item.slug}`}
-                title={item.title}
-                description={item.description}
-                category="Landscape"
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* News */}
-      <section className="py-20 border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="w-8 h-px bg-[var(--color-accent-amber)]" />
-            <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-accent-amber)]">
-              News
-            </span>
-          </div>
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[var(--color-text-primary)] mb-3">
-            Latest News
-          </h2>
-          <p className="text-[var(--color-text-secondary)] mb-10 max-w-2xl">
-            Funding, launches, and industry moves in the Harness Engineering ecosystem.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {news.map((item) => (
-              <ContentCard
-                key={item.slug}
-                href={`/news/${item.slug}`}
-                title={item.title}
-                description={item.description}
-                author={item.author}
-                category={item.category}
-              />
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <a
-              href="/news"
-              className="inline-flex items-center gap-2 text-sm text-[var(--color-accent-cyan)] hover:text-[var(--color-text-primary)] transition-colors"
-            >
-              View all news
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
+        </section>
+      ))}
 
       {/* Community Links */}
       <section className="py-20 border-t border-[var(--color-border)]">

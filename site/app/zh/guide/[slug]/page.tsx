@@ -1,4 +1,5 @@
-import { getContentBySlug, getSlugs, guideOrder, zhGuideChapters } from "@/lib/content";
+import { getContentBySlug, getSlugs } from "@/lib/content";
+import { guideOrder, zhGuideChapters } from "@/lib/guide-data";
 import ArticleLayout from "@/components/ArticleLayout";
 import GuideSidebar from "@/components/GuideSidebar";
 
@@ -10,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const content = await getContentBySlug("zh-guide", slug);
   return {
-    title: `${content.title} | Harness Guide 中文`,
+    title: `${content.title} | 驾驭工程指南`,
     description: content.description,
   };
 }
@@ -29,23 +30,20 @@ export default async function ZhGuidePage({ params }: { params: Promise<{ slug: 
       ? { slug: guideOrder[currentIndex + 1], title: zhGuideChapters[guideOrder[currentIndex + 1]] }
       : null;
 
-  const chapters = guideOrder.map((s, i) => ({
-    slug: s,
-    title: zhGuideChapters[s],
-    index: i,
-  }));
-
   return (
-    <ArticleLayout
-      title={content.title}
-      description={content.description}
-      contentHtml={content.contentHtml}
-      headings={content.headings}
-      prev={prev}
-      next={next}
-      prevPrefix="/zh/guide"
-      nextPrefix="/zh/guide"
-      sidebar={<GuideSidebar chapters={chapters} basePath="/zh/guide" />}
-    />
+    <div className="flex gap-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+      <GuideSidebar isZh />
+      <div className="flex-1 min-w-0">
+        <ArticleLayout
+          title={content.title}
+          description={content.description}
+          contentHtml={content.contentHtml}
+          headings={content.headings}
+          prev={prev ? { ...prev, prefix: "/zh/guide" } : undefined}
+          next={next ? { ...next, prefix: "/zh/guide" } : undefined}
+          embedded
+        />
+      </div>
+    </div>
   );
 }

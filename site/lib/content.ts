@@ -25,31 +25,6 @@ export interface ContentItem {
   headings: HeadingItem[];
 }
 
-// Guide chapter order
-export const guideOrder = [
-  "introduction",
-  "concepts",
-  "patterns",
-  "memory",
-  "security",
-];
-
-export const guideChapters: Record<string, string> = {
-  introduction: "Introduction",
-  concepts: "Core Concepts",
-  patterns: "Patterns & Architecture",
-  memory: "Memory Systems",
-  security: "Safety & Security",
-};
-
-export const zhGuideChapters: Record<string, string> = {
-  introduction: "入门介绍",
-  concepts: "核心概念",
-  patterns: "模式与架构",
-  memory: "记忆系统",
-  security: "安全与防护",
-};
-
 function extractHeadings(markdown: string): HeadingItem[] {
   const headings: HeadingItem[] = [];
   const lines = markdown.split("\n");
@@ -91,53 +66,20 @@ function extractMetadataFromContent(markdown: string): {
       title = line.replace(/^#\s+/, "").trim();
       continue;
     }
-    if (line.includes("**Original**") || line.includes("**原文**")) {
-      const urlMatch = line.match(/\[([^\]]*)\]\(([^)]+)\)/);
-      if (urlMatch) {
-        originalUrl = urlMatch[2];
-      }
-      // Extract author from after the URL
-      const parts = line.split("·").map((s) => s.trim());
-      if (parts.length >= 2) {
-        author = parts[1].replace(/\*\*/g, "").trim();
-      }
-      if (parts.length >= 3) {
-        date = parts[2].replace(/\*\*/g, "").trim();
-      }
-      continue;
-    }
-    if (line.includes("**Category**") || line.includes("**分类**")) {
-      category = line
-        .replace(/.*\*\*Category\*\*:\s*/, "")
-        .replace(/.*\*\*分类\*\*:\s*/, "")
-        .replace(/>/g, "")
-        .trim();
-      continue;
-    }
   }
 
   // Extract first paragraph as description
-  let inFirstParagraph = false;
   const descLines: string[] = [];
+  let pastTitle = false;
   for (const line of lines) {
-    if (line.startsWith("# ")) {
-      inFirstParagraph = false;
-      continue;
-    }
-    if (line.startsWith(">")) continue;
-    if (line.startsWith("---")) {
-      inFirstParagraph = true;
-      continue;
-    }
-    if (inFirstParagraph && line.trim()) {
-      if (line.startsWith("#")) break;
+    if (line.startsWith("# ")) { pastTitle = true; continue; }
+    if (!pastTitle) continue;
+    if (line.startsWith(">") || line.startsWith("---") || line.startsWith("```") || line.startsWith("|")) continue;
+    if (line.trim() && !line.startsWith("#")) {
       descLines.push(line.trim());
       if (descLines.length >= 2) break;
     }
-    if (!inFirstParagraph && line.trim() && !line.startsWith("#") && !line.startsWith(">") && !line.startsWith("---") && !line.startsWith("```") && !line.startsWith("|")) {
-      descLines.push(line.trim());
-      if (descLines.length >= 2) break;
-    }
+    if (line.startsWith("#")) break;
   }
   description = descLines.join(" ").slice(0, 200);
 
