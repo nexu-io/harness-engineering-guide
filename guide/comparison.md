@@ -1,3 +1,7 @@
+---
+author: Nexu
+---
+
 # Comparison of Major Harness Implementations
 
 This is a factual comparison of prominent agent harnesses as of mid-2025. The field moves fast — specifics may change, but the architectural patterns are stable.

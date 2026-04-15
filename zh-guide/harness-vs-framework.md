@@ -1,18 +1,20 @@
-# Harness 和框架的区别
+---
+author: Nexu
+---
 
-Harness 是你从头写的代码，用来给模型包上工具、记忆和上下文。框架是用于构建 Agent 的库 — LangChain、CrewAI、AutoGen 等。两者之间的选择不是"谁更好"的问题，而是什么场景下各自更划算。
+# Harness vs. Framework
 
-## 为什么重要
+> **Core Insight:** 一个 Framework 引入数百个依赖和多层抽象，但你的任务可能只需要 50 行 Python。然而，如果 CrewAI 已经解决了多 Agent 编排，你非要从零手写就是浪费几周时间。关键是根据问题选工具，而不是无脑选最火的那个。
 
-选错方案会浪费真金白银的时间。一个框架引入 500+ 依赖和多层抽象，而你的需求可能只要 50 行 Python 就能搞定。反过来，当 CrewAI 已经解决了多 Agent 编排的问题时，你从头手搓就是在浪费几周时间。下面的决策树帮你做选择。
+Harness 是你从零编写的代码，用来给模型包装 Tool、Memory 和 Context。**Framework** 是提供构建 Agent 抽象的库——LangChain、CrewAI、AutoGen 等。选择哪个不在于谁"更好"，而在于什么场景下各自的收益更大。
 
 ## 决策树
 
 ```
 需要一个 Agent？
 │
-├── 是不是单模型循环 + 不到 5 个工具？
-│   └── 是 → 写原生 Harness（50-200 行）
+├── 是单模型循环且 Tool < 5 个？
+│   └── 是 → 直接写原生 Harness（50-200 行）
 │
 ├── 需要开箱即用的多 Agent 编排？
 │   └── 是 → 考虑 CrewAI 或 AutoGen
@@ -20,19 +22,19 @@ Harness 是你从头写的代码，用来给模型包上工具、记忆和上下
 ├── 需要复杂的 RAG 管道 + 向量存储？
 │   └── 是 → 考虑 LangChain
 │
-├── 这是一个需要完全掌控的生产产品？
-│   └── 是 → 写原生 Harness（每一行代码都是你的）
+├── 是生产级产品，需要完全掌控？
+│   └── 是 → 写原生 Harness（每一行都自己把控）
 │
-├── 只是在快速验证原型？
-│   └── 是 → 框架没问题，做好后面重写的准备
+├── 在做原型验证/快速探索？
+│   └── 是 → Framework 没问题，做好之后重写的准备
 │
-└── 你需要搞清楚底层到底发生了什么？
-    └── 是 → 先写一个原生 Harness，然后再决定
+└── 需要搞清楚底层到底发生了什么？
+    └── 是 → 先写一个原生 Harness，再做决定
 ```
 
-## 同一个任务：三种实现方式
+## 同一任务：三种实现
 
-**任务**: 读取一个 CSV 文件，分析数据，把摘要写入 Markdown 文件。
+**任务**：读取 CSV 文件，分析数据，把摘要写到 Markdown 文件。
 
 ### 原生 Harness（~60 行）
 
@@ -100,9 +102,9 @@ def run(task):
 run("Read data.csv, analyze the trends, and write a summary to report.md")
 ```
 
-**依赖**: `openai`（1 个包）
-**代码行数**: ~60
-**你掌控的**: 一切
+**依赖**：`openai`（1 个包）
+**代码行数**：~60
+**你掌控**：一切
 
 ### LangChain（~40 行，但是……）
 
@@ -136,9 +138,9 @@ executor = AgentExecutor(agent=agent, tools=[read_file, write_file], verbose=Tru
 executor.invoke({"input": "Read data.csv, analyze trends, write summary to report.md"})
 ```
 
-**依赖**: `langchain`、`langchain-openai`、`langchain-core`，加上它们的传递依赖（~50+ 个包）
-**代码行数**: ~40（但底层的抽象层有数千行）
-**你掌控的**: 工具定义、prompt 模板。其他全是 LangChain 的。
+**依赖**：`langchain`、`langchain-openai`、`langchain-core`，加上传递依赖（~50+ 个包）
+**代码行数**：~40（但底下的抽象层有几千行）
+**你掌控**：Tool 定义、prompt 模板。其余都是 LangChain 的。
 
 ### CrewAI（~35 行）
 
@@ -164,28 +166,28 @@ crew = Crew(agents=[analyst], tasks=[task], verbose=True)
 crew.kickoff()
 ```
 
-**依赖**: `crewai`、`crewai-tools`，加上它们的依赖（~80+ 个包）
-**代码行数**: ~35
-**你掌控的**: Agent 角色、任务描述。执行流程是 CrewAI 的。
+**依赖**：`crewai`、`crewai-tools`，加上传递依赖（~80+ 个包）
+**代码行数**：~35
+**你掌控**：Agent 角色、任务描述。执行流程是 CrewAI 的。
 
-## 权衡矩阵
+## 权衡对比
 
 | 维度 | 原生 Harness | LangChain | CrewAI |
-|------|-------------|-----------|--------|
-| 代码行数 | 更多 | 更少 | 最少 |
-| 依赖 | 1 个 | ~50 | ~80 |
-| 调试 | 简单（就是你的代码） | 困难（深层堆栈跟踪） | 中等 |
-| 灵活性 | 完全掌控 | 受抽象层限制 | 只能基于角色 |
-| 多 Agent | 自己搭 | 可以但复杂 | 内置 |
+|-----------|------------|-----------|--------|
+| 代码行数 | 多 | 少 | 最少 |
+| 依赖 | 1 | ~50 | ~80 |
+| 调试 | 简单（都是自己的代码） | 困难（深层堆栈） | 中等 |
+| 灵活性 | 完全掌控 | 受抽象层限制 | 仅限角色模式 |
+| 多 Agent | 自己实现 | 可以但复杂 | 内置支持 |
 | 学习曲线 | 理解模型 API | 学 LangChain 概念 | 学 CrewAI 概念 |
-| 升级路径 | 想改哪里改哪里 | 等 LangChain 更新 | 等 CrewAI 更新 |
-| 生产就绪 | 你说了算 | 取决于版本稳定性 | 更新、实战检验更少 |
+| 升级路径 | 想改什么改什么 | 等 LangChain 更新 | 等 CrewAI 更新 |
+| 生产就绪 | 你说了算 | 取决于版本稳定性 | 较新，实战验证较少 |
 
-## 框架的隐性成本
+## Framework 的隐性成本
 
-### 1. 调试黑盒
+### 1. 调试黑箱
 
-在原生 Harness 里出了问题，你看你的 60 行代码。在 LangChain 里出问题：
+原生 Harness 出问题，你看 60 行代码。LangChain 出问题：
 
 ```
 File "langchain/agents/openai_tools/base.py", line 147, in _plan
@@ -199,43 +201,43 @@ File "langchain_core/callbacks/manager.py", line 442, in _handle_event
 
 ### 2. 抽象锁定
 
-想加流式输出？自定义记忆？非标准的工具调用模式？在原生 Harness 里，直接写。在框架里，你得在它的扩展点里操作 — 或者 fork 整个库。
+想加流式输出？自定义 Memory？非标准 Tool 调用模式？原生 Harness 直接写就行。Framework 里你得在它的扩展点内操作——要么就 fork。
 
-### 3. 版本变更
+### 3. 版本变动
 
-LangChain 经历过多次大版本 API 重构。6 个月前写的代码今天可能已经跑不了了。只用 `openai` 包的原生 Harness 已经稳定运行了好几年。
+LangChain 经历了多次 API 大重构。半年前写的代码今天可能跑不了。只依赖 `openai` 包的原生 Harness 多年来一直稳定。
 
-## 框架什么时候更好
+## Framework 占优的场景
 
-框架不是坏东西。在这些场景下它们确实有帮助：
+Framework 不是坏东西。以下场景确实有帮助：
 
-- **你在做原型** — 用一个下午把东西跑通来验证想法。后面再重写。
-- **多 Agent 编排** — CrewAI 的 agent-task 模型对复杂的多角色工作流确实好用。
-- **RAG 管道** — LangChain 的文档加载器、分割器和向量存储集成省了很多活。
-- **你不关心底层管道** — 如果 Agent 只是更大产品的一小部分，你只需要它能跑。
+- **做原型** —— 一下午搞出能跑的东西来验证想法。之后再重写。
+- **多 Agent 编排** —— CrewAI 的 Agent-Task 模型对复杂多角色工作流确实好用。
+- **RAG 管道** —— LangChain 的文档加载器、分割器和向量存储集成能省不少事。
+- **你不关心底层管道** —— Agent 只是大产品的一小部分，能跑就行。
 
 ## 混合方案
 
-很多生产团队先用框架起步，再迁移到原生 Harness：
+很多生产团队先用 Framework，再迁移到原生 Harness：
 
 ```
-第 1 周:  LangChain 原型 → "能跑了！"
-第 4 周:  撞上限制 → "为什么做不了 X？"
-第 8 周:  Fork / 覆写了框架一半的东西 → "我在跟框架对着干"
-第 12 周: 重写为原生 Harness → "200 行代码，精准满足我的需求"
+第 1 周：LangChain 原型 → "能跑了！"
+第 4 周：遇到限制 → "为什么做不了 X？"
+第 8 周：Fork/覆写了一半框架 → "我在和框架搏斗"
+第 12 周：重写为原生 Harness → "200 行，精确实现我需要的功能"
 ```
 
-这完全没问题。框架教会了你需要什么。Harness 给你掌控权。
+这完全没问题。Framework 教会了你需要什么，Harness 给你掌控权。
 
-## 常见陷阱
+## 常见误区
 
-- **在理解基础之前就上框架** — 你无法调试你不理解的东西。先从头搭一个原生 Harness，哪怕生产环境不用它。
-- **根据 GitHub stars 选型** — Stars ≠ 适合。一个 80K stars 的框架如果是为 RAG 管道设计的，对你搭 coding agent 没有帮助。
-- **害怕"重新造轮子"** — 这里的轮子就 50 行 Python。没多少轮子好造的。
+- **没搞懂基础就上 Framework** —— 你 debug 不了你不理解的东西。至少自己写一次原生 Harness，哪怕生产不用它。
+- **按 GitHub star 数选型** —— Star 多 ≠ 适合。一个 8 万 star 的 RAG 管道框架对你做 coding Agent 毫无帮助。
+- **怕"重复造轮子"** —— 这个轮子只有 50 行 Python，没那么大。
 
 ## 延伸阅读
 
-- [LangChain Documentation](https://python.langchain.com/) — 最流行的框架
-- [CrewAI Documentation](https://docs.crewai.com/) — 多 Agent 编排
-- [AutoGen](https://microsoft.github.io/autogen/) — 微软的多 Agent 框架
-- [搭建你的第一个 Harness](your-first-harness.md) — 自己动手搭原生版本
+- [LangChain Documentation](https://python.langchain.com/) —— 最流行的 Framework
+- [CrewAI Documentation](https://docs.crewai.com/) —— 多 Agent 编排
+- [AutoGen](https://microsoft.github.io/autogen/) —— 微软的多 Agent 框架
+- [你的第一个 Harness](your-first-harness.md) —— 自己动手写原生版本

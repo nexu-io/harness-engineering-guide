@@ -19,9 +19,9 @@
 
 ---
 
-A **harness** is the runtime layer that wraps an AI model and turns it into a useful agent. It handles everything the model can't do on its own: reading files, calling tools, remembering context, and deciding when to stop. As AI agents move from demos to production, the harness — not the model — is becoming the differentiator.
+A **harness** is the runtime wrapper that turns a bare language model into an **agent** — an autonomous system that can perceive its environment, make decisions, and take actions over multiple steps. The harness handles everything the model can't do on its own: executing tools, managing memory, assembling context, and enforcing safety boundaries.
 
-This guide covers every aspect of harness engineering, from writing your first tool loop to scaling multi-agent systems in production.
+This guide covers harness engineering from first principles to production patterns, with real code in every article.
 
 ---
 
@@ -29,48 +29,35 @@ This guide covers every aspect of harness engineering, from writing your first t
 
 | Topic | Description |
 |-------|-------------|
-| [What is a Harness?](guide/what-is-harness.md) | The concept in 3 minutes. Minimal code example. Harness vs. framework vs. runtime. |
-| [Your First Harness](guide/your-first-harness.md) | Build a working harness in 15 minutes. Complete Python code you can copy and run. |
-| [Harness vs. Framework](guide/harness-vs-framework.md) | When to use a raw harness vs. LangChain/CrewAI. Decision tree + code comparison. |
+| [What is a Harness?](guide/what-is-harness.md) | The concept in 3 minutes. How it turns a model into an agent. Harness vs. framework vs. runtime. |
+| [Your First Harness](guide/your-first-harness.md) | Build a working harness in 50 lines of Python. Complete code you can copy and run. |
+| [Harness vs. Framework](guide/harness-vs-framework.md) | When to use a raw harness vs. LangChain/CrewAI. Decision tree + side-by-side code comparison. |
 
-## Core Patterns
-
-| Topic | Description |
-|-------|-------------|
-| [The AGENTS.md Pattern](guide/agents-md.md) | Define agent behavior in a plain-text file. Version-controlled, portable, transparent. |
-| [The MEMORY.md Pattern](guide/memory-md.md) | Persistent memory with daily logs + curated long-term memory. |
-| [The Tool Loop](guide/tool-loop.md) | The ReAct loop in engineering terms. Adding tools without changing the loop. |
-| [Skill Loading](guide/skill-loading.md) | Loading tools on demand instead of all at once. Token cost comparison. |
-| [Thin Harness Architecture](guide/thin-harness.md) | Why the harness should be minimal. Thin harness + thick skills. |
-| [Context Window Management](guide/context-window.md) | Priority systems, token budgets, sliding window implementation. |
-
-## Techniques
+## Core Concepts
 
 | Topic | Description |
 |-------|-------------|
-| [Context Compression](guide/context-compression.md) | Three lines of defense: auto-decay, threshold, active compression. |
-| [Multi-Agent Patterns](guide/multi-agent.md) | Leader-Worker, file-based inbox, handshake, auto-claim, git worktree isolation. |
-| [Git Worktree Isolation](guide/git-worktree-isolation.md) | Parallel agent tasks without conflicts. Step-by-step commands. |
-| [Sandbox & Security](guide/sandbox-security.md) | Docker, Firecracker, WASM. Permission models and trust boundaries. |
-| [Structured Output](guide/structured-output.md) | Getting agents to return parseable data. JSON mode, schema validation. |
-| [Error Recovery](guide/error-recovery.md) | Retry strategies, graceful degradation, human-in-the-loop escalation. |
-| [Evaluation & Testing](guide/eval-and-testing.md) | Behavioral testing, trace replay, minimal eval framework. |
+| [Agentic Loop](guide/agentic-loop.md) | The think → act → observe cycle. Turn budgets, parallel tool calls, loop detection, streaming. |
+| [Tool System](guide/tool-system.md) | Tool registry, static vs. dynamic loading, MCP protocol, description quality patterns. |
+| [Memory & Context](guide/memory-and-context.md) | Context assembly, session management, two-tier memory (daily logs + long-term). AGENTS.md and MEMORY.md patterns. |
+| [Guardrails](guide/guardrails.md) | Permission models, trust boundaries, sandboxing, prompt injection defense. |
 
-## Advanced
+## Practice
 
 | Topic | Description |
 |-------|-------------|
-| [Harness as a Service](guide/harness-as-a-service.md) | Running harnesses in the cloud. Multi-tenant architecture. |
-| [Meta-Harness](guide/meta-harness.md) | Agents that optimize their own harness. The AutoAgent pattern. |
-| [Memory Portability](guide/memory-portability.md) | Moving memory between harness implementations. Migration scripts. |
-| [Scaling Dimensions](guide/scaling-dimensions.md) | Time × Space × Interaction framework for analyzing any harness. |
+| [Context Engineering](guide/context-engineering.md) | Priority-based assembly, three lines of defense for compression, token budgeting. |
+| [Sandbox](guide/sandbox.md) | Docker and Firecracker setups, network isolation, filesystem restrictions. |
+| [Skill System](guide/skill-system.md) | Skill packaging, on-demand loading, SKILL.md format, thin harness + thick skills. |
+| [Sub-Agent](guide/sub-agent.md) | Leader-Worker pattern, file-based communication, session isolation, parallel execution. |
+| [Error Handling](guide/error-handling.md) | Error classification, retry strategies, graceful degradation, checkpoint/resume. |
 
 ## Reference
 
 | Topic | Description |
 |-------|-------------|
-| [Implementation Comparison](guide/comparison.md) | Side-by-side comparison of OpenClaw, Claude Code, Codex, Cline, Aider, Cursor, Nexu. |
-| [Glossary](guide/glossary.md) | 23 key terms defined. |
+| [Implementation Comparison](guide/comparison.md) | Side-by-side comparison of OpenClaw, Claude Code, Codex, Cline, Aider, Cursor. |
+| [Glossary](guide/glossary.md) | Key terms defined. |
 
 ---
 

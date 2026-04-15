@@ -1,10 +1,12 @@
+---
+author: Nexu
+---
+
 # Your First Harness
 
-A harness is just a loop: send messages to a model, execute any tool calls it makes, feed the results back, and repeat until it's done. You can build a working one in under 50 lines of Python.
+> **Core Insight:** A harness is just a loop — call the model, execute tool calls, feed results back, repeat. You can build a working one in under 50 lines of Python. Understanding this loop demystifies every agent framework out there.
 
-## Why It Matters
-
-Most agent tutorials start with a framework — LangChain, CrewAI, AutoGen. But frameworks hide the mechanism. Building a harness from scratch teaches you exactly what's happening: the tool loop, context assembly, and the model's decision-making process. Once you understand this, every framework becomes transparent.
+Most agent tutorials start with a framework — LangChain, CrewAI, AutoGen. But frameworks hide the mechanism. Building a harness from scratch teaches you exactly what's happening: the agentic loop, context assembly, and the model's decision-making process. Once you understand this, every framework becomes transparent.
 
 ## The Complete Harness
 

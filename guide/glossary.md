@@ -1,3 +1,7 @@
+---
+author: Nexu
+---
+
 # Glossary
 
 Key terms used throughout the Harness Engineering guide, defined in plain language.

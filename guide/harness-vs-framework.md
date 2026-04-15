@@ -1,10 +1,12 @@
+---
+author: Nexu
+---
+
 # Harness vs. Framework
 
-A harness is code you write from scratch to wrap a model with tools, memory, and context. A framework is a library that provides abstractions for building agents — LangChain, CrewAI, AutoGen, and others. The choice between them isn't about which is "better" — it's about when each one pays off.
+> **Core Insight:** A framework adds hundreds of dependencies and layers of abstraction for a task that might need 50 lines of Python. But hand-rolling multi-agent orchestration from scratch when CrewAI already solves it wastes weeks. The key is matching the tool to the problem, not defaulting to the most popular option.
 
-## Why It Matters
-
-Picking the wrong approach costs real time. A framework adds 500+ dependencies and layers of abstraction for a task that might need 50 lines of Python. Conversely, hand-rolling multi-agent orchestration from scratch when CrewAI already solves it wastes weeks. The decision tree below helps you choose.
+A harness is code you write from scratch to wrap a model with tools, memory, and context. A **framework** is a library that provides abstractions for building agents — LangChain, CrewAI, AutoGen, and others. The choice between them isn't about which is "better" — it's about when each one pays off.
 
 ## Decision Tree
 

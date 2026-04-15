@@ -131,7 +131,7 @@ export async function getContentBySlug(
     slug,
     title: data.title || extracted.title || slug,
     description: data.description || extracted.description || "",
-    author: data.author || extracted.author || "",
+    author: data.author || extracted.author || "Nexu",
     category: data.category || extracted.category || "",
     date: data.date || extracted.date || "",
     originalUrl: data.originalUrl || extracted.originalUrl || "",
