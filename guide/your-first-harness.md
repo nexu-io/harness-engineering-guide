@@ -258,7 +258,3 @@ Each of these is covered in the rest of this guide.
 - [OpenAI Function Calling Guide](https://platform.openai.com/docs/guides/function-calling) — Official docs on tool definitions
 - [Anthropic Tool Use Guide](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude's equivalent
 - [ReAct Paper](https://arxiv.org/abs/2210.03629) — The academic foundation for tool loops
-
----
-
-*Next: [Harness vs. Framework →](harness-vs-framework.md)*

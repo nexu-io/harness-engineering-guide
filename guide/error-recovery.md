@@ -252,7 +252,3 @@ Checkpointing is especially important for multi-step tasks. If an agent is 15 to
 
 - [Eval & Testing →](eval-and-testing.md) — Test that your error recovery actually works
 - [Harness as a Service →](harness-as-a-service.md) — Error recovery in multi-tenant deployments
-
----
-
-*Next: [Eval & Testing →](eval-and-testing.md)*

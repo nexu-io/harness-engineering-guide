@@ -291,7 +291,3 @@ def execute_with_approval(tool_name: str, args: dict) -> str:
 - [gVisor](https://gvisor.dev/) — Google's user-space kernel for container sandboxing
 - [E2B Sandboxes](https://e2b.dev/) — Hosted sandboxed environments for AI agents
 - [Docker Security Best Practices](https://docs.docker.com/engine/security/) — Official security guide
-
----
-
-*Next: [Structured Output →](structured-output.md)*

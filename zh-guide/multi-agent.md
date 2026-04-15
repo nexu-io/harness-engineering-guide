@@ -270,7 +270,3 @@ def spawn_coding_agent(repo_dir: str, branch: str, task: str) -> str:
 - [AutoGen: Multi-Agent Conversations](https://microsoft.github.io/autogen/) — 微软的多 Agent 框架
 - [CrewAI](https://docs.crewai.com/) — 基于角色的多 Agent 编排
 - [Git Worktree 隔离 →](git-worktree-isolation.md) — 基于 worktree 的并行化深入讲解
-
----
-
-*下一篇：[Git Worktree 隔离 →](git-worktree-isolation.md)*

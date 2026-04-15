@@ -291,7 +291,3 @@ def execute_with_approval(tool_name: str, args: dict) -> str:
 - [gVisor](https://gvisor.dev/) — Google 的用户态内核，用于容器沙箱
 - [E2B Sandboxes](https://e2b.dev/) — 为 AI Agent 提供的托管沙箱环境
 - [Docker Security Best Practices](https://docs.docker.com/engine/security/) — 官方安全指南
-
----
-
-*下一篇：[结构化输出 →](structured-output.md)*

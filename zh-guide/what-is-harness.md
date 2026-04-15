@@ -66,7 +66,3 @@ while True:
 
 - [OpenAI: Harness Engineering](https://openai.com/index/harness-engineering/) — 为这个领域命名的博客文章
 - [搭建你的第一个 Harness →](your-first-harness.md) — 15 分钟从零搭建一个
-
----
-
-*下一篇: [搭建你的第一个 Harness →](your-first-harness.md)*

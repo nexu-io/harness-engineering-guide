@@ -160,7 +160,3 @@ This is the "thin harness + thick skills" architecture. The harness is the loop.
 
 - [ReAct: Synergizing Reasoning and Acting](https://arxiv.org/abs/2210.03629) — The paper behind the pattern
 - [Skill Loading →](skill-loading.md) — How to manage which tools are available
-
----
-
-*Next: [Skill Loading →](skill-loading.md)*

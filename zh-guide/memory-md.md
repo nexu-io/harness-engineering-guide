@@ -224,7 +224,3 @@ Output the updated MEMORY.md content only."""
 - [OpenClaw AGENTS.md Memory Pattern](https://github.com/anthropics/anthropic-cookbook) — Agent 持久化的配套文件
 - [Letta (MemGPT)](https://github.com/letta-ai/letta) — 更复杂的分层存储记忆管理
 - [记忆可移植性 →](memory-portability.md) — 在不同 Harness 实现之间迁移记忆
-
----
-
-*下一篇: [Skill 按需加载 →](skill-loading.md)*

@@ -255,7 +255,3 @@ Without management, a 30-turn coding session easily exceeds 128K tokens.
 - [Anthropic: Long Context Tips](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — Prompt caching for repeated context
 - [Lost in the Middle](https://arxiv.org/abs/2307.03172) — Research on how models handle information position in long contexts
 - [tiktoken](https://github.com/openai/tiktoken) — OpenAI's fast token counter
-
----
-
-*Next: [Context Compression →](context-compression.md)*

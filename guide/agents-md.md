@@ -137,7 +137,3 @@ The naming varies, but the pattern is universal: **a human-readable file in the 
 
 - [OpenAI: AGENTS.md as table of contents](https://openai.com/index/harness-engineering/) — How OpenAI uses AGENTS.md in Codex
 - [MEMORY.md Pattern →](memory-md.md) — The companion file for persistent memory
-
----
-
-*Next: [The MEMORY.md Pattern →](memory-md.md)*

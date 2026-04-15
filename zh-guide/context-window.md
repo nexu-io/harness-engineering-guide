@@ -255,7 +255,3 @@ def evict_stale_files(messages: list[dict], max_age: int = 5) -> list[dict]:
 - [Anthropic: Long Context Tips](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — 重复上下文的 prompt 缓存
 - [Lost in the Middle](https://arxiv.org/abs/2307.03172) — 关于模型如何处理长上下文中信息位置的研究
 - [tiktoken](https://github.com/openai/tiktoken) — OpenAI 的快速 Token 计数器
-
----
-
-*下一篇: [上下文压缩 →](context-compression.md)*

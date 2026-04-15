@@ -248,7 +248,3 @@ class ContextManager:
 - [LLMLingua](https://github.com/microsoft/LLMLingua) — 微软的 prompt 压缩库
 - [Lost in the Middle](https://arxiv.org/abs/2307.03172) — 为什么上下文中的位置很重要
 - [Anthropic Prompt Caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — 缓存静态上下文避免重复处理
-
----
-
-*下一篇: [多 Agent 协作 →](multi-agent.md)*

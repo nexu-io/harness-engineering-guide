@@ -266,7 +266,3 @@ When you fix a bug in one tool:
 - [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) — "Do one thing well" — the same principle
 - [Plugin Architecture Patterns](https://martinfowler.com/articles/plugin-architecture.html) — Martin Fowler on extensible systems
 - [OpenClaw Skills System](https://docs.openclaw.ai) — Production implementation of thin harness + skills
-
----
-
-*Next: [Context Window Management →](context-window.md)*

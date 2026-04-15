@@ -66,7 +66,3 @@ Models are commoditizing. GPT, Claude, Gemini, open-source LLMs — all converge
 
 - [OpenAI: Harness Engineering](https://openai.com/index/harness-engineering/) — The blog post that named the discipline
 - [Your First Harness →](your-first-harness.md) — Build one from scratch in 15 minutes
-
----
-
-*Next: [Your First Harness →](your-first-harness.md)*

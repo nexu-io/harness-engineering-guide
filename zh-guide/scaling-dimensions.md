@@ -314,7 +314,3 @@ class InteractionOptimizedHarness:
 
 - [实现对比 →](comparison.md) — 主流 Harness 在各维度的扩展情况
 - [Harness 即服务 →](harness-as-a-service.md) — 在生产中扩展各维度的基础设施
-
----
-
-*下一篇：[实现对比 →](comparison.md)*

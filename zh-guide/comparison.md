@@ -115,7 +115,3 @@ result = exec("claude-code --print 'Review this PR'")
 
 - [扩展维度 →](scaling-dimensions.md) — 这些 Harness 如何在时间、空间和交互维度上扩展
 - [术语表 →](glossary.md) — 本指南中使用的关键术语
-
----
-
-*下一篇：[术语表 →](glossary.md)*

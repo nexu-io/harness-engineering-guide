@@ -252,7 +252,3 @@ else:
 
 - [评估与测试 →](eval-and-testing.md) — 测试你的错误恢复是否真的有效
 - [Harness 即服务 →](harness-as-a-service.md) — 多租户部署中的错误恢复
-
----
-
-*下一篇：[评估与测试 →](eval-and-testing.md)*

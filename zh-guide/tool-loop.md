@@ -160,7 +160,3 @@ def agent_loop(messages):
 
 - [ReAct: Synergizing Reasoning and Acting](https://arxiv.org/abs/2210.03629) — 该模式背后的论文
 - [Skill 按需加载 →](skill-loading.md) — 如何管理可用工具
-
----
-
-*下一篇: [Skill 按需加载 →](skill-loading.md)*

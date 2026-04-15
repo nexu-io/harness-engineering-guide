@@ -259,7 +259,3 @@ def get_active_context() -> str:
 
 - [OpenClaw Skills Architecture](https://github.com/anthropics/anthropic-cookbook) — 生产级 Skill 加载系统
 - [Gorilla: Large Language Model Connected with Massive APIs](https://arxiv.org/abs/2305.15334) — LLM 从大型 API 库中选择的研究
-
----
-
-*下一篇: [薄 Harness 架构 →](thin-harness.md)*

@@ -320,7 +320,3 @@ This is impossible with proprietary memory systems. With files, it's just git.
 
 - [What is a Harness? →](what-is-harness.md) — How memory fits into the harness architecture
 - [Scaling Dimensions →](scaling-dimensions.md) — Memory as a time-axis scaling strategy
-
----
-
-*Next: [Scaling Dimensions →](scaling-dimensions.md)*

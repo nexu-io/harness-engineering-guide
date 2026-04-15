@@ -239,7 +239,3 @@ LangChain 经历过多次大版本 API 重构。6 个月前写的代码今天可
 - [CrewAI Documentation](https://docs.crewai.com/) — 多 Agent 编排
 - [AutoGen](https://microsoft.github.io/autogen/) — 微软的多 Agent 框架
 - [搭建你的第一个 Harness](your-first-harness.md) — 自己动手搭原生版本
-
----
-
-*下一篇: [MEMORY.md 模式 →](memory-md.md)*

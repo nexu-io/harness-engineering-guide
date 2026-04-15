@@ -224,7 +224,3 @@ The key constraint: MEMORY.md should be **concise enough to load every session**
 - [OpenClaw AGENTS.md Memory Pattern](https://github.com/anthropics/anthropic-cookbook) — Companion files for agent persistence
 - [Letta (MemGPT)](https://github.com/letta-ai/letta) — More sophisticated memory management with tiered storage
 - [Memory Portability →](memory-portability.md) — Moving memory between harness implementations
-
----
-
-*Next: [Skill Loading →](skill-loading.md)*

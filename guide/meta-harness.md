@@ -319,7 +319,3 @@ The key insight: the meta-agent discovered domain-specific patterns that human e
 
 - [AutoAgent: Fully Automated and Zero-Code Framework for LLM Agents](https://arxiv.org/abs/2502.05957) — The paper that demonstrated 96.5% on SpreadsheetBench
 - [Eval & Testing →](eval-and-testing.md) — Build the eval suite the meta-harness optimizes against
-
----
-
-*Next: [Memory Portability →](memory-portability.md)*

@@ -264,7 +264,3 @@ git worktree list --porcelain | grep "^worktree" | grep -v "$(git rev-parse --sh
 - [Git Worktree Documentation](https://git-scm.com/docs/git-worktree) — Official reference
 - [GitHub CLI (`gh`)](https://cli.github.com/) — Used for PR creation in the scripts above
 - [Multi-Agent Patterns](multi-agent.md) — The broader context for parallel agent work
-
----
-
-*Next: [Sandbox Security →](sandbox-security.md)*

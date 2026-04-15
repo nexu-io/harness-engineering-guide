@@ -271,7 +271,3 @@ config = yaml.safe_load(yaml_text)
 - [Anthropic Tool Use](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude 基于工具的结构化输出
 - [Instructor](https://github.com/jxnl/instructor) — 用 Pydantic 做 LLM 结构化输出的 Python 库
 - [Outlines](https://github.com/outlines-dev/outlines) — 开源模型的语法约束生成
-
----
-
-*下一篇：[错误恢复 →](error-recovery.md)*

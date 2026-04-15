@@ -319,7 +319,3 @@ AutoAgent 论文在 SpreadsheetBench 上展示了这个模式的威力：
 
 - [AutoAgent: Fully Automated and Zero-Code Framework for LLM Agents](https://arxiv.org/abs/2502.05957) — 在 SpreadsheetBench 上达到 96.5% 的论文
 - [评估与测试 →](eval-and-testing.md) — 构建 Meta-Harness 用于优化的评估套件
-
----
-
-*下一篇：[记忆可移植性 →](memory-portability.md)*

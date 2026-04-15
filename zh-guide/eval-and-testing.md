@@ -342,7 +342,3 @@ print(f"Avg duration: {report['avg_duration']:.1f}s")
 
 - [错误恢复 →](error-recovery.md) — 测试你的恢复模式是否真的有效
 - [Meta-Harness →](meta-harness.md) — 用评估结果来优化自身的 Agent
-
----
-
-*下一篇：[Harness 即服务 →](harness-as-a-service.md)*

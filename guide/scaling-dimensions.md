@@ -314,7 +314,3 @@ Most harnesses start by scaling one dimension well, then expand to others. Tryin
 
 - [Comparison →](comparison.md) — How major harnesses scale across dimensions
 - [Harness as a Service →](harness-as-a-service.md) — Infrastructure for scaling dimensions in production
-
----
-
-*Next: [Comparison →](comparison.md)*

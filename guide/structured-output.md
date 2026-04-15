@@ -271,7 +271,3 @@ config = yaml.safe_load(yaml_text)
 - [Anthropic Tool Use](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude's tool-based structured output
 - [Instructor](https://github.com/jxnl/instructor) — Python library for structured LLM output with Pydantic
 - [Outlines](https://github.com/outlines-dev/outlines) — Grammar-constrained generation for open-source models
-
----
-
-*Next: [Error Recovery →](error-recovery.md)*

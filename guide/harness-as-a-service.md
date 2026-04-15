@@ -346,7 +346,3 @@ Workers are stateless — they receive a session blob, run the loop, and return 
 
 - [Error Recovery →](error-recovery.md) — Handle failures in multi-tenant environments
 - [Scaling Dimensions →](scaling-dimensions.md) — How HaaS maps to scaling axes
-
----
-
-*Next: [Meta-Harness →](meta-harness.md)*

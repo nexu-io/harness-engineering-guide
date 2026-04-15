@@ -248,7 +248,3 @@ Good compression drops:
 - [LLMLingua](https://github.com/microsoft/LLMLingua) — Microsoft's prompt compression library
 - [Lost in the Middle](https://arxiv.org/abs/2307.03172) — Why position in context matters
 - [Anthropic Prompt Caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — Cache static context to avoid re-processing
-
----
-
-*Next: [Multi-Agent Patterns →](multi-agent.md)*

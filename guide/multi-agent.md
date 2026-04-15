@@ -270,7 +270,3 @@ Need parallel execution?
 - [AutoGen: Multi-Agent Conversations](https://microsoft.github.io/autogen/) — Microsoft's multi-agent framework
 - [CrewAI](https://docs.crewai.com/) — Role-based multi-agent orchestration
 - [Git Worktree Isolation →](git-worktree-isolation.md) — Deep dive on worktree-based parallelism
-
----
-
-*Next: [Git Worktree Isolation →](git-worktree-isolation.md)*

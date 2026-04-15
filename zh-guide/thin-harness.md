@@ -266,7 +266,3 @@ harness.py (2,000 lines)          harness.py (100 lines)
 - [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) — "做好一件事" — 同样的原则
 - [Plugin Architecture Patterns](https://martinfowler.com/articles/plugin-architecture.html) — Martin Fowler 关于可扩展系统的论述
 - [OpenClaw Skills System](https://docs.openclaw.ai) — 薄 Harness + Skill 的生产级实现
-
----
-
-*下一篇: [上下文窗口管理 →](context-window.md)*

@@ -137,7 +137,3 @@ Capture what matters. Skip secrets.
 
 - [OpenAI: AGENTS.md as table of contents](https://openai.com/index/harness-engineering/) — OpenAI 在 Codex 中如何使用 AGENTS.md
 - [MEMORY.md 模式 →](memory-md.md) — 持久化记忆的配套文件
-
----
-
-*下一篇: [MEMORY.md 模式 →](memory-md.md)*

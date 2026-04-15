@@ -115,7 +115,3 @@ result = exec("claude-code --print 'Review this PR'")
 
 - [Scaling Dimensions →](scaling-dimensions.md) — How these harnesses scale across time, space, and interaction
 - [Glossary →](glossary.md) — Key terms used throughout this guide
-
----
-
-*Next: [Glossary →](glossary.md)*

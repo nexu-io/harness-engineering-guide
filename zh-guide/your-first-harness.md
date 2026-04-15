@@ -258,7 +258,3 @@ for block in response.content:
 - [OpenAI Function Calling Guide](https://platform.openai.com/docs/guides/function-calling) — 工具定义的官方文档
 - [Anthropic Tool Use Guide](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Claude 的对应文档
 - [ReAct Paper](https://arxiv.org/abs/2210.03629) — Tool Loop 的学术基础
-
----
-
-*下一篇: [Harness 和框架的区别 →](harness-vs-framework.md)*

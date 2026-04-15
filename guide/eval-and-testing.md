@@ -342,7 +342,3 @@ Start from the bottom. Tool unit tests don't need an LLM at all — just test th
 
 - [Error Recovery →](error-recovery.md) — Test that your recovery patterns actually work
 - [Meta-Harness →](meta-harness.md) — Agents that use eval results to optimize themselves
-
----
-
-*Next: [Harness as a Service →](harness-as-a-service.md)*

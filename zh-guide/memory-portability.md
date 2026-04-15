@@ -320,7 +320,3 @@ git diff HEAD~1 MEMORY.md
 
 - [什么是 Harness？→](what-is-harness.md) — 记忆在 Harness 架构中的位置
 - [三维扩展 →](scaling-dimensions.md) — 记忆作为时间维度的扩展策略
-
----
-
-*下一篇：[三维扩展 →](scaling-dimensions.md)*
