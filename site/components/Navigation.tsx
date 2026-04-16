@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
@@ -65,9 +66,10 @@ export default function Navigation() {
         <div className="flex h-14 items-center justify-between">
           <Link
             href={isZh ? "/zh" : "/"}
-            className="font-[family-name:var(--font-heading)] text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent-cyan)] transition-colors"
+            className="flex items-center gap-2 font-[family-name:var(--font-heading)] text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent-cyan)] transition-colors"
           >
-            {isZh ? "⚡ Harness Engineering Guide" : "⚡ Harness Guide"}
+            <Image src="/logo.svg" alt="Harness Guide" width={28} height={28} className="inline-block" />
+            <span>{isZh ? "Harness Engineering Guide" : "Harness Guide"}</span>
           </Link>
 
           {/* Desktop nav */}

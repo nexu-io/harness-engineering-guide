@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "Harness Engineering Guide",
   description:
     "The open guide to building AI agent runtimes. From core concepts to production patterns.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
