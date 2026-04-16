@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-  <!-- Cyan glow behind diamond -->
   <defs>
     <radialGradient id="glow" cx="50%" cy="50%" r="25%">
       <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.6"/>
@@ -8,10 +7,7 @@
     </radialGradient>
   </defs>
   <circle cx="100" cy="100" r="50" fill="url(#glow)"/>
-  <!-- Left chevron < -->
-  <polyline points="72,52 42,100 72,148" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- Right chevron > -->
-  <polyline points="128,52 158,100 128,148" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- Center diamond -->
+  <polyline points="72,52 42,100 72,148" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <polyline points="128,52 158,100 128,148" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <rect x="88" y="88" width="24" height="24" rx="3" fill="#00E5FF" transform="rotate(45 100 100)"/>
 </svg>

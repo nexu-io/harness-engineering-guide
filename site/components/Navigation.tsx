@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
@@ -68,7 +67,19 @@ export default function Navigation() {
             href={isZh ? "/zh" : "/"}
             className="flex items-center gap-2 font-[family-name:var(--font-heading)] text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent-cyan)] transition-colors"
           >
-            <Image src="/logo.svg" alt="Harness Guide" width={28} height={28} className="inline-block" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" className="w-7 h-7 shrink-0">
+              <defs>
+                <radialGradient id="navGlow" cx="50%" cy="50%" r="25%">
+                  <stop offset="0%" stopColor="#00E5FF" stopOpacity={0.6}/>
+                  <stop offset="50%" stopColor="#00E5FF" stopOpacity={0.15}/>
+                  <stop offset="100%" stopColor="#00E5FF" stopOpacity={0}/>
+                </radialGradient>
+              </defs>
+              <circle cx="100" cy="100" r="50" fill="url(#navGlow)"/>
+              <polyline points="72,52 42,100 72,148" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <polyline points="128,52 158,100 128,148" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <rect x="88" y="88" width="24" height="24" rx="3" fill="#00E5FF" transform="rotate(45 100 100)"/>
+            </svg>
             <span>{isZh ? "Harness Engineering Guide" : "Harness Guide"}</span>
           </Link>
 
