@@ -38,6 +38,8 @@ export const guideSections: GuideSection[] = [
       { slug: "skill-system", title: "Skill System", zhTitle: "Skill 系统" },
       { slug: "sub-agent", title: "Sub-Agent", zhTitle: "Sub-Agent" },
       { slug: "error-handling", title: "Error Handling", zhTitle: "错误处理" },
+      { slug: "multi-agent-orchestration", title: "Multi-Agent Orchestration", zhTitle: "多 Agent 编排" },
+      { slug: "scheduling-and-automation", title: "Scheduling & Automation", zhTitle: "定时任务与自动化" },
     ],
   },
   {
