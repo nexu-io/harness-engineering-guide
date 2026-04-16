@@ -55,6 +55,8 @@ This guide covers harness engineering from first principles to production patter
 | [Skill System](guide/skill-system.md) | Skill packaging, on-demand loading, SKILL.md format, thin harness + thick skills. |
 | [Sub-Agent](guide/sub-agent.md) | Leader-Worker pattern, file-based communication, session isolation, parallel execution. |
 | [Error Handling](guide/error-handling.md) | Error classification, retry strategies, graceful degradation, checkpoint/resume. |
+| [Multi-Agent Orchestration](guide/multi-agent-orchestration.md) | Orchestration patterns (pipeline, fan-out, supervisor), context isolation, real-world examples (Multica, Paseo, OpenClaw). |
+| [Scheduling & Automation](guide/scheduling-and-automation.md) | Cron, heartbeats, event triggers. Session targeting, delivery, LangSmith vs harness-native comparison. |
 
 ## Reference
 
@@ -62,6 +64,13 @@ This guide covers harness engineering from first principles to production patter
 |-------|-------------|
 | [Implementation Comparison](guide/comparison.md) | Side-by-side comparison of OpenClaw, Claude Code, Codex, Cline, Aider, Cursor. |
 | [Glossary](guide/glossary.md) | Key terms defined. |
+
+## Showcase
+
+| Topic | Description |
+|-------|-------------|
+| [Shipping Our Windows Client](guide/nexu-windows-packaging.md) | Build time 15min→4min, install time 10min→2min. How we rebuilt the Electron packaging pipeline. |
+| [Ghost Account Hunting](guide/ghost-account-hunting.md) | 1000+ ghost accounts drained our platform in 15 days. The full post-mortem. |
 
 ---
 

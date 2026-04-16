@@ -57,6 +57,7 @@ export const guideSections: GuideSection[] = [
     zhLabel: "分享",
     items: [
       { slug: "nexu-windows-packaging", title: "Shipping Our Windows Client", zhTitle: "Windows 客户端百亿 Token 实战" },
+      { slug: "ghost-account-hunting", title: "Ghost Account Hunting Post-Mortem", zhTitle: "1000+ 幽灵账号盗刷排查实录" },
     ],
   },
 ];
