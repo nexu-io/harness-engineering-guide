@@ -1,11 +1,4 @@
----
-title: "Every AI Startup Should Watch Out: 1000+ Ghost Accounts Drained Our Platform in 15 Days"
-published: false
-description: "A complete post-mortem: how we detected, analyzed, and traced 1000+ ghost accounts farming our free credits. Includes open-source investigation toolkit."
-tags: saas, security, opensource, ai
-cover_image: https://raw.githubusercontent.com/joeylee12629-star/article-assets/main/ghost-hunt/cover-en.jpg
-series: "Billion-Token Battle"
----
+# Every AI Startup Should Watch Out: 1000+ Ghost Accounts Drained Our Platform in 15 Days
 
 > **Nexu** is an open-source, one-click-install OpenClaw desktop client that puts AI in your hands — locally.
 > GitHub: **[https://github.com/nexu-io/nexu](https://github.com/nexu-io/nexu)**
