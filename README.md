@@ -1,4 +1,8 @@
-# Harness Engineering Guide
+<p align="center">
+  <a href="https://harness-guide.com">
+    <img src="site/public/banner.png" alt="Harness Engineering Guide" width="100%" />
+  </a>
+</p>
 
 <p align="center">
   <em>The practical guide to building AI agent harnesses — with real code examples you can copy and run.</em>

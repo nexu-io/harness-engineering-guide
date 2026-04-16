@@ -1,4 +1,8 @@
-# Harness Engineering Guide
+<p align="center">
+  <a href="https://harness-guide.com/zh/">
+    <img src="site/public/banner.png" alt="Harness Engineering Guide" width="100%" />
+  </a>
+</p>
 
 <p align="center">
   <em>AI Agent Harness 实战指南 — 每篇配有可运行的代码示例。</em>
