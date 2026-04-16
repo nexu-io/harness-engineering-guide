@@ -57,6 +57,9 @@ This guide covers harness engineering from first principles to production patter
 | [Error Handling](guide/error-handling.md) | Error classification, retry strategies, graceful degradation, checkpoint/resume. |
 | [Multi-Agent Orchestration](guide/multi-agent-orchestration.md) | Orchestration patterns (pipeline, fan-out, supervisor), context isolation, real-world examples (Multica, Paseo, OpenClaw). |
 | [Scheduling & Automation](guide/scheduling-and-automation.md) | Cron, heartbeats, event triggers. Session targeting, delivery, LangSmith vs harness-native comparison. |
+| [Long-Running Harness Design](guide/long-running-harness.md) | Context anxiety, self-evaluation bias, context reset vs compaction, GAN-inspired generator-evaluator architecture. |
+| [Managed Agents Architecture](guide/managed-agents-architecture.md) | Brain/hands/session decoupling, pets vs cattle, credential isolation, TTFT improvements. |
+| [Eval Infrastructure Noise](guide/eval-infrastructure.md) | Resource config swings benchmark scores by 6pp. Floor+ceiling enforcement strategy. |
 
 ## Reference
 

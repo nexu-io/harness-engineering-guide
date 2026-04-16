@@ -57,6 +57,9 @@
 | [错误处理](zh-guide/error-handling.md) | 错误分类、重试策略、优雅降级、断点续传。 |
 | [多 Agent 编排](zh-guide/multi-agent-orchestration.md) | 编排模式（流水线、扇出、监督者），Context 隔离，实战案例（Multica、Paseo、OpenClaw）。 |
 | [定时任务与自动化](zh-guide/scheduling-and-automation.md) | Cron、Heartbeat、事件触发。Session 目标、交付、LangSmith vs Harness 原生对比。 |
+| [长时运行 Harness 设计](zh-guide/long-running-harness.md) | Context 焦虑、自评估偏差、Reset vs Compaction、GAN 启发的生成器-评估器架构。 |
+| [Managed Agents 架构](zh-guide/managed-agents-architecture.md) | Brain/Hands/Session 三层解耦、Pets vs Cattle、凭证隔离、TTFT 改进。 |
+| [评测基础设施噪声](zh-guide/eval-infrastructure.md) | 资源配置导致 Benchmark 得分波动 6 个百分点。Floor+Ceiling 执行策略。 |
 
 ## 参考
 

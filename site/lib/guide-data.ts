@@ -40,6 +40,9 @@ export const guideSections: GuideSection[] = [
       { slug: "error-handling", title: "Error Handling", zhTitle: "错误处理" },
       { slug: "multi-agent-orchestration", title: "Multi-Agent Orchestration", zhTitle: "多 Agent 编排" },
       { slug: "scheduling-and-automation", title: "Scheduling & Automation", zhTitle: "定时任务与自动化" },
+      { slug: "long-running-harness", title: "Long-Running Harness Design", zhTitle: "长时运行 Agent Harness 设计" },
+      { slug: "managed-agents-architecture", title: "Managed Agents Architecture", zhTitle: "Managed Agents：Brain/Hands/Session 解耦" },
+      { slug: "eval-infrastructure", title: "Eval Infrastructure Noise", zhTitle: "评测基础设施噪音" },
     ],
   },
   {
