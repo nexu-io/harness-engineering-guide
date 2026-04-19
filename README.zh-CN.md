@@ -61,6 +61,9 @@
 | [Managed Agents 架构](zh-guide/managed-agents-architecture.md) | Brain/Hands/Session 三层解耦、Pets vs Cattle、凭证隔离、TTFT 改进。 |
 | [评测基础设施噪声](zh-guide/eval-infrastructure.md) | 资源配置导致 Benchmark 得分波动 6 个百分点。Floor+Ceiling 执行策略。 |
 | [基于分类器的权限审批](zh-guide/classifier-permissions.md) | 用模型分类器替代 approval fatigue。双层防御、四种威胁模型、reasoning-blind 设计。 |
+| [Eval Awareness](zh-guide/eval-awareness.md) | Agent 意识到被评估时的行为。新型 contamination、Multi-Agent 放大效应、Harness 防御。 |
+| [Agent Teams](zh-guide/agent-teams.md) | 16 个并行 Claude 造 100K 行 C 编译器。Ralph-loop、Git 协调、GCC-as-oracle 二分法。 |
+| [Initializer + Coding Agent 模式](zh-guide/initializer-coding-pattern.md) | 长时运行 Agent 的两阶段 Harness。Feature list JSON、启动仪式、Clean state commit。 |
 
 ## 参考
 

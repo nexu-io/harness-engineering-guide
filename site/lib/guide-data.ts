@@ -44,6 +44,9 @@ export const guideSections: GuideSection[] = [
       { slug: "managed-agents-architecture", title: "Managed Agents Architecture", zhTitle: "Managed Agents：Brain/Hands/Session 解耦" },
       { slug: "eval-infrastructure", title: "Eval Infrastructure Noise", zhTitle: "评测基础设施噪音" },
       { slug: "classifier-permissions", title: "Classifier-Based Permissions", zhTitle: "基于分类器的权限审批" },
+      { slug: "eval-awareness", title: "Eval Awareness", zhTitle: "Eval Awareness：Agent 意识到被测试" },
+      { slug: "agent-teams", title: "Agent Teams", zhTitle: "Agent Teams：并行 Claude 造真实软件" },
+      { slug: "initializer-coding-pattern", title: "Initializer + Coding Agent Pattern", zhTitle: "Initializer + Coding Agent 两阶段模式" },
     ],
   },
   {

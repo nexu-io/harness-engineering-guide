@@ -61,6 +61,9 @@ This guide covers harness engineering from first principles to production patter
 | [Managed Agents Architecture](guide/managed-agents-architecture.md) | Brain/hands/session decoupling, pets vs cattle, credential isolation, TTFT improvements. |
 | [Eval Infrastructure Noise](guide/eval-infrastructure.md) | Resource config swings benchmark scores by 6pp. Floor+ceiling enforcement strategy. |
 | [Classifier-Based Permissions](guide/classifier-permissions.md) | Replace approval fatigue with model-based classifiers. Two-layer defense, four threat models, reasoning-blind design. |
+| [Eval Awareness](guide/eval-awareness.md) | When agents recognize they're being tested. Novel contamination, multi-agent amplification, harness defenses. |
+| [Agent Teams](guide/agent-teams.md) | 16 parallel Claudes built a 100K-line C compiler. Ralph-loop, git-based coordination, GCC-as-oracle bisection. |
+| [Initializer + Coding Agent Pattern](guide/initializer-coding-pattern.md) | Two-phase harness for long-running agents. Feature list JSON, startup ritual, clean state commit. |
 
 ## Reference
 
