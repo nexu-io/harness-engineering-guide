@@ -60,6 +60,7 @@
 | [长时运行 Harness 设计](zh-guide/long-running-harness.md) | Context 焦虑、自评估偏差、Reset vs Compaction、GAN 启发的生成器-评估器架构。 |
 | [Managed Agents 架构](zh-guide/managed-agents-architecture.md) | Brain/Hands/Session 三层解耦、Pets vs Cattle、凭证隔离、TTFT 改进。 |
 | [评测基础设施噪声](zh-guide/eval-infrastructure.md) | 资源配置导致 Benchmark 得分波动 6 个百分点。Floor+Ceiling 执行策略。 |
+| [基于分类器的权限审批](zh-guide/classifier-permissions.md) | 用模型分类器替代 approval fatigue。双层防御、四种威胁模型、reasoning-blind 设计。 |
 
 ## 参考
 

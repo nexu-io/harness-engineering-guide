@@ -60,6 +60,7 @@ This guide covers harness engineering from first principles to production patter
 | [Long-Running Harness Design](guide/long-running-harness.md) | Context anxiety, self-evaluation bias, context reset vs compaction, GAN-inspired generator-evaluator architecture. |
 | [Managed Agents Architecture](guide/managed-agents-architecture.md) | Brain/hands/session decoupling, pets vs cattle, credential isolation, TTFT improvements. |
 | [Eval Infrastructure Noise](guide/eval-infrastructure.md) | Resource config swings benchmark scores by 6pp. Floor+ceiling enforcement strategy. |
+| [Classifier-Based Permissions](guide/classifier-permissions.md) | Replace approval fatigue with model-based classifiers. Two-layer defense, four threat models, reasoning-blind design. |
 
 ## Reference
 
