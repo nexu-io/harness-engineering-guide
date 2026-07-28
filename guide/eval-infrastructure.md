@@ -242,6 +242,7 @@ For harness engineers, the takeaway is simple: **treat your infrastructure confi
 - **SWE-bench** — [swebench.com](https://www.swebench.com). The most widely used agentic coding benchmark, and the context for much of this discussion.
 - **Docker Resource Constraints** — [docs.docker.com/config/containers/resource_constraints](https://docs.docker.com/config/containers/resource_constraints/). Reference for understanding CPU shares, memory limits, and OOM behavior in containerized environments.
 - **cgroups v2 Documentation** — [kernel.org/doc/html/latest/admin-guide/cgroup-v2.html](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html). How Linux enforces resource guarantees at the kernel level.
+- **ClawBench** — [github.com/reacher-z/ClawBench](https://github.com/reacher-z/ClawBench). A live-web benchmark for everyday online tasks, with reproducible task definitions, request-level validation, and execution traces across real websites.
 
 ---
 
