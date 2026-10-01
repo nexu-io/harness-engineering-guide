@@ -14,11 +14,11 @@
 </p>
 
 <p align="center">
-  🌐 <b><a href="https://harness-guide.com/zh/">中文站</a></b> | <a href="https://harness-guide.com">English</a>
+  🌐 <b><a href="https://harness-guide.com/zh/">中文站</a></b> | <a href="https://harness-guide.com">English</a> | <a href="https://harness-guide.com/es/">Español</a>
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> | <b>中文</b>
+  <a href="README.md">English</a> | <b>中文</b> | <a href="README.es.md">Español</a>
 </p>
 
 ---
