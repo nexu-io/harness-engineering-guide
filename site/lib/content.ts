@@ -35,7 +35,7 @@ function extractHeadings(markdown: string): HeadingItem[] {
       const text = match[2].replace(/\*\*/g, "").replace(/`/g, "").trim();
       const id = text
         .toLowerCase()
-        .replace(/[^\w\s-]/g, "")
+        .replace(/[^\p{L}\p{M}\p{N}_\s-]/gu, "")
         .replace(/\s+/g, "-")
         .replace(/-+/g, "-")
         .trim();
@@ -99,7 +99,7 @@ async function processMarkdown(content: string): Promise<string> {
     const plainText = text.replace(/<[^>]+>/g, "").replace(/&[^;]+;/g, "");
     const id = plainText
       .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
+      .replace(/[^\p{L}\p{M}\p{N}_\s-]/gu, "")
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-")
       .trim();

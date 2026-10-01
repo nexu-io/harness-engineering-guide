@@ -4,29 +4,46 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import type { Lang } from "@/lib/guide-data";
 
-const enNavLinks = [
-  { href: "/guide/what-is-harness", label: "Guide" },
-  { href: "/changelog", label: "Changelog" },
+const languages: { lang: Lang; prefix: string; label: string }[] = [
+  { lang: "en", prefix: "", label: "EN" },
+  { lang: "zh", prefix: "/zh", label: "中文" },
+  { lang: "es", prefix: "/es", label: "ES" },
 ];
 
-const zhNavLinks = [
-  { href: "/zh/guide/what-is-harness", label: "指南" },
-  { href: "/zh/changelog", label: "日报" },
-];
+const navLinksByLang: Record<Lang, { href: string; label: string }[]> = {
+  en: [
+    { href: "/guide/what-is-harness", label: "Guide" },
+    { href: "/changelog", label: "Changelog" },
+  ],
+  zh: [
+    { href: "/zh/guide/what-is-harness", label: "指南" },
+    { href: "/zh/changelog", label: "日报" },
+  ],
+  es: [
+    { href: "/es/guide/what-is-harness", label: "Guía" },
+    { href: "/es/changelog", label: "Novedades" },
+  ],
+};
 
-function LangSwitcher({ isZh }: { isZh: boolean }) {
+function getLang(pathname: string): Lang {
+  if (pathname.startsWith("/zh")) return "zh";
+  if (pathname.startsWith("/es")) return "es";
+  return "en";
+}
+
+function LangSwitcher({ lang }: { lang: Lang }) {
   const pathname = usePathname();
-  const targetPath = isZh
-    ? pathname.replace(/^\/zh/, "") || "/"
-    : `/zh${pathname === "/" ? "" : pathname}`;
-  const currentLabel = isZh ? "中文" : "EN";
-  const targetLabel = isZh ? "EN" : "中文";
+  const current = languages.find((l) => l.lang === lang)!;
+  // Path without the current language prefix, e.g. "/zh/guide/x" → "/guide/x"
+  const rest = pathname.slice(current.prefix.length);
+  const pathFor = (prefix: string) => `${prefix}${rest === "/" ? "" : rest}` || "/";
 
   return (
     <div className="relative group">
       <button className="flex items-center gap-1 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors">
-        🌐 {currentLabel}
+        🌐 {current.label}
         <svg
           className="w-3 h-3 opacity-50"
           fill="none"
@@ -42,12 +59,19 @@ function LangSwitcher({ isZh }: { isZh: boolean }) {
         </svg>
       </button>
       <div className="absolute right-0 top-full mt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-        <Link
-          href={targetPath}
-          className="block px-3 py-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-md whitespace-nowrap"
-        >
-          {targetLabel}
-        </Link>
+        <div className="flex flex-col bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-md">
+          {languages
+            .filter((l) => l.lang !== lang)
+            .map((l) => (
+              <Link
+                key={l.lang}
+                href={pathFor(l.prefix)}
+                className="block px-3 py-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] whitespace-nowrap"
+              >
+                {l.label}
+              </Link>
+            ))}
+        </div>
       </div>
     </div>
   );
@@ -55,8 +79,9 @@ function LangSwitcher({ isZh }: { isZh: boolean }) {
 
 export default function Navigation() {
   const pathname = usePathname();
-  const isZh = pathname.startsWith("/zh");
-  const navLinks = isZh ? zhNavLinks : enNavLinks;
+  const lang = getLang(pathname);
+  const navLinks = navLinksByLang[lang];
+  const homeHref = lang === "en" ? "/" : `/${lang}`;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -64,7 +89,7 @@ export default function Navigation() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between">
           <Link
-            href={isZh ? "/zh" : "/"}
+            href={homeHref}
             className="flex items-center gap-2 font-[family-name:var(--font-heading)] text-lg font-bold text-[var(--color-text-primary)] hover:text-[var(--color-accent-cyan)] transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" className="w-7 h-7 shrink-0">
@@ -80,7 +105,7 @@ export default function Navigation() {
               <polyline points="128,52 158,100 128,148" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
               <rect x="88" y="88" width="24" height="24" rx="3" fill="#00E5FF" transform="rotate(45 100 100)"/>
             </svg>
-            <span>{isZh ? "Harness Engineering Guide" : "Harness Guide"}</span>
+            <span>{lang === "zh" ? "Harness Engineering Guide" : "Harness Guide"}</span>
           </Link>
 
           {/* Desktop nav */}
@@ -109,7 +134,7 @@ export default function Navigation() {
             >
               GitHub
             </a>
-            <LangSwitcher isZh={isZh} />
+            <LangSwitcher lang={lang} />
             <ThemeToggle />
           </div>
 
@@ -167,7 +192,7 @@ export default function Navigation() {
               GitHub
             </a>
             <div className="flex items-center gap-3 pt-2">
-              <LangSwitcher isZh={isZh} />
+              <LangSwitcher lang={lang} />
               <ThemeToggle />
             </div>
           </div>

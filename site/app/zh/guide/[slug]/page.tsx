@@ -32,7 +32,7 @@ export default async function ZhGuidePage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="flex gap-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-      <GuideSidebar isZh />
+      <GuideSidebar lang="zh" />
       <div className="flex-1 min-w-0">
         <ArticleLayout
           title={content.title}
