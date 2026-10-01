@@ -2,11 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { guideSections } from "@/lib/guide-data";
+import { guideSections, type Lang } from "@/lib/guide-data";
 
-export default function GuideSidebar({ isZh = false }: { isZh?: boolean }) {
+const comingSoon: Record<Lang, string> = {
+  en: "Coming soon…",
+  zh: "即将推出…",
+  es: "Próximamente…",
+};
+
+export default function GuideSidebar({ lang = "en" }: { lang?: Lang }) {
   const pathname = usePathname();
-  const prefix = isZh ? "/zh" : "";
+  const prefix = lang === "en" ? "" : `/${lang}`;
 
   return (
     <aside className="w-64 shrink-0 hidden lg:block">
@@ -14,12 +20,12 @@ export default function GuideSidebar({ isZh = false }: { isZh?: boolean }) {
         {guideSections.map((section) => (
           <div key={section.id} className="mb-6">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-2 px-2">
-              {isZh ? section.zhLabel : section.label}
+              {lang === "zh" ? section.zhLabel : lang === "es" ? section.esLabel : section.label}
             </h3>
             <ul className="space-y-0.5">
               {section.items.length === 0 ? (
                 <li className="px-2 py-1.5 text-xs text-[var(--color-text-muted)] italic">
-                  {isZh ? "即将推出…" : "Coming soon…"}
+                  {comingSoon[lang]}
                 </li>
               ) : (
                 section.items.map((item) => {
@@ -35,7 +41,7 @@ export default function GuideSidebar({ isZh = false }: { isZh?: boolean }) {
                             : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-card)]"
                         }`}
                       >
-                        {isZh ? item.zhTitle : item.title}
+                        {lang === "zh" ? item.zhTitle : lang === "es" ? item.esTitle : item.title}
                       </Link>
                     </li>
                   );
